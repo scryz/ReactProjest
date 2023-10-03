@@ -1,16 +1,18 @@
 import React from "react";
 
+import SurveyList from './SurveyList';
 
-import Ncomponent from './Ncomponent';
+
 
 
 function App() {
   return (
     <div>
-      <h1>Let's go!!!!!!</h1>
       
-      <Ncomponent></Ncomponent>
+      
+      <SurveyList></SurveyList>
     </div>
+    
   );
 }
 
