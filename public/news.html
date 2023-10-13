@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&family=Pacifico&display=swap" rel="stylesheet">
+    <title>Новости</title>
+</head>
+<body>
+        <section class="section">
+            <div class="intro">
+              
+              <div class="container">
+                  <header class="header">
+                      <div class="header_inner">
+                        <div class="header_logo"><a class="nav_link" href="../index.html">GetGether</a></div>
+                          <nav class="nav">
+                              <a class="nav_link" href="#">Как работает</a>
+                              <a class="nav_link" href="#">ЧЗВ</a>
+                              <a class="nav_link" href="#">Контакты</a>
+                              <a class="nav_link" href="../login.html">Авторизация</a>
+                              <a class="nav_link" href="../news.html">Новости</a>
+                          </nav>
+                        </div>
+                      
+                  </header>
+                  <div class="container">
+                    {newsList.map((news) => (
+                      <div key={news.id}>
+                        <h2>{news.title}</h2>
+                        <p>{news.content}</p>
+                    ))}
+                      </div>
+                  </div>
+              
+            </div>
+        </section>
+        
+    
+
+</body>
+</html>
