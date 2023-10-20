@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../css/login.css" type="text/css">
+    <link rel="stylesheet" href="../css/style.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
@@ -13,29 +13,37 @@
 </head>
 <body>
     <div class="intro">
-        <header class="header">
-            <div class="header_inner">
-                <div class="header_logo"><a class="nav_link" href="../index.html">GetGether</a></div>
-                <nav class="nav">
-                    <a class="nav_link" href="#">Как работает</a>
-                    <a class="nav_link" href="#">ЧЗВ</a>
-                    <a class="nav_link" href="#">Контакты</a>
-                    <a class="nav_link" href="../login.html">Авторизация</a>
-                    <a class="nav_link" href="../news.html">Новости</a>
-                </nav>
-            </div>
-        </header>
         <div class="container">
-            <div class="login_block">
-            <div class="login">
+            <header class="header">
+                <div class="header_inner">
+                    <div class="header_logo"><a class="nav_link" href="../index.html">GetGether</a></div>
+                    <nav class="nav">
+                      <a class="nav_link" href="../Work.html">Как работает</a>
+                      <a class="nav_link" href="../FAQ.html">ЧЗВ</a>
+                      <a class="nav_link" href="../Contact.html">Контакты</a>
+                      <a class="nav_link" href="../news.html">Новости</a>
+                      <a class="nav_link" href="../login.html">Авторизация</a>
+                    </nav>
+                </div>
+            </header>
+            <main class="login_block">
+                <div class="logo">GetGether</div>
                 <div class="login_text">Войдите в аккаунт</div>
-                <div class="login_name">Ник или E-mail</div>
-                <div class="login_password">Пароль</div>
-                <div class="buttom">Войти</div>
-                <div class="another_password">Не помню пароль</div>
-                <div class="login_help">Создать учётную запись</div>
-            </div>
-            </div>
+                <div class="login">
+                <div class="input-form">
+                    <input type="text" placeholder="Ник/E-mail">
+                </div>
+                <div class="input-form">
+                    <input type="password" placeholder="Пароль">
+                </div>
+                <button>Войти</button>
+                </div>
+                    <footer class="nav">
+                        <a class="nav_link" href="#">Не помню пароль</a>
+                        <a class="nav_link" href="reg.html">Создать учётную запись</a>
+                    </footer>
+              </section>
+            </main>
         </div>
     </div>
 </body>

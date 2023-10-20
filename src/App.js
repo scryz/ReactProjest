@@ -1,21 +1,34 @@
-import React from "react";
-import NewsFeed from "./NewsFeed";
+import React, {Component} from "react";
+import { Routes, Route } from 'react-router-dom';
+import AppRoutes from './AppRoutes';
+import {Layout} from './component/Layout';
+import './component/style.css'
 
-import SurveyList from './SurveyList';
-
-
-
-
-function App() {
+/*function App() {
   return (
-    <div>
-      
-      
+    <div>  
           <SurveyList></SurveyList>
           <NewsFeed></NewsFeed>
     </div>
     
   );
-}
+}*/
 
-export default App;
+export default class App extends Component
+{
+  static displayName = App.name;
+
+
+  render() {
+    return (
+      <Layout>
+        <Routes>
+          {AppRoutes.map((route, index) => {
+            const { element, ...rest } = route;
+            return <Route key={index} {...rest} element={element} />
+          })}
+        </Routes>
+      </Layout>
+    );
+  }
+}
