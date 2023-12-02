@@ -1,0 +1,57 @@
+.body {
+    font-family: 'Noto Serif', 'Pacifico', 'Open Sans', serif, cursive, sans-serif;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  img {
+    max-width: 100%;
+    display: block;
+  }
+  
+  .section {
+    background: linear-gradient(180deg, #071b40, #bc7bc2, #eb8f9e);
+  }
+  
+  .intro {
+    width: 100%;
+    height: 100vh;
+  }
+  
+  .container {
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0;
+  }
+  
+  .container_image_left {
+    float: left;
+    max-width: 55%;
+    padding-top: 2%;
+  }
+  
+  .container_image_right {
+    float: right;
+    max-width: 42%;
+    position: absolute;
+    padding-left: 35%;
+  }
+  
+  .container_image {
+    padding: 0 0 0 5%;
+  }
+  
+  .text_banner {
+    width: 350px;
+    height: 300px;
+    position: absolute;
+    font-size: 40px;
+    top: 0%;
+    margin:18% 2% 0% 7%;
+  }
+  
+  .section_1 {
+    background: linear-gradient(180deg, #eb8f9e, #ffffff);
+  }
+  

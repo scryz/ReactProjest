@@ -10,7 +10,7 @@ export default class CComponent extends Component {
     };
   }
 
-componentDidMouth() {
+componentDidMount() {
 
   fetch("www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail")
   .then(res => res.json())

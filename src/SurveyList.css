@@ -1,0 +1,25 @@
+.survey-list-container {
+    border: 2px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px;
+    background-color: #f7f7f7;
+    max-width: 400px;
+  }
+  
+  .survey-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .survey-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  .survey-item-content {
+    margin-left: 10px;
+  }

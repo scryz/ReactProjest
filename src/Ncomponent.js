@@ -61,9 +61,3 @@ class Ncomponent extends Component {
 }
 
 export default Ncomponent;
-
-
-
-
-
-

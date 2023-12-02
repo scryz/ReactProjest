@@ -48,3 +48,417 @@
     </div>
 </body>
 </html>
+
+
+
+<section className="section">
+    <div className="intro">
+      <div className="container">
+        <div className="container_image">
+          <div className="container_image_left">
+            <img src="/img/banner-left.png" alt="" />
+            <div className="text_banner">
+              <div className="container_text">
+                GetGether - <br /> сайт для поиска компаний в вашем городе.
+              </div>
+            </div>
+          </div>
+          <div className="container_image_right">
+            <img src="/img/index_walk.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section className="section_1">
+    <div className="intro">
+      <div className="container">{/* Здесь может быть ваше содержимое */}</div>
+    </div>
+  </section>
+
+
+  import NavMenu from "./NavMenu"
+import React from 'react'; 
+
+const Layout = ({ children }) => {
+    return (
+        <div>
+            <NavMenu />
+            <div>{children}</div>
+            
+        </div>
+    );
+};
+export default Layout;
+
+
+
+/*import React, { Component } from "react"
+import { Link } from "react-router-dom"
+import {Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
+import './style.css'
+
+
+const NavMenu = () => {
+    return (
+        <header className="nav_section body">
+            <Navbar className = 'nav navbar_background' container light>
+                <NavbarBrand tag = {Link} to='/' className="header_logo header_inner">GetGether</NavbarBrand>
+                
+                
+                    <ul className="nav">
+                    <NavItem>
+                            <NavLink tag = {Link} className = 'nav_link nav_link:after nav_link:hover' to='/Ncomponent'>Посты</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag = {Link} className = 'nav_link nav_link:after nav_link:hover' to='/login'>Войти</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag = {Link} className = 'nav_link nav_link:after nav_link:hover' to='/reg'>Регистрация</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink tag = {Link} className = 'nav_link nav_link:after nav_link:hover' to='/news'>Новости</NavLink>
+                        </NavItem>
+                    
+                    </ul>
+                
+            </Navbar>
+        </header>
+    );
+}
+export default NavMenu;*/
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+
+const NavMenu = () => {
+  return (
+    <nav>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/Login">Войти</Link>
+        </li>
+        <li>
+          <Link to="/news">Новости</Link>
+        </li>
+      </ul>
+    </nav>
+  );
+};
+export default NavMenu;
+
+
+
+
+
+/*import React, { Component } from "react";
+import { Routes, Route } from 'react-router-dom';
+import { Layout } from './component/Layout';
+import AppRoutes from './AppRoutes';
+
+export default class App extends Component {
+  static displayName = App.name;
+
+  render() {
+      return (
+          <Layout>
+              <Routes>
+                  {AppRoutes && AppRoutes.length > 0 ? ( // Проверка на наличие массива AppRoutes
+                      AppRoutes.map((route, index) => {
+                          const { element, ...rest } = route;
+                          return <Route key={index} {...rest} element={element} />;
+                      })
+                  ) : (
+                      // Обработка ситуации, когда AppRoutes пустой или undefined
+                      <p>No routes found</p>
+                  )}
+              </Routes>
+          </Layout>
+      );
+  }
+}
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './component/Home';
+import About from './component/Login';
+import Contact from './component/Reg';
+import NotFound from './component/News';
+import Layout from './component/NavMenu';
+
+const App = () => {
+  return (
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Layout>
+    </Router>
+  );
+};
+
+export default App;*/
+
+
+
+
+
+/*import React, { Component } from 'react'
+
+export default class CComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      isLoaded: false,
+      items: []
+    };
+  }
+
+componentDidMount() {
+
+  fetch("www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail")
+  .then(res => res.json())
+  .then(
+    (result) => {
+      this.setState({
+      isLoaded: true,
+      items: result.drinks
+    });
+  },
+  (error) => {
+    this.setState({
+        isLoaded:true,
+        error
+      });
+    
+    }
+  )
+  
+}
+ 
+
+  render()
+   {
+    const {error, isLoaded, items} = this.state;
+    if(error) {
+      return <p> Error{error.message}</p>
+    }else if (!isLoaded){
+      return <p> Loading . . . </p>
+    }else{
+      return(
+        <ul>
+          {items.map(item => (
+            <li key = {item.name}>
+              {item.strDrink}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+  }
+}*/
+
+
+
+
+
+/*import React, { useState, useEffect } from 'react';
+
+function DComponent() {
+    const [error, setError] = useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [surveys, setItems] = useState([]);
+  
+    // Примечание: пустой массив зависимостей [] означает, что
+    // этот useEffect будет запущен один раз
+    // аналогично componentDidMount()
+    useEffect(() => {
+      fetch("https://localhost:7293/Survey")
+        .then(res => res.json())
+        .then(
+          (result) => {
+            setIsLoaded(true);
+            setItems(result);
+          },
+          // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+          // чтобы не перехватывать исключения из ошибок в самих компонентах.
+          (error) => {
+            setIsLoaded(true);
+            setError(error);
+          }
+        )
+    }, [])
+  
+    if (error) {
+      return <div>Ошибка: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Загрузка...</div>;
+    } else {
+      return (
+        <ul>
+          {surveys.map(item => (
+            <li key={item.name}>
+              {item.city} {item.phone}
+            </li>
+          ))}
+        </ul>
+      );
+    }
+  }
+
+  export default DComponent;*/
+
+
+
+
+  //import './index.css';
+import React from "react";
+import {createRoot} from "react-dom";
+import Home from "./component/Home";
+import Layout from './component/Layout';
+
+const rootElement = document.getElementById('root');
+const root = createRoot(rootElement);
+
+root.render(
+  <React.StrictMode>
+    <Layout>
+      <Home />
+    </Layout>
+  </React.StrictMode>
+);
+
+
+
+
+
+/*import React, { Component } from 'react';
+
+class Ncomponent extends Component {
+  constructor() {
+    super();
+    this.state = {
+      surveys: [],
+      isLoading: false,
+      error: null,
+    };
+  }
+
+  componentDidMount() {
+    // Здесь мы выполняем запрос к локальному API при загрузке компонента
+    this.setState({ isLoading: true });
+
+    fetch('https://localhost:7293/Survey')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Ошибка при загрузке данных: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        this.setState({ surveys: data.surveys, isLoading: false });
+      })
+      .catch((error) => {
+        this.setState({ error, isLoading: false });
+      });
+  }
+
+  render() {
+    const { surveys, isLoading, error } = this.state;
+
+    if (isLoading) {
+      return <div>Загрузка данных...</div>;
+    }
+
+    if (error) {
+      return <div>Произошла ошибка: {error.message}</div>;
+    }
+
+    return (
+      <div>
+        <h1>Опросы:</h1>
+        <ul>
+          {surveys.map((survey) => (
+            <li key={survey.id}>
+              <p>Имя: {survey.name}</p>
+              <p>Год рождения: {survey.yearOfBirth}</p>
+              <p>Город: {survey.city}</p>
+              <p>Страна: {survey.country}</p>
+              <p>Телефон: {survey.phone}</p>
+              <p>Email: {survey.email}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+
+export default Ncomponent;*/
+
+
+
+
+
+/*import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+
+function SurveyList() {
+  const [surveys, setSurveys] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Выполнить GET-запрос к вашей локальной API
+    axios.get('https://localhost:7293/Survey')
+      .then(response => {
+        // Обработать данные, полученные из API
+        setSurveys(response.data.surveys);
+        setLoading(false); // Устанавливаем loading в false после успешной загрузки
+      })
+      .catch(error => {
+        console.error('Ошибка при запросе к API:', error);
+        setLoading(false); // Устанавливаем loading в false при ошибке
+      });
+  }, []);
+
+  return (
+    <div className="survey-list-container"> {/* Добавляем контейнер с классом }
+      <h2>Список опросов</h2>
+      {loading ? (
+        <p>Загрузка данных...</p>
+      ) : (
+        <ul className="survey-list"> {/* Добавляем список с классом }
+          {surveys.map(survey => (
+            <li key={survey.id} className="survey-item"> {/* Добавляем элемент списка с классом }
+              <div className="survey-item-content"> {/* Обертка для контента }
+                <p>Имя: {survey.name}</p>
+                <p>Год рождения: {survey.yearOfBirth}</p>
+                <p>Город: {survey.city}</p>
+                <p>Страна: {survey.country}</p>
+                <p>Телефон: {survey.phone}</p>
+                <p>Email: {survey.email}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+export default SurveyList;*/
+
+
+START : "rimraf ./build && react-scripts start"
+
+
+
+
