@@ -22,7 +22,7 @@ function SurveyList() {
 
   return (
     <div className="survey-list-container"> {/* Добавляем контейнер с классом */}
-      <h2>Список опросов</h2>
+      <h2>Профиль</h2>
       {loading ? (
         <p>Загрузка данных...</p>
       ) : (
