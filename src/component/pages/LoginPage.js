@@ -17,7 +17,9 @@ const history = useNavigate();
   
   const { access_token } = await login(email, password);
   localStorage.setItem('access_token', access_token);
+  document.cookie = `token=${access_token}; path=/`;
   history('/');
+
  };
 
  

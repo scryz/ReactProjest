@@ -9,13 +9,13 @@ const access_token = localStorage.getItem('access_token');
 if (access_token) {
  try {
     const decoded = jwtDecode(access_token);
+    const username = decoded.email;
+    localStorage.setItem('username', username);
  } catch (error) {
-    console.error('Failed to decode token:', error);
+    console.error('ошибка:', error);
  }
 }
-else {
-  console.log("Токен не найден")
-}
+
   
  return (
     <div className="header">
