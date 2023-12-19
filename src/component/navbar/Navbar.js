@@ -5,14 +5,17 @@ import "./Navbar.css"
 
 const Navbar = () => { 
 
- const access_token = localStorage.getItem('access_token');
- let decoded;
-  
+const access_token = localStorage.getItem('access_token');
+if (access_token) {
  try {
-    decoded = jwtDecode(access_token);
+    const decoded = jwtDecode(access_token);
  } catch (error) {
     console.error('Failed to decode token:', error);
  }
+}
+else {
+  console.log("Токен не найден")
+}
   
  return (
     <div className="header">
@@ -24,15 +27,10 @@ const Navbar = () => {
         </div>
         <ul className="nav_log">
         {access_token ? (
-          <NavLink to="/registrathion" className="nav_linkbar">
-          Регистрация
-        </NavLink>
-          ):(
-            <NavLink to="/login" className="nav_linkbar">
-            Авторизация
-          </NavLink>
-
-          )
+          <><NavLink to="" className="nav_linkbar">Профиль</NavLink></>):
+            (
+              <><NavLink to="/registrathion" className="nav_linkbar">Регистрация</NavLink><NavLink to="/login" className="nav_linkbar">Авторизация</NavLink></>
+            )
         }
         </ul>
       </div>

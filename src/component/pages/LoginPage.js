@@ -2,7 +2,7 @@ import React, { useState }  from 'react';
 import "./login.css";
 import { NavLink } from 'react-router-dom';
 import { login } from '../../auth';
-
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -10,11 +10,14 @@ const LoginPage = () => {
 
 const [email, setEmail] = useState('');
 const [password, setPassword] = useState('');
+const history = useNavigate();
 
  const handleSubmit = async (e) => {
   e.preventDefault();
+  
   const { access_token } = await login(email, password);
   localStorage.setItem('access_token', access_token);
+  history('/');
  };
 
  

@@ -2,8 +2,21 @@ import index from "../../img/index_walk.png";
 import banner from "../../img/banner-left.png";
 import "./Body.css"
 import SurveyList from "../../SurveyList";
+import { jwtDecode } from 'jwt-decode';
 
-const Body = ({ newsList = [] }) => {  // убедитесь, что вы передаете newsList как свойство компонента!
+const Body = ({ newsList = [] }) => { 
+const access_token = localStorage.getItem('access_token');
+if (access_token) {
+ try {
+    const decoded = jwtDecode(access_token);
+ } catch (error) {
+    console.error('Failed to decode token:', error);
+ }
+}
+else {
+  console.log("Токен не найден")
+}
+
     return(
         <div className="body">
             <section className="section">
@@ -24,7 +37,11 @@ const Body = ({ newsList = [] }) => {  // убедитесь, что вы пер
                     </div>
                     <div className="container">
                     </div>
+                    {access_token ? (
                 <SurveyList />
+                ):( <div>Скорее авторизуйся,
+                    чтобы увидеть ленту! </div>)
+                }
                 </div>
                 </div>
             </section>
