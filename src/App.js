@@ -4,14 +4,17 @@ import Login from './component/pages/LoginPage';
 import Reg from './component/pages/Reg';
 
 
-function App() {
+function App() { 
+
+
   return (
       
       <Router>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path ="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registrathion" element={<Reg />}/>
+        
       </Routes>
     </Router>
         

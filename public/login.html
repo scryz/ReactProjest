@@ -462,3 +462,34 @@ START : "rimraf ./build && react-scripts start"
 
 
 
+
+
+
+<main className="login_block">
+  <div className="logo">GetGether</div>
+  <div className="login_text">Войдите в аккаунт</div>
+  <div className="login">
+  <form onSubmit={this.handleFormSubmit}>
+      <div className="input-form">
+          <input type="text" htmlFor="email" placeholder="Ник/E-mail"/>
+      </div>
+      <div className="input-form">
+          <input type="password" htmlFor="password" placeholder="Пароль"/>
+      </div>
+      
+      
+      <button type='submit'>Войти</button>
+      </form>
+  </div>
+  <footer className="nav">
+      
+          <NavLink to="/" className="nav_link">
+              Не помню пароль
+          </NavLink>
+      
+          <NavLink to="/registrathion" className="nav_link">
+              Создать учётную запись
+          </NavLink>
+  
+  </footer>
+</main>
