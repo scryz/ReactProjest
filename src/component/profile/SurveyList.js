@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import "./SurveyList.css"
+import "../../css/SurveyList.css"
 
 function SurveyList() {
   const [surveys, setSurveys] = useState([]);
@@ -21,12 +21,12 @@ function SurveyList() {
   }, []);
 
   return (
-    <div className="survey-list-container"> {/* Добавляем контейнер с классом */}
+    <div className="survey-list-container"> {/* Добавляем контейнер с классом*/ }
       <h2>Профиль</h2>
       {loading ? (
         <p>Загрузка данных...</p>
       ) : (
-        <ul className="survey-list"> {/* Добавляем список с классом */}
+        <ul className="survey-list"> {/* Добавляем список с классом */ }
           {surveys.map(survey => (
             <li key={survey.id} className="survey-item"> {/* Добавляем элемент списка с классом */}
               <div className="survey-item-content"> {/* Обертка для контента */}
@@ -42,6 +42,7 @@ function SurveyList() {
         </ul>
       )}
     </div>
+    
   );
 }
 

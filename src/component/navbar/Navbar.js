@@ -1,41 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
-import "./Navbar.css"
+import Popup from "reactjs-popup";
+import "../../css/Navbar.css"
+import LoginPage from '../pages/LoginPage';
+import Reg from '../pages/Reg';
 
-const Navbar = () => { 
+const Navbar = () => {
 
-const access_token = localStorage.getItem('access_token');
-if (access_token) {
- try {
-    const decoded = jwtDecode(access_token);
-    const username = decoded.email;
-    localStorage.setItem('username', username);
- } catch (error) {
-    console.error('ошибка:', error);
- }
-}
+ const access_token = localStorage.getItem('access_token');
 
-  
  return (
-    <div className="header">
-      <div className="header_inner">
-        <div className="header_logo">
-          <NavLink to="/" className="nav_linkbar">
-            GetGether
-          </NavLink>
-        </div>
-        <ul className="nav_log">
-        {access_token ? (
-          <><NavLink to="" className="nav_linkbar">Профиль</NavLink></>):
-            (
-              <><NavLink to="/registrathion" className="nav_linkbar">Регистрация</NavLink><NavLink to="/login" className="nav_linkbar">Авторизация</NavLink></>
-            )
-        }
-        </ul>
+  <header id="ant-section__ant006_header">
+  <div className="container">
+      <div className="row">
+          <div className="col-lg-3 col-md-12 col-sm-6 col-6  ant006_header-logo">
+              <a href="#0" title="Сайтов по поиску компаний!">GetToGether </a>
+          </div>
+          <div className="col-lg-9 col-sm-6 col-md-12 col-6 ant006_header-menu-wrap">
+              <div className="ant006_header-toggle">
+            
+                  <i className="material-icons">menu</i>
+              </div>
+              
+              <nav className="ant006_header-container">
+                  <ul className="menu">
+                      <li><a href="#0">Главная</a></li>
+                      
+                      <li><a href="#0">Новости</a></li>
+                      {access_token ? ( <>
+                        <li><a href="Events">Мероприятия</a></li>
+                        <li><a href="#0">Создать мероприятие</a></li>
+                        <li><a href='Profile'>Профиль</a></li>
+                      </>):
+                      (<>
+                      <Popup trigger = {<li className='menu-item'><a href='#'>Регистрация</a></li>} modal nested>
+                      {
+                            close => (
+                                <Reg></Reg>
+                            )
+                        }
+                      </Popup>
+                      <Popup trigger = {<li className='menu-item'><a href='#'>Авторизация</a></li>} modal nested>
+                        {
+                            close => (
+                                <LoginPage></LoginPage>
+                            )
+                        }
+                      </Popup>
+                      </>
+                      )
+                    }
+                  </ul>
+              </nav>
+          </div>
       </div>
-    </div>
- );
-};
+  </div>
+  </header>
+ )
+}
 
 export default Navbar;

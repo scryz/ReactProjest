@@ -1,46 +1,50 @@
 import React, { useState }  from 'react';
-import "./login.css";
+import "../../css/login.css";
 import { NavLink } from 'react-router-dom';
-import { login } from '../../auth';
-import { useNavigate } from 'react-router-dom';
+import { login } from '../../auth/auth';
 
 
 
 const LoginPage = () => {
 
-const [email, setEmail] = useState('');
+const [userName, setName] = useState('');
 const [password, setPassword] = useState('');
-const history = useNavigate();
+const [errorMessage, setErrorMessage] = useState('');
+
+
 
  const handleSubmit = async (e) => {
   e.preventDefault();
   
-  const { access_token } = await login(email, password);
+  try {
+  const { access_token } = await login(userName, password);
   localStorage.setItem('access_token', access_token);
-  document.cookie = `token=${access_token}; path=/`;
-  history('/');
-
+  document.cookie = `access_token=${access_token}; path=/`;
+    window.location.reload();
+} catch (error) {
+    setErrorMessage('Неверный логин или пароль.');
+  }
  };
 
- 
 
 
  return (
   <form onSubmit={handleSubmit}>
+    
     <main className="login_block">
   <div className="logo">GetGether</div>
   <div className="login_text">Войдите в аккаунт</div>
   <div className="login">
   
       <div className="input-form">
-          <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Ник/E-mail"/>
+          <input type="text" value={userName} onChange={(e) => setName(e.target.value)} placeholder="Ник"/>
       </div>
       <div className="input-form">
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль"/>
       </div>
       
-      
-      <button type='submit'>Войти</button>
+      {errorMessage && <p>{errorMessage}</p>}
+      <button type='submit' className="button" onClick={handleSubmit}>Войти</button>
     
   </div>
   <footer className="nav">
@@ -55,7 +59,6 @@ const history = useNavigate();
   
   </footer>
 </main>
-
     </form>
  );
 }

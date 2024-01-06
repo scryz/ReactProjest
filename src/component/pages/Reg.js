@@ -1,61 +1,76 @@
 import React, { useState } from 'react';
-import "./reg.css";
+import "../../css/reg.css";
 import { NavLink } from 'react-router-dom';
+import LoginPage from '../pages/LoginPage';
+import Popup from "reactjs-popup";
 
 const Reg = () => {
-    const [username, setName] = useState('');
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const [useremail, setEmail] = useState('');
-    const [usercity, setCity] = useState('');
+    const [userProfile, setUserProfile] = useState({});
+    const [errorMessage, setErrorMessage] = useState('');
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+          const response = await fetch('https://localhost:7293/api/Auth/Register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userName, password, userProfile }),
+          });
 
-    const response = await fetch('https://localhost:7293/Survey', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username,useremail,usercity, password }),
-    });
+          if (!response.ok) {
+            throw new Error(response.statusText);
+          }
 
-    const data = await response.json();
-    console.log(data);
-  }
+    
+
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            setErrorMessage('Ошибка регистрации!');
+        }
+    }
+
     return (
-        <div className="intro">
         <div className="container">
             <div className="login_reg_block">
-            
                 <div className="logo">GetGether</div>
                 <div className="reg_text">Создание аккаунта</div>
-                <div className="regin">
-                <div className="input-form">
-                    <input type="text" value={username} placeholder="Ник" onChange={(e) => setName(e.target.value)}/>
-                </div>
-                <div className="input-form">
-                    <input type="email" value={useremail} placeholder="E-mail" onChange={(e) => setEmail(e.target.value)}/>
-                </div>
-                <div className="input-form">
-                    <input type="text" value={usercity} placeholder="Город" onChange={(e) => setCity(e.target.value)}/>
-                </div>
-                <div className="input-form">
-                    <input type="password" value={password} placeholder="Пароль" onChange={(e) => setPassword(e.target.value)}/>
-                </div>
-                <div className="input-form">
-                    <input type="password" value={password} placeholder="Пароль" onChange={(e) => setPassword(e.target.value)}/>
-                </div>
-                <button onClick={handleSubmit}>Создать</button>
-                </div>
-                    <footer className="nav">
-                        
-                            <NavLink to="/login" className="nav_link">
-                                Уже есть аккаунт
-                            </NavLink>
-                        
-                    </footer>
-            
+                <form className="regin" onSubmit={handleSubmit}>
+                    <label className="input-form">
+                        <input type="text" name="userName" placeholder="Ник" value={userName} onChange={(e)=>setUserName(e.target.value)} />
+                    </label>
+                    <label className="input-form">
+                        <input type="password" name="name" placeholder="Пароль" value={password} onChange={(e)=>setPassword(e.target.value)} />
+                    </label>
+                    <label className="input-form">
+                        <input type="text" name="age" placeholder="Имя" value={userProfile.name} onChange={(e)=>setUserProfile({...userProfile, name: e.target.value})} />
+                    </label>
+                    <label className="input-form">
+                        <input type="password" name="number" placeholder="Возраст" value={userProfile.age} onChange={(e)=>setUserProfile({...userProfile, age: e.target.value})} />
+                    </label>
+                    <label className="input-form">
+                        <input type="text" name="userNameId" placeholder="ID" value={userProfile.userNameId} onChange={(e)=>setUserProfile({...userProfile, userNameId: e.target.value})} />
+                    </label>
+                    {errorMessage && <p>{errorMessage}</p>}
+                    <button type="submit">Создать</button>
+                </form>
+                <footer className="nav">
+                    <Popup trigger={<li className='menu-item'><a href="#">Авторизация</a></li>} modal nested>
+                        {
+                            close => (
+                                <LoginPage></LoginPage>
+                            )
+                        }
+                    </Popup>
+                </footer>
             </div>
         </div>
-    </div>
-        );
-    }
-    export default Reg;
+    );
+}
+
+export default Reg;
