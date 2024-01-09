@@ -1,5 +1,4 @@
 import people from "../../img/team_sec_bg.png";
-import banner from "../../img/banner-left.png";
 import "../../css/Body.css"
 import SurveyList from "../profile/SurveyList";
 import { jwtDecode } from 'jwt-decode';
@@ -10,14 +9,12 @@ import Popup from "reactjs-popup";
 const Body = ({ newsList = [] }) => { 
 
 
-const access_token = localStorage.getItem('access_token');
+const token = localStorage.getItem('token');
 
 
-if (access_token) {
+if (token) {
  try {
-    const decoded = jwtDecode(access_token);
-    const username = decoded.email;
-    localStorage.setItem('username', username);
+    const decoded = jwtDecode(token);
  } catch (error) {
     console.error('Ошибка:', error);
  }
@@ -45,7 +42,7 @@ if (access_token) {
                                     <div className="description">
                                         <p>Создай ивент<br /> Или присоединись к уже созданному!</p>
                                     </div>
-                                    {access_token ? (
+                                    {token ? (
                                         <a className="btn popup-btn xx-large rounded colorful hover-colorful-darken" href="#" title="Зарегистрироватьсяы">
                                         Создать мероприятие</a>
                                         ):

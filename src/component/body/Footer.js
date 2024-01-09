@@ -1,6 +1,7 @@
 import "../../css/Footer.css"
 import Reg from "../pages/Reg";
 import Popup from "reactjs-popup";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
     const access_token = localStorage.getItem('access_token');
@@ -13,7 +14,7 @@ const Footer = () => {
         <div className="col-lg-5 ant007_footer__foter-item-wrap">
             <div className="footer-item">
                 <p>Приложение для поиска компаний по интересам в Вашем городе.</p>
-                {access_token ? (<a href="Events" className="btn" title="Мероприятия">Мероприятия</a>
+                {access_token ? (<Link to="/Events" className="btn" title="Мероприятия">Мероприятия</Link>
                 ):(
                     
                       <Popup trigger = {<a href='#' className="btn">Регистрация</a>} modal nested>

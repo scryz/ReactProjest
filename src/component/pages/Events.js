@@ -35,7 +35,7 @@ const Events = () => {
             </div>
             <div className="lib-row lib-desc">
               <p><span className="glyphicon glyphicon-calendar" aria-hidden="true"></span> 12.11.2023</p>
-              <p><Text text="" /></p>
+              <p><Text text="Кто куда, а я в Италию, кто со мной?" /></p>
             </div>
           </div>
         </div>

@@ -1,35 +1,61 @@
 import React, { useState }  from 'react';
+import axios from 'axios';
 import "../../css/login.css";
 import { NavLink } from 'react-router-dom';
-import { login } from '../../auth/auth';
-
+import { jwtDecode } from 'jwt-decode';
 
 
 const LoginPage = () => {
-
-const [userName, setName] = useState('');
-const [password, setPassword] = useState('');
-const [errorMessage, setErrorMessage] = useState('');
+ const [userName, setName] = useState('');
+ const [password, setPassword] = useState('');
+ const [errorMessage, setErrorMessage] = useState(null);
 
 
 
  const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('https://localhost:7293/api/Auth/Login', {
+          userName: userName,
+          password: password
+          },
+      );
+      setErrorMessage(null);
+      localStorage.setItem('token', response.data.token);
+      document.cookie = `token=${response.data.token}; expires=${new Date(Date.now() + 86400000)}; path=/`;
+
+      const token = localStorage.getItem(response.data.token);
+      const decoded = jwtDecode(token);
+        const data = await response.json();
+        console.log(decoded);
+        localStorage.setItem('token', JSON.stringify(data));
+        localStorage.setItem('token', token);
+
+
+      }
+      catch (err)
+      {
+        if (err.response) {
+          if (err.response.status === 400) {
+            setErrorMessage('Неверный логин или пароль');
+          } else {
+            setErrorMessage('Ошибка сервера');
+          }
+         } else {
+          setErrorMessage('Успешный вход!');
+          window.location.href="/";
+       }
+      }
+    
+       
   
-  try {
-  const { access_token } = await login(userName, password);
-  localStorage.setItem('access_token', access_token);
-  document.cookie = `access_token=${access_token}; path=/`;
-    window.location.reload();
-} catch (error) {
-    setErrorMessage('Неверный логин или пароль.');
-  }
- };
+      }
 
-
+    
 
  return (
-  <form onSubmit={handleSubmit}>
+
     
     <main className="login_block">
   <div className="logo">GetGether</div>
@@ -47,19 +73,8 @@ const [errorMessage, setErrorMessage] = useState('');
       <button type='submit' className="button" onClick={handleSubmit}>Войти</button>
     
   </div>
-  <footer className="nav">
-      
-          <NavLink to="/" className="nav_link">
-              Не помню пароль
-          </NavLink>
-      
-          <NavLink to="/registrathion" className="nav_link">
-              Создать учётную запись
-          </NavLink>
-  
-  </footer>
 </main>
-    </form>
+
  );
 }
  

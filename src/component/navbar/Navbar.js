@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Popup from "reactjs-popup";
 import "../../css/Navbar.css"
 import LoginPage from '../pages/LoginPage';
@@ -7,7 +7,7 @@ import Reg from '../pages/Reg';
 
 const Navbar = () => {
 
- const access_token = localStorage.getItem('access_token');
+ const token = localStorage.getItem('token');
 
  return (
   <header id="ant-section__ant006_header">
@@ -24,13 +24,10 @@ const Navbar = () => {
               
               <nav className="ant006_header-container">
                   <ul className="menu">
-                      <li><a href="#0">Главная</a></li>
-                      
-                      <li><a href="#0">Новости</a></li>
-                      {access_token ? ( <>
-                        <li><a href="Events">Мероприятия</a></li>
-                        <li><a href="#0">Создать мероприятие</a></li>
-                        <li><a href='Profile'>Профиль</a></li>
+                      {token ? ( <>
+                        <li><Link to="/Events">Мероприятия</Link></li>
+                        <li><Link to="/addevent">Создать мероприятие</Link></li>
+                        <li><Link to="/profile">Профиль</Link></li>
                       </>):
                       (<>
                       <Popup trigger = {<li className='menu-item'><a href='#'>Регистрация</a></li>} modal nested>

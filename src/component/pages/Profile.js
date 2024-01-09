@@ -2,6 +2,7 @@ import Navbar from "../navbar/Navbar";
 import "../../css/Profile.css"
 import Footer from "../body/Footer";
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const Profile = () => {
 
@@ -9,6 +10,7 @@ const Profile = () => {
 
   const handleLogout = () => {
     localStorage.clear();
+    Cookies.remove('token');
     navigate('/');
  }
 
