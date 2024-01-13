@@ -50,43 +50,43 @@ const Profile = () => {
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label for="fullName">Имя</label>
+                <label htmlFor="fullName">Имя</label>
                 <input type="text" className="form-control" id="fullName" placeholder="Введите Имя" />
               </div>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label for="fullName">Фамиля</label>
+                <label htmlFor="fullName">Фамиля</label>
                 <input type="text" className="form-control" id="fullName" placeholder="Введите фамилию" />
               </div>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label for="fullName">Ник</label>
+                <label htmlFor="fullName">Ник</label>
                 <input type="text" className="form-control" id="fullName" placeholder="Введите ник-нейм" />
               </div>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label for="fullName">Возраст</label>
+                <label htmlFor="fullName">Возраст</label>
                 <input type="text" className="form-control" id="fullName" placeholder="Введите возраст" />
               </div>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label for="eMail">Email</label>
+                <label htmlFor="eMail">Email</label>
                 <input type="email" className="form-control" id="eMail" placeholder="Введите E-mail" />
               </div>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label for="phone">Номер телефона</label>
+                <label htmlFor="phone">Номер телефона</label>
                 <input type="text" className="form-control" id="phone" placeholder="Введите номер телефона" />
               </div>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label for="website">Город</label>
+                <label htmlFor="website">Город</label>
                 <input type="text" className="form-control" id="cite" placeholder="Введите город" />
               </div>
             </div>

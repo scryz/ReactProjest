@@ -49,7 +49,7 @@ const handleSubmit = async (e) => {
         <div className="container">
             <div className="login_reg_block">
                 <div className="logo">GetGether</div>
-                <div className="reg_text">Регистрация</div>
+                    <div className="reg_text">Регистрация</div>
                 <form className="regin" onSubmit={handleSubmit}>
                     <label className="input-form">
                         <input type="text" name="userName" placeholder="Ник" value={userName} onChange={(e)=>setUserName(e.target.value)} />

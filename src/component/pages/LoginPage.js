@@ -1,7 +1,6 @@
 import React, { useState }  from 'react';
 import axios from 'axios';
 import "../../css/login.css";
-import { NavLink } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
 
@@ -58,22 +57,22 @@ const LoginPage = () => {
 
     
     <main className="login_block">
-  <div className="logo">GetGether</div>
-  <div className="login_text">Войдите в аккаунт</div>
-  <div className="login">
+      <div className="logo">GetGether</div>
+      <div className="login_text">Войдите в аккаунт</div>
+      <div className="login">
   
-      <div className="input-form">
+        <div className="input-form">
           <input type="text" value={userName} onChange={(e) => setName(e.target.value)} placeholder="Ник"/>
-      </div>
-      <div className="input-form">
+        </div>
+        <div className="input-form">
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль"/>
-      </div>
+        </div>
       
-      {errorMessage && <p>{errorMessage}</p>}
+        {errorMessage && <p>{errorMessage}</p>}
       <button type='submit' className="button" onClick={handleSubmit}>Войти</button>
     
-  </div>
-</main>
+      </div>
+    </main>
 
  );
 }

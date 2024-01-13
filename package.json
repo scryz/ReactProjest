@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@sentry/react": "^7.93.0",
+    "@sentry/tracing": "^7.93.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
@@ -25,7 +27,7 @@
     "react-dom": "^18.0.0",
     "react-router": "^5.1.0",
     "react-router-dom": "^6.2.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "reactjs-popup": "^2.0.6",
     "reactstrap": "^9.2.0",
     "sequelize": "^6.33.0",
@@ -58,6 +60,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/react-router-dom": "^5.3.3",
     "nodemon": "^3.0.1"
   }

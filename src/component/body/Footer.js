@@ -4,7 +4,7 @@ import Popup from "reactjs-popup";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
-    const access_token = localStorage.getItem('access_token');
+    const token = localStorage.getItem('token');
     return(
 <footer id="ant-section__ant007_footer" className="">
 
@@ -14,10 +14,10 @@ const Footer = () => {
         <div className="col-lg-5 ant007_footer__foter-item-wrap">
             <div className="footer-item">
                 <p>Приложение для поиска компаний по интересам в Вашем городе.</p>
-                {access_token ? (<Link to="/Events" className="btn" title="Мероприятия">Мероприятия</Link>
+                {token ? (<Link to="/Events" className="btn" title="Мероприятия">Мероприятия</Link>
                 ):(
                     
-                      <Popup trigger = {<a href='#' className="btn">Регистрация</a>} modal nested>
+                      <Popup trigger = {<a href='#0' className="btn">Регистрация</a>} modal nested>
                       {
                             close => (
                                 <Reg></Reg>
@@ -35,12 +35,12 @@ const Footer = () => {
                 <h6>Компания</h6>
 
                 <ul className="footer-menu">
-                    <li><a href="#">Услуги</a></li>
-                    <li><a href="#">О компании</a></li>
-                    <li><a href="#">Главная</a></li>
-                    <li><a href="#">Возможности</a></li>
-                    <li><a href="#">О Нас</a></li>
-                    <li><a href="#">Вакансии</a></li>
+                    <li><a href="#0">Услуги</a></li>
+                    <li><a href="#0">О компании</a></li>
+                    <li><a href="#0">Главная</a></li>
+                    <li><a href="#0">Возможности</a></li>
+                    <li><a href="#0">О Нас</a></li>
+                    <li><a href="#0">Вакансии</a></li>
                 </ul>
             </div>
         </div>
@@ -51,11 +51,11 @@ const Footer = () => {
                 <h6>Информация</h6>
 
                 <ul className="footer-menu">
-                    <li><a href="#">Новости</a></li>
-                    <li><a href="#">Безопсность</a></li>
-                    <li><a href="#">Поддержка</a></li>
-                    <li><a href="#">Разработчикам</a></li>
-                    <li><a href="#">Telegram</a></li>
+                    <li><a href="#0">Новости</a></li>
+                    <li><a href="#0">Безопсность</a></li>
+                    <li><a href="#0">Поддержка</a></li>
+                    <li><a href="#0">Разработчикам</a></li>
+                    <li><a href="#0">Telegram</a></li>
                 </ul>
             </div>
         </div>
@@ -66,11 +66,11 @@ const Footer = () => {
                 <h6>Политика</h6>
 
                 <ul className="footer-menu">
-                    <li><a href="#">Условия использования</a></li>
-                    <li><a href="#">Конфиденциальность</a></li>
-                    <li><a href="#">Настройки Cookie</a></li>
-                    <li><a href="#">Правила</a></li>
-                    <li><a href="#">Лицензии</a></li>
+                    <li><a href="#0">Условия использования</a></li>
+                    <li><a href="#0">Конфиденциальность</a></li>
+                    <li><a href="#0">Настройки Cookie</a></li>
+                    <li><a href="#0">Правила</a></li>
+                    <li><a href="#0">Лицензии</a></li>
                 </ul>
 
             </div>

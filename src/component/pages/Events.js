@@ -26,7 +26,7 @@ const Events = () => {
       <div className="lib-panel">
         <div className="row box-shadow">
           <div className="col-md-6">
-            <img className="lib-img-show" src="https://rileydentalassociates.com/wp-content/uploads/2020/03/Pu0p79x8.jpeg.jpg" />
+            <img className="lib-img-show" src="https://rileydentalassociates.com/wp-content/uploads/2020/03/Pu0p79x8.jpeg.jpg" alt="about"/>
           </div>
           <div className="col-md-6">
             <div className="lib-row lib-header">
@@ -34,8 +34,8 @@ const Events = () => {
               <div className="lib-header-seperator"></div>
             </div>
             <div className="lib-row lib-desc">
-              <p><span className="glyphicon glyphicon-calendar" aria-hidden="true"></span> 12.11.2023</p>
-              <p><Text text="Кто куда, а я в Италию, кто со мной?" /></p>
+              <span className="glyphicon glyphicon-calendar" aria-hidden="true"></span> <p>12.11.2023</p>
+              <Text text="Кто куда, а я в Италию, кто со мной?" />
             </div>
           </div>
         </div>
@@ -45,7 +45,7 @@ const Events = () => {
       <div className="lib-panel">
         <div className="row box-shadow">
           <div className="col-md-6">
-            <img className="lib-img-show" src="https://fikiwiki.com/uploads/posts/2022-02/1644866886_25-fikiwiki-com-p-selfi-prikolnie-kartinki-29.jpg" />
+            <img className="lib-img-show" src="https://fikiwiki.com/uploads/posts/2022-02/1644866886_25-fikiwiki-com-p-selfi-prikolnie-kartinki-29.jpg" alt="about"/>
           </div>
           <div className="col-md-6">
             <div className="lib-row lib-header">
@@ -53,8 +53,8 @@ const Events = () => {
               <div className="lib-header-seperator"></div>
             </div>
             <div className="lib-row lib-desc">
-              <p><span className="glyphicon glyphicon-calendar" aria-hidden="true"></span> 10.01.2024</p>
-              <p><Text text="Есть предложение, отпразнывать днюху у Локтя в загородном доме, кто за? Все расходы берёт на себя, с вас всего одна подпись в договре." /></p>
+              <span className="glyphicon glyphicon-calendar" aria-hidden="true"></span><p> 10.01.2024</p>
+              <Text text="Есть предложение, отпразнывать днюху у Локтя в загородном доме, кто за? Все расходы берёт на себя, с вас всего одна подпись в договре." />
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@ const Events = () => {
       <div className="lib-panel">
         <div className="row box-shadow">
           <div className="col-md-6">
-            <img className="lib-img-show" src="https://i.ytimg.com/vi/VZt6HkKAbPA/maxresdefault.jpg" />
+            <img className="lib-img-show" src="https://i.ytimg.com/vi/VZt6HkKAbPA/maxresdefault.jpg" alt="about"/>
           </div>
           <div className="col-md-6">
             <div className="lib-row lib-header">
@@ -73,8 +73,8 @@ const Events = () => {
               <div className="lib-header-seperator"></div>
             </div>
             <div className="lib-row lib-desc">
-              <p><span className="glyphicon glyphicon-calendar" aria-hidden="true"></span> 13.06.2015</p>
-              <p><Text text="Я в своем познании настолько преисполнился, что я как будто бы уже
+              <span className="glyphicon glyphicon-calendar" aria-hidden="true"></span><p> 13.06.2015</p>
+              <Text text="Я в своем познании настолько преисполнился, что я как будто бы уже
 
 сто триллионов миллиардов лет проживаю на триллионах и
 
@@ -110,7 +110,7 @@ const Events = () => {
 
 этот весь мир, а ты мне какие-то... мне не важно на твои тачки, на твои
 
-яхты, на твои квартиры, там, на твоё благо."/></p>
+яхты, на твои квартиры, там, на твоё благо."/>
             </div> 
           </div>
         </div>
@@ -120,7 +120,7 @@ const Events = () => {
       <div className="lib-panel">
         <div className="row box-shadow">
           <div className="col-md-6">
-            <img className="lib-img-show" src="https://cdn.fishki.net/upload/post/2017/09/07/2374872/tn/fe1ad6fae22ee9d9409eaf7c924f22b1.jpg" />
+            <img className="lib-img-show" src="https://cdn.fishki.net/upload/post/2017/09/07/2374872/tn/fe1ad6fae22ee9d9409eaf7c924f22b1.jpg" alt="about"/>
           </div>
           <div className="col-md-6">
             <div className="lib-row lib-header">
@@ -128,8 +128,8 @@ const Events = () => {
               <div className="lib-header-seperator"></div>
             </div>
             <div className="lib-row lib-desc">
-              <p><span className="glyphicon glyphicon-calendar" aria-hidden="true"></span> 09.01.2024</p>
-              <p><Text text="Салам всем, кто хочет полетать на самолёте. Подумаешь, что он пассажирский. Лечу на Балли, с человека 20к, вылет 15.02.2024, за отдельнцю плату можно посетить кабину пилота."/></p>
+              <span className="glyphicon glyphicon-calendar" aria-hidden="true"></span> <p>09.01.2024</p>
+              <Text text="Салам всем, кто хочет полетать на самолёте. Подумаешь, что он пассажирский. Лечу на Балли, с человека 20к, вылет 15.02.2024, за отдельнцю плату можно посетить кабину пилота."/>
             </div>
           </div>
         </div>

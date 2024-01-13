@@ -21,6 +21,7 @@ function App() {
         <Route path='/events' element={<Events/>}/>
         <Route path='/addevent' element={<AddEvent/>}/>
         
+        
       </Routes>
     </Router>
         
