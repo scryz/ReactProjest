@@ -5,7 +5,8 @@ import "../../css/reg.css";
 const Reg = () => {
 const [userName, setUserName] = useState('');
 const [password, setPassword] = useState('');
-const [userProfile, setUserProfile] = useState({userNameId: 'string'});
+const [name, setName] = useState('');
+const [age, setAge] = useState('');
 const [errorMessage, setErrorMessage] = useState('');
 
 const handleSubmit = async (e) => {
@@ -17,7 +18,7 @@ const handleSubmit = async (e) => {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ userName, password, userProfile }),
+            body: JSON.stringify({ userName, password, name, age }),
           });
           
 
@@ -58,10 +59,10 @@ const handleSubmit = async (e) => {
                         <input type="password" name="name" placeholder="Пароль" value={password} onChange={(e)=>setPassword(e.target.value)} />
                     </label>
                     <label className="input-form">
-                        <input type="text" name="age" placeholder="Имя" value={userProfile.name} onChange={(e)=>setUserProfile({...userProfile, name: e.target.value})} />
+                        <input type="text" name="name" placeholder="Имя" value={name} onChange={(e)=>setName(e.target.value)} />
                     </label>
                     <label className="input-form">
-                        <input type="text" name="number" placeholder="Возраст" value={userProfile.age} onChange={(e)=>setUserProfile({...userProfile, age: e.target.value})} />
+                        <input type="number" name="age" placeholder="Возраст" value={age} onChange={(e)=>setAge(e.target.value)} />
                     </label>
                 
                     {errorMessage && <p>{errorMessage}</p>}

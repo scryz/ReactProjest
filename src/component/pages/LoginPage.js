@@ -4,6 +4,7 @@ import "../../css/login.css";
 import { jwtDecode } from 'jwt-decode';
 
 
+
 const LoginPage = () => {
  const [userName, setName] = useState('');
  const [password, setPassword] = useState('');
@@ -22,6 +23,7 @@ const LoginPage = () => {
       );
       setErrorMessage(null);
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', userName)
       document.cookie = `token=${response.data.token}; expires=${new Date(Date.now() + 86400000)}; path=/`;
 
       const token = localStorage.getItem(response.data.token);
@@ -30,6 +32,7 @@ const LoginPage = () => {
         console.log(decoded);
         localStorage.setItem('token', JSON.stringify(data));
         localStorage.setItem('token', token);
+        
 
 
       }
@@ -44,6 +47,7 @@ const LoginPage = () => {
          } else {
           setErrorMessage('Успешный вход!');
           window.location.href="/";
+          
        }
       }
     
