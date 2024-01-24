@@ -19,10 +19,12 @@ const LoginPage = () => {
 
   signUpButton.addEventListener('click', () => {
     container.classList.add("right-panel-active");
+    setErrorMessage(null);
   });
 
   signInButton.addEventListener('click', () => {
     container.classList.remove("right-panel-active");
+    setErrorMessage(null);
   });
 
   return () => {
@@ -76,10 +78,8 @@ const LoginPage = () => {
           
        }
       }
-    
-
-  
       }
+
       const handleSubmitReg = async (e) => {
         e.preventDefault();
         
@@ -109,7 +109,7 @@ const LoginPage = () => {
                 }
                } else {
                 setErrorMessage('Аккаунт успешно зарегистрирован!');
-                window.location.href="/";
+                
              }
            
         }
@@ -138,7 +138,7 @@ const LoginPage = () => {
 			<h1>Авторизоваться</h1>
 			<input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Ник"/>
 			<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль"/>
-			<a href="#">Забыли пароль?</a>
+			<a href="#0">Забыли пароль?</a>
 			{errorMessage && <p>{errorMessage}</p>}
       <button type='submit' onClick={handleSubmitLogin}>Войти</button>
 		</form>
@@ -148,12 +148,12 @@ const LoginPage = () => {
 			<div className="overlay-panel overlay-left">
 				<h1>Добро пожаловать!</h1>
 				<p>Уже есть аккаунт? Тогда жми кнопку ниже!</p>
-				<button className="ghost" id="Войти">Войти</button>
+				<button id="Войти">Войти</button>
 			</div>
 			<div className="overlay-panel overlay-right">
 				<h1>Привет!</h1>
 				<p>Ещё нет аккаунта? Тогда жми кнопку ниже!</p>
-				<button className="ghost" id="Зарегистрироваться">Зарегистрироваться</button>
+				<button id="Зарегистрироваться">Зарегистрироваться</button>
 			</div>
 		</div>
 	</div>

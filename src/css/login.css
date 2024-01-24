@@ -37,8 +37,8 @@ a {
 
 button {
 	border-radius: 20px;
-	border: 1px solid #FF4B2B;
-	background-color: #FF4B2B;
+	border: 1px solid #007bff;
+	background-color: #007bff;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -46,6 +46,7 @@ button {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
+    
 }
 
 button:active {
@@ -54,11 +55,6 @@ button:active {
 
 button:focus {
 	outline: none;
-}
-
-button.ghost {
-	background-color: transparent;
-	border-color: #FFFFFF;
 }
 
 form {
@@ -151,9 +147,9 @@ input {
 }
 
 .overlay {
-	background: #FF416C;
-	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-	background: linear-gradient(to right, #FF4B2B, #FF416C);
+	background: #3136b3;
+	background: -webkit-linear-gradient(to right, #3136b3, #3136b3);
+	background: linear-gradient(to right, #3136b3, #3136b3);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;

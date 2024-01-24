@@ -147,7 +147,6 @@
 	letter-spacing: 0.3px;
 	text-align: center;
 	border: 2px solid;
-	/*box-shadow: 0 3px 14px 4px rgba(27, 139, 249, 0.22);*/
 	transition: color 0.2s, background 0.2s, border-color 0.2s;
 }
 
@@ -156,7 +155,6 @@
     color: #fff;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
     border-color: #067cef;
-    /*box-shadow: 0 3px 14px 4px rgba(6, 124, 239, 0.22);*/
 }
 .ant-section__ant047_text_0 {
   padding: 50px 0;
