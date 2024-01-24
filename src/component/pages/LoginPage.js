@@ -121,8 +121,8 @@ const LoginPage = () => {
 
  return (
 
-<div class="container_log" id="container_log">
-	<div class="form-container_log sign-up-container_log">
+<div className="container_log" id="container_log">
+	<div className="form-container_log sign-up-container_log">
 		<form action="#">
 			<h1>Создать аккаунт</h1>
 			<input type="text" name="userName" placeholder="Ник" value={userName} onChange={(e)=>setUserName(e.target.value)} />
@@ -133,7 +133,7 @@ const LoginPage = () => {
       <button type="submit" onClick={handleSubmitReg}>Создать</button>
 		</form>
 	</div>
-	<div class="form-container_log sign-in-container_log">
+	<div className="form-container_log sign-in-container_log">
 		<form action="#">
 			<h1>Авторизоваться</h1>
 			<input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Ник"/>
@@ -143,17 +143,17 @@ const LoginPage = () => {
       <button type='submit' onClick={handleSubmitLogin}>Войти</button>
 		</form>
 	</div>
-	<div class="overlay-container_log">
-		<div class="overlay">
-			<div class="overlay-panel overlay-left">
+	<div className="overlay-container_log">
+		<div className="overlay">
+			<div className="overlay-panel overlay-left">
 				<h1>Добро пожаловать!</h1>
 				<p>Уже есть аккаунт? Тогда жми кнопку ниже!</p>
-				<button class="ghost" id="Войти">Войти</button>
+				<button className="ghost" id="Войти">Войти</button>
 			</div>
-			<div class="overlay-panel overlay-right">
+			<div className="overlay-panel overlay-right">
 				<h1>Привет!</h1>
 				<p>Ещё нет аккаунта? Тогда жми кнопку ниже!</p>
-				<button class="ghost" id="Зарегистрироваться">Зарегистрироваться</button>
+				<button className="ghost" id="Зарегистрироваться">Зарегистрироваться</button>
 			</div>
 		</div>
 	</div>
