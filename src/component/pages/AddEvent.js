@@ -35,16 +35,16 @@ const AddEvent = () => {
     <>
       <Navbar />
       <div className="container">
-        <h1>Добавление мероприятий</h1>
-          <label htmlFor="name">Название:</label>
-          <input type="text" id="name" name="name"  value={EventName} onChange={(e) => setEventName(e.target.value)} />
+        <h2>Добавление мероприятий</h2>
+          <label htmlFor="name"><h5>Придумайте название:</h5></label>
+          <input className="inputName" type="text" id="name" name="nameEvent"  value={EventName} onChange={(e) => setEventName(e.target.value)} />
 
-          <label htmlFor="description">Подробное описание:</label>
-          <textarea name="description"  value={Description} onChange={(e) => setDescription(e.target.value)} required/>
+          <label htmlFor="description"><h5>Напишите подробное описание:</h5></label>
+          <textarea rows="5" name="description"  value={Description} onChange={(e) => setDescription(e.target.value)} required/>
 
-          {errorMessage && <p>{errorMessage}</p>}
+          <h6>{errorMessage && <p>{errorMessage}</p>}</h6>
 
-          <button type="submit" onClick={handleSubmit}>Добавить мероприятие</button>
+          <button className="buttonEvent" type="submit" onClick={handleSubmit}>Добавить мероприятие</button>
       </div>
       <Footer />
     </>

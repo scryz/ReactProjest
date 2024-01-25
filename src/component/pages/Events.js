@@ -1,7 +1,10 @@
+import React from 'react';
 import Navbar from "../navbar/Navbar";
 import Footer from "../body/Footer";
 import "../../css/Events.css"
 const Events = () => {
+    
+
 
   function Text({text}) {
     const words = text.split(' ');
@@ -17,6 +20,10 @@ const Events = () => {
     return (
       <>
       <Navbar />
+
+      
+      
+
       <div className="container">
       <h1>Мероприятия</h1>
       </div>
@@ -30,12 +37,12 @@ const Events = () => {
           </div>
           <div className="col-md-6">
             <div className="lib-row lib-header">
-              <a href="/">Италия</a>
+              <a href="/">{}</a>
               <div className="lib-header-seperator"></div>
             </div>
             <div className="lib-row lib-desc">
               <span className="glyphicon glyphicon-calendar" aria-hidden="true"></span> <p>12.11.2023</p>
-              <Text text="Кто куда, а я в Италию, кто со мной?" />
+              <Text text="" />
             </div>
           </div>
         </div>
@@ -49,7 +56,7 @@ const Events = () => {
           </div>
           <div className="col-md-6">
             <div className="lib-row lib-header">
-              <a href="/">Днюха</a>
+              <a href="/">{}</a>
               <div className="lib-header-seperator"></div>
             </div>
             <div className="lib-row lib-desc">
@@ -69,7 +76,7 @@ const Events = () => {
           </div>
           <div className="col-md-6">
             <div className="lib-row lib-header">
-              <a href="/">Идущий к реке</a>
+              <a href="/">{}</a>
               <div className="lib-header-seperator"></div>
             </div>
             <div className="lib-row lib-desc">
@@ -106,7 +113,7 @@ const Events = () => {
           </div>
           <div className="col-md-6">
             <div className="lib-row lib-header">
-              <a href="/">Балли</a>
+              <a href="/">{}</a>
               <div className="lib-header-seperator"></div>
             </div>
             <div className="lib-row lib-desc">

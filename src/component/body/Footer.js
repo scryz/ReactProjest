@@ -1,7 +1,7 @@
 import "../../css/Footer.css"
-import Reg from "../pages/Reg";
 import Popup from "reactjs-popup";
 import { Link } from "react-router-dom";
+import LoginPage from "../pages/LoginPage";
 
 const Footer = () => {
     const token = localStorage.getItem('token');
@@ -17,10 +17,10 @@ const Footer = () => {
                 {token ? (<Link to="/Events" className="btn" title="Мероприятия">Мероприятия</Link>
                 ):(
                     
-                      <Popup trigger = {<a href='#0' className="btn">Регистрация</a>} modal nested>
+                      <Popup trigger = {<a href='#0' className="btn">Авторизация</a>} modal nested>
                       {
                             close => (
-                                <Reg></Reg>
+                                <LoginPage></LoginPage>
                             )
                         }
                       </Popup>

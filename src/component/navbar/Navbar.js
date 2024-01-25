@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Popup from "reactjs-popup";
 import "../../css/Navbar.css"
 import LoginPage from '../pages/LoginPage';
-import Reg from '../pages/Reg';
 
 const Navbar = () => {
 
@@ -30,13 +29,6 @@ const Navbar = () => {
                         <li><Link to="/profile">Профиль</Link></li>
                       </>):
                       (<>
-                      <Popup trigger = {<li className='menu-item'><a href='#0'>Регистрация</a></li>} modal nested>
-                      {
-                            close => (
-                                <Reg></Reg>
-                            )
-                        }
-                      </Popup>
                       <Popup trigger = {<li className='menu-item'><a href='#0'>Авторизация</a></li>} modal nested>
                         {
                             close => (

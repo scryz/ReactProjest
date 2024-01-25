@@ -45,19 +45,12 @@ const Profile = () => {
         <div className="card-body">
           <div className="row gutters">
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 className="mb-2 text-primary">Персональные данные</h6>
-              <button className="btn btn-primary" onClick={handleLogout}>Выйти</button>
+              <h4 className="mb-2 text-primary">Персональные данные</h4>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
                 <label htmlFor="fullName">Имя</label>
                 <input type="text" className="form-control" id="fullName" placeholder="Введите Имя" />
-              </div>
-            </div>
-            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div className="form-group">
-                <label htmlFor="fullName">Фамиля</label>
-                <input type="text" className="form-control" id="fullName" placeholder="Введите фамилию" />
               </div>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -95,7 +88,8 @@ const Profile = () => {
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <div className="text-right">
                 
-                <button type="button" id="submit" name="submit" className="btn btn-primary">Сохранить данные</button>
+                <button type="button" id="submit" name="submit" >Сохранить данные</button>
+                <button  onClick={handleLogout}>Выйти</button>
               </div>
             </div>
           </div>
