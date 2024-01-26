@@ -1,131 +1,74 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Navbar from "../navbar/Navbar";
+import { Link } from 'react-router-dom';
 import Footer from "../body/Footer";
 import "../../css/Events.css"
 const Events = () => {
-    
+
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://localhost:7293/GetTwelveEvents');
+        setEvents(response.data);
+      } catch (error) {
+        console.error('Error fetching events: ', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
 
-  function Text({text}) {
+
+
+  function Text({text, id}) {
     const words = text.split(' ');
     if (words.length > 30){
-    return <p>{words.slice(0, 30).join(' ')} <a href="/">ещё</a></p>;
+       return <p>{words.slice(0, 30).join(' ')} <Link to={`/event/${id}`}>ещё</Link></p>;
     }
     else{
-      return text;
+       return text;
     }
-  }
+   }
+
 
 
     return (
       <>
       <Navbar />
 
-      
-      
-
       <div className="container">
-      <h1>Мероприятия</h1>
+        <h1>Мероприятия</h1>
       </div>
       <div className="container">
-  <div className="row row-margin-bottom">
-    <div className="col-md-6">
-      <div className="lib-panel">
-        <div className="row box-shadow">
-          <div className="col-md-6">
-            <img className="lib-img-show" src="https://rileydentalassociates.com/wp-content/uploads/2020/03/Pu0p79x8.jpeg.jpg" alt="about"/>
-          </div>
-          <div className="col-md-6">
-            <div className="lib-row lib-header">
-              <a href="/">{}</a>
-              <div className="lib-header-seperator"></div>
+        <div className="row row-margin-bottom">
+          {events.map((event, id) => (
+            <div className="col-md-6" key={id}>
+              <div className="lib-panel">
+                <div className="row box-shadow">
+                  <div className="circle">
+                    <img src="https://sun9-77.userapi.com/impg/hOzKxV4E-EzCsL_9x_EodSfQsAjZCqUjrRdHCA/8MPpyb-Y0ZY.jpg?size=972x2160&quality=95&sign=0a2c08de5862fb032bd95b6ba184e88f&type=album" alt="about" />
+                  </div>
+                  <div className="col-md-6">
+                    <div className="lib-row lib-header">
+                      <Link to={`/event/${event.id}`}>{event.eventName}</Link>
+                      <div className="lib-header-seperator"></div>
+                    </div>
+                    <div className="lib-row lib-desc">
+                      <span className="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                      
+                      <Text text={event.description} id={event.id}/>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="lib-row lib-desc">
-              <span className="glyphicon glyphicon-calendar" aria-hidden="true"></span> <p>12.11.2023</p>
-              <Text text="" />
-            </div>
-          </div>
+          ))}
         </div>
       </div>
-    </div>
-    <div className="col-md-6">
-      <div className="lib-panel">
-        <div className="row box-shadow">
-          <div className="col-md-6">
-            <img className="lib-img-show" src="https://fikiwiki.com/uploads/posts/2022-02/1644866886_25-fikiwiki-com-p-selfi-prikolnie-kartinki-29.jpg" alt="about"/>
-          </div>
-          <div className="col-md-6">
-            <div className="lib-row lib-header">
-              <a href="/">{}</a>
-              <div className="lib-header-seperator"></div>
-            </div>
-            <div className="lib-row lib-desc">
-              <span className="glyphicon glyphicon-calendar" aria-hidden="true"></span><p> 10.01.2024</p>
-              <Text text="Есть предложение, отпразнывать днюху у Локтя в загородном доме, кто за? Все расходы берёт на себя, с вас всего одна подпись в договре." />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="clearfix visible-md-block"></div>
-    <div className="col-md-6">
-      <div className="lib-panel">
-        <div className="row box-shadow">
-          <div className="col-md-6">
-            <img className="lib-img-show" src="https://i.ytimg.com/vi/VZt6HkKAbPA/maxresdefault.jpg" alt="about"/>
-          </div>
-          <div className="col-md-6">
-            <div className="lib-row lib-header">
-              <a href="/">{}</a>
-              <div className="lib-header-seperator"></div>
-            </div>
-            <div className="lib-row lib-desc">
-              <span className="glyphicon glyphicon-calendar" aria-hidden="true"></span><p> 13.06.2015</p>
-              <Text text="Я в своем познании настолько преисполнился, что я как будто бы уже
-сто триллионов миллиардов лет проживаю на триллионах и
-триллионах таких же планет, как эта Земля, мне этот мир абсолютно
-понятен, и я здесь ищу только одного - покоя, умиротворения и
-вот этой гармонии, от слияния с бесконечно вечным, от созерцания
-великого фрактального подобия и от вот этого замечательного всеединства
-существа, бесконечно вечного, куда ни посмотри, хоть вглубь - бесконечно
-малое, хоть ввысь - бесконечное большое, понимаешь? А ты мне опять со
-своим вот этим, иди суетись дальше, это твоё распределение, это
-твой путь и твой горизонт познания и ощущения твоей природы, он
-несоизмеримо мелок по сравнению с моим, понимаешь? Я как будто бы уже
-давно глубокий старец, бессмертный, ну или там уже почти бессмертный,
-который на этой планете от её самого зарождения, ещё когда только Солнце
-только-только сформировалось как звезда, и вот это газопылевое облако,
-вот, после взрыва, Солнца, когда оно вспыхнуло, как звезда, начало
-формировать вот эти коацерваты, планеты, понимаешь, я на этой Земле уже
-как будто почти пять миллиардов лет живу и знаю её вдоль и поперёк
-этот весь мир, а ты мне какие-то... мне не важно на твои тачки, на твои
-яхты, на твои квартиры, там, на твоё благо."/>
-            </div> 
-          </div>
-        </div>
-      </div>
-    </div>
-    <div className="col-md-6">
-      <div className="lib-panel">
-        <div className="row box-shadow">
-          <div className="col-md-6">
-            <img className="lib-img-show" src="https://cdn.fishki.net/upload/post/2017/09/07/2374872/tn/fe1ad6fae22ee9d9409eaf7c924f22b1.jpg" alt="about"/>
-          </div>
-          <div className="col-md-6">
-            <div className="lib-row lib-header">
-              <a href="/">{}</a>
-              <div className="lib-header-seperator"></div>
-            </div>
-            <div className="lib-row lib-desc">
-              <span className="glyphicon glyphicon-calendar" aria-hidden="true"></span> <p>09.01.2024</p>
-              <Text text="Салам всем, кто хочет полетать на самолёте. Подумаешь, что он пассажирский. Лечу на Балли, с человека 20к, вылет 15.02.2024, за отдельнцю плату можно посетить кабину пилота."/>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
       <Footer />
       </>
     );

@@ -4,6 +4,7 @@ import Home from './component/pages/Home';
 import Login from './component/pages/LoginPage';
 import Profile from './component/pages/Profile';
 import Events from './component/pages/Events';
+import EventDetail from './component/pages/EventDetail';
 import AddEvent from './component/pages/AddEvent';
 
 function App() { 
@@ -13,10 +14,11 @@ function App() {
       
       <Router>
           <Routes>
-            <Route path ="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />}/>
+            <Route path ="/" element={<Home/>}/>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/profile" element={<Profile/>}/>
             <Route path='/events' element={<Events/>}/>
+            <Route path='/event/:id' element={<EventDetail/>}/>
             <Route path='/addevent' element={<AddEvent/>}/>
           </Routes>
       </Router>
