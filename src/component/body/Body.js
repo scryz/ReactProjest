@@ -3,6 +3,7 @@ import "../../css/Body.css"
 import { jwtDecode } from 'jwt-decode';
 import Popup from "reactjs-popup";
 import LoginPage from "../pages/LoginPage";
+import { Link } from "react-router-dom";
 
 const Body = () => { 
 
@@ -39,11 +40,15 @@ if (token) {
 
                                     <h1>Найди компанию по интересам!</h1>
                                     <div className="description">
-                                        <h5>Создай ивент<br /> Или присоединись к уже созданному!</h5>
+                                        <h5>Создай мероприятие<br /> Или присоединись к уже созданному!</h5>
                                     </div>
                                     {token ? (
-                                        <a className="btn popup-btn xx-large rounded colorful hover-colorful-darken" href="#0" title="Создать мероприятие">
-                                        Создать мероприятие</a>
+                                        <>
+                                        <Link className="btn popup-btn xx-large rounded colorful hover-colorful-darken" to="/addevent" title="Создать мероприятие">
+                                        Создать мероприятие</Link>
+                                        <Link className="btn popup-btn xx-large rounded colorful hover-colorful-darken" to="/events" title="Создать мероприятие">
+                                        Присоединиться</Link>
+                                        </>
                                         ):
                                         (
                                         <Popup trigger = {<a className="btn popup-btn xx-large rounded colorful hover-colorful-darken" href="#0" title="Авторизоваться">

@@ -55,8 +55,8 @@ nav.ant006_header-container li a {
 }
 
 nav.ant006_header-container li a:hover {
-    color: #000000;
-    text-decoration: none;
+    
+    text-decoration: underline;
 }
 
 nav.ant006_header-container {

@@ -53,14 +53,14 @@ const Events = () => {
                     <img src="https://sun9-77.userapi.com/impg/hOzKxV4E-EzCsL_9x_EodSfQsAjZCqUjrRdHCA/8MPpyb-Y0ZY.jpg?size=972x2160&quality=95&sign=0a2c08de5862fb032bd95b6ba184e88f&type=album" alt="about" />
                   </div>
                   <div className="col-md-6">
-                    <div className="lib-row lib-header">
-                      <Link to={`/event/${event.id}`}>{event.eventName}</Link>
+                  <div className="lib-row lib-header">
+                      <Link to={`/event/${event.id}`}><h4>{event.eventName}</h4></Link>
                       <div className="lib-header-seperator"></div>
                     </div>
                     <div className="lib-row lib-desc">
                       <span className="glyphicon glyphicon-calendar" aria-hidden="true"></span>
                       
-                      <Text text={event.description} id={event.id}/>
+                      <h6><Text text={event.description} id={event.id}/></h6>
                     </div>
                   </div>
                 </div>

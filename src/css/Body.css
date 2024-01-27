@@ -137,6 +137,8 @@
 
 .ant-section__ant012_welcome .btn {
     margin-top: 40px;
+	margin-left: 20px;
+	margin-right: 20px;
 	text-decoration: none;
 	display: inline-block;
 	padding: 17px 35px;
