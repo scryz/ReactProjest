@@ -3,8 +3,10 @@ import "../../css/Profile.css"
 import Footer from "../body/Footer";
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import VerifyToken from "../body/VerifyToken";
 
 const Profile = () => {
+  const { isValid, error } = VerifyToken();
 
   const navigate = useNavigate();
 
@@ -15,7 +17,9 @@ const Profile = () => {
  }
 
     return (
-      <>
+      <div>
+      {isValid ? (
+        <>
       <Navbar />
       <div className="container">
       <div className="row gutters">
@@ -100,6 +104,10 @@ const Profile = () => {
       </div>
       <Footer />
       </>
+      ) : (
+        <p>{error}</p>
+      )}
+    </div>
     );
 }
 export default Profile;

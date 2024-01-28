@@ -2,9 +2,11 @@ import "../../css/Footer.css"
 import Popup from "reactjs-popup";
 import { Link } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
+import VerifyToken from "./VerifyToken";
 
 const Footer = () => {
-    const token = localStorage.getItem('token');
+    const { isValid, error } = VerifyToken();
+
     return(
 <footer id="ant-section__ant007_footer" className="">
 
@@ -14,7 +16,7 @@ const Footer = () => {
         <div className="col-lg-5 ant007_footer__foter-item-wrap">
             <div className="footer-item">
                 <p>Приложение для поиска компаний по интересам в Вашем городе.</p>
-                {token ? (<Link to="/Events" className="btn" title="Мероприятия">Мероприятия</Link>
+                {isValid ? (<Link to="/Events" className="btn" title="Мероприятия">Мероприятия</Link>
                 ):(
                     
                       <Popup trigger = {<a href='#0' className="btn">Авторизация</a>} modal nested>

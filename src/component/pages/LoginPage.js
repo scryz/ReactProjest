@@ -49,7 +49,6 @@ const LoginPage = () => {
       );
       setErrorMessage(null);
       localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', userName)
       document.cookie = `token=${response.data.token}; expires=${new Date(Date.now() + 86400000)}; path=/`;
 
       const token = localStorage.getItem(response.data.token);
@@ -58,10 +57,6 @@ const LoginPage = () => {
         console.log(decoded);
         localStorage.setItem('token', JSON.stringify(data));
         localStorage.setItem('token', token);
-        
-        
-
-
       }
       
       catch (err)
@@ -91,12 +86,7 @@ const LoginPage = () => {
             },
             body: JSON.stringify({ userName, password, name, age }),
           });
-          
-
           setErrorMessage(null);
-
-    
-
             const data = await response.json();
             console.log(data);
             setErrorMessage('Неверно введены данные или пропущены поля!');

@@ -1,6 +1,7 @@
 import "../../css/AddEvent.css";
 import Navbar from "../navbar/Navbar";
 import Footer from "../body/Footer";
+import VerifyToken from "../body/VerifyToken";
 import { useState } from "react";
 import axios from "axios";
 
@@ -8,13 +9,14 @@ const AddEvent = () => {
   const [EventName, setEventName] = useState('');
   const [Description, setDescription] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
+  const { isValid, error } = VerifyToken();
 
   const handleSubmit = async (e) => {
 
     const url = "https://localhost:7293/AddEvent?EventName="+EventName+"&Description="+Description;
 
     try {
-      const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     const response = await axios.post(url, {
     }, {
       headers: {
@@ -32,7 +34,9 @@ const AddEvent = () => {
 
 
   return (
-    <>
+    <div>
+    {isValid ? (
+      <>
       <Navbar />
       <div className="container">
         <h2>Добавление мероприятий</h2>
@@ -48,6 +52,11 @@ const AddEvent = () => {
       </div>
       <Footer />
     </>
+    ) : (
+      <p>{error}</p>
+    )}
+  </div>
+    
   );
 }
 

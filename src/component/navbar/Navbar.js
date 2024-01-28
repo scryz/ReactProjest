@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import Popup from "reactjs-popup";
 import "../../css/Navbar.css"
 import LoginPage from '../pages/LoginPage';
+import VerifyToken from '../body/VerifyToken';
 
 const Navbar = () => {
 
- const token = localStorage.getItem('token');
+const { isValid, error } = VerifyToken();
+
 
  return (
   <header id="ant-section__ant006_header">
@@ -23,7 +25,7 @@ const Navbar = () => {
               
               <nav className="ant006_header-container">
                   <ul className="menu">
-                      {token ? ( <>
+                      {isValid ? ( <>
                         <li><Link to="/events">Мероприятия</Link></li>
                         <li><Link to="/addevent">Создать мероприятие</Link></li>
                         <li><Link to="/profile">Профиль</Link></li>

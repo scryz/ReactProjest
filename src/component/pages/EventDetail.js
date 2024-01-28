@@ -3,11 +3,14 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../navbar/Navbar';
 import Footer from '../body/Footer';
+import VerifyToken from "../body/VerifyToken";
 import "../../css/EventDetail.css"
 
 function EventDetail() {
     const { id } = useParams();
     const [event, setEvent] = useState(null);
+    const [isJoined, setIsJoined] = useState(false);
+    const { isValid, error } = VerifyToken();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,12 +24,33 @@ function EventDetail() {
         
             fetchData();
           }, [id]);
+
+          const joinEvent = async () => {
+            try {
+              const token = localStorage.getItem('token');
+              const response = await axios.post(`https://localhost:7293/ADDPatricipant?eventId=${id}`, {}, {
+                headers: {
+                  'Authorization': `Bearer ${token}`
+                }
+            });
+        
+              if (response.ok) {
+                setIsJoined(true);
+              } else {
+                console.error('Failed to join event.');
+              }
+            } catch (error) {
+              console.error('Error joining event:', error.response.data);
+            }
+          };
         
           if (!event) {
-            return <div>Loading event details...</div>;
+            return <div>Немного подождите, идёт загрузка мероприятия</div>;
           }
   return (
-    <>
+    <div>
+    {isValid ? (
+      <>
 <Navbar />
 <div className="cardEvent">
 <div className="containerEvent">
@@ -39,7 +63,11 @@ function EventDetail() {
     <h2>{event.eventName}</h2>
     <h6>крч, тут дата и время</h6>
     <p><h5>{event.description}</h5></p>
-    <button>Я согласен!</button>
+    {!isJoined ? (
+                  <button onClick={joinEvent}>Я согласен!</button>
+                ) : (
+                  <p>Вы уже присоединись!</p>
+                )}
     <button>Чат</button>
     <div className='row box-shadow'>
     <h2>тут должны быть фотки участников, но Миша ещё не сделал функционал</h2>
@@ -50,6 +78,10 @@ function EventDetail() {
 
     <Footer />
     </>
+    ) : (
+      <p>{error}</p>
+    )}
+  </div>
   );
 }
 

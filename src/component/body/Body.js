@@ -1,12 +1,15 @@
 import people from "../../img/team_sec_bg.png";
 import "../../css/Body.css"
+import VerifyToken from "./VerifyToken";
 import { jwtDecode } from 'jwt-decode';
 import Popup from "reactjs-popup";
 import LoginPage from "../pages/LoginPage";
 import { Link } from "react-router-dom";
 
+
 const Body = () => { 
 
+    const { isValid, error } = VerifyToken();
 
 const token = localStorage.getItem('token');
 
@@ -24,9 +27,7 @@ if (token) {
 
     return(
         <>
-        <section id="ant-section__ant012_welcome" className="ant-section__ant012_welcome ">
-
-            
+        <section id="ant-section__ant012_welcome" className="ant-section__ant012_welcome "> 
 
                 <div className="overlay-colored color-bg-heading opacity-60"></div>
 
@@ -42,7 +43,7 @@ if (token) {
                                     <div className="description">
                                         <h5>Создай мероприятие<br /> Или присоединись к уже созданному!</h5>
                                     </div>
-                                    {token ? (
+                                    {isValid ? (
                                         <>
                                         <Link className="btn popup-btn xx-large rounded colorful hover-colorful-darken" to="/addevent" title="Создать мероприятие">
                                         Создать мероприятие</Link>

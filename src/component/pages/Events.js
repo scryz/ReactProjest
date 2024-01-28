@@ -4,9 +4,11 @@ import Navbar from "../navbar/Navbar";
 import { Link } from 'react-router-dom';
 import Footer from "../body/Footer";
 import "../../css/Events.css"
+import VerifyToken from "../body/VerifyToken";
 const Events = () => {
 
   const [events, setEvents] = useState([]);
+  const { isValid, error } = VerifyToken();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,9 +39,10 @@ const Events = () => {
 
 
     return (
-      <>
+      <div>
+      {isValid ? (
+        <>
       <Navbar />
-
       <div className="container">
         <h1>Мероприятия</h1>
       </div>
@@ -71,6 +74,10 @@ const Events = () => {
       </div>
       <Footer />
       </>
+      ) : (
+        <p>{error}</p>
+      )}
+    </div>
     );
 }
 
