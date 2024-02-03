@@ -31,6 +31,7 @@ const Chat = () => {
 
 
     const [rooms, setRooms] = useState([]);
+    const [name, setName] = useState('');
 
 useEffect(() => {
   const fetchData = async () => {
@@ -49,6 +50,22 @@ useEffect(() => {
 
   fetchData();
 }, []);
+
+const onChatClick = async (id) => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`https://localhost:7293/api/Rooms/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include the auth state as a bearer token
+            },
+          });
+        const data = response.data;
+        setName(data.name);
+        console.log(data.name);
+    } catch (error) {
+        console.error('Error fetching chat details: ', error);
+    }
+}
 
 
 
@@ -84,8 +101,8 @@ useEffect(() => {
         </div>
         <ul class="rooms list-unstyled" id="rooms-list" >
         {rooms.map((rooms, id) => (
-            <li>
-                <a href='#0'>{rooms.name}</a>
+            <li key={id}>
+                <a key={rooms.id} onClick={() => onChatClick(rooms.id)}>{rooms.name}</a>
             </li>
             ))}
         </ul>
@@ -106,7 +123,7 @@ useEffect(() => {
     </div>
     <div class="main-content">
         <div class="header">
-            <h5 id="joinedRoom">Тест чата</h5>
+            <h5 id="joinedRoom">{name}</h5>
             <div class="room-actions">
                 <button type="button" class="btn btn-link text-secondary px-1" onClick={handleShowModalRename}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
