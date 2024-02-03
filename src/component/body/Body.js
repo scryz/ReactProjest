@@ -47,7 +47,7 @@ if (token) {
                                         <>
                                         <Link className="btn popup-btn xx-large rounded colorful hover-colorful-darken" to="/addevent" title="Создать мероприятие">
                                         Создать мероприятие</Link>
-                                        <Link className="btn popup-btn xx-large rounded colorful hover-colorful-darken" to="/events" title="Создать мероприятие">
+                                        <Link className="btn popup-btn xx-large rounded colorful hover-colorful-darken" to="/events" title="Присоединиться">
                                         Присоединиться</Link>
                                         </>
                                         ):

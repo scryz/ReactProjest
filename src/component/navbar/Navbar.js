@@ -28,6 +28,7 @@ const { isValid, error } = VerifyToken();
                       {isValid ? ( <>
                         <li><Link to="/events">Мероприятия</Link></li>
                         <li><Link to="/addevent">Создать мероприятие</Link></li>
+                        <li><Link to="/chat">Сообщения</Link></li>
                         <li><Link to="/profile">Профиль</Link></li>
                       </>):
                       (<>

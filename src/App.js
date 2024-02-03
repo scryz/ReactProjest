@@ -6,6 +6,7 @@ import Profile from './component/pages/Profile';
 import Events from './component/pages/Events';
 import EventDetail from './component/pages/EventDetail';
 import AddEvent from './component/pages/AddEvent';
+import Chat from './component/pages/Chat';
 
 function App() { 
 
@@ -20,6 +21,7 @@ function App() {
             <Route path='/events' element={<Events/>}/>
             <Route path='/event/:id' element={<EventDetail/>}/>
             <Route path='/addevent' element={<AddEvent/>}/>
+            <Route path='/chat' element={<Chat/>}/>
           </Routes>
       </Router>
         
