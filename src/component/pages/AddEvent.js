@@ -40,11 +40,13 @@ const AddEvent = () => {
       <Navbar />
       <div className="container">
         <h2>Добавление мероприятий</h2>
+        <div className="text-align">
           <label htmlFor="name"><h5>Придумайте название:</h5></label>
           <input className="inputName" placeholder="Например: Пойдёмте гулять?" type="text" id="name" name="nameEvent"  value={EventName} onChange={(e) => setEventName(e.target.value)} />
 
           <label htmlFor="description"><h5>Напишите подробное описание:</h5></label>
           <textarea rows="5" name="description" placeholder="Например: Завтра собираюсь прогуляться по парку, кто составит компанию?" value={Description} onChange={(e) => setDescription(e.target.value)} required/>
+          </div>
 
           <h6>{errorMessage && <p>{errorMessage}</p>}</h6>
 

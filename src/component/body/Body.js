@@ -1,15 +1,19 @@
+import { useState } from "react";
 import people from "../../img/team_sec_bg.png";
 import "../../css/Body.css"
 import VerifyToken from "./VerifyToken";
 import { jwtDecode } from 'jwt-decode';
-import Popup from "reactjs-popup";
-import LoginPage from "../pages/LoginPage";
+import {LoginPage} from "../pages/LoginPage";
 import { Link } from "react-router-dom";
+
 
 
 const Body = () => { 
 
     const { isValid, error } = VerifyToken();
+    const [showModalLogReg, setShowModalLogReg] = useState(false);
+const handleShowModalLogReg = () => setShowModalLogReg(true);
+const handleCloseModalLogReg = () => setShowModalLogReg(false);
 
 const token = localStorage.getItem('token');
 
@@ -52,14 +56,11 @@ if (token) {
                                         </>
                                         ):
                                         (
-                                        <Popup trigger = {<a className="btn popup-btn xx-large rounded colorful hover-colorful-darken" href="#0" title="Авторизоваться">
-                                        Авторизоваться </a>} modal nested>
-                                            {
-                                                close => (
-                                                    <LoginPage></LoginPage>
-                                                )
-                                            }
-                                        </Popup>)
+                                            <>
+                                            <button className="btn popup-btn xx-large rounded colorful hover-colorful-darken" onClick={handleShowModalLogReg}>
+                                                Авторизация</button>
+                                            <LoginPage showModalLogReg={showModalLogReg} closeModalLogReg={handleCloseModalLogReg} />
+                                            </>)
                                     }
                                 </div>
                             </div>

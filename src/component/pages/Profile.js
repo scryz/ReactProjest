@@ -1,4 +1,6 @@
 import Navbar from "../navbar/Navbar";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 import "../../css/Profile.css"
 import Footer from "../body/Footer";
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +9,49 @@ import VerifyToken from "../body/VerifyToken";
 
 const Profile = () => {
   const { isValid, error } = VerifyToken();
+  const [user, setUser] = useState('');
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [avatar, setAvatar] = useState('');
+
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get("https://localhost:7293/GetMyProfile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        });
+        setUser(response.data);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  const UserProfile = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post(`https://localhost:7293/UpdateProfile?Name=${name}&Age=${age}&Avatar=${avatar}`, {
+      name: user.name,
+      age: user.age,
+      avatar: user.avatar
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      console.log('User profile posted successfully:', response.data);
+    } catch (error) {
+      console.error('Error posting user profile:', error.response.data);
+    }
+  };
+
+
 
   const navigate = useNavigate();
 
@@ -29,10 +74,10 @@ const Profile = () => {
           <div className="account-settings">
             <div className="user-profile">
               <div className="user-avatar">
-                <img src="https://sun9-73.userapi.com/impg/srebFlAsSh-u-SfRBT6XdzgO1wY1MDUf1HwPTA/JkC6qjqVWow.jpg?size=340x604&quality=96&sign=74c6af4f1495d8960e59be794964cec4&c_uniq_tag=psh9bmfxdj-UGZogBYZfuINSc88AwrFK_DLKiBeQEO4&type=album" alt="Пользователь" />
+                <img src={user.avatar} alt="Пользователь" />
               </div>
-              <h5 className="user-name">Иван Пупкин</h5>
-              <h6 className="user-email">Ivan@bk.ru</h6>
+              <h5 className="user-name">{user.name}</h5>
+              <h6 className="user-email">{user.userName}</h6>
             </div>
             <div className="about">
               <h5>Обо мне:</h5>
@@ -53,38 +98,44 @@ const Profile = () => {
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label htmlFor="fullName">Имя</label>
-                <input type="text" className="form-control" id="fullName" placeholder="Введите Имя" />
+                <label htmlFor="fullName">Имя:</label>
+                <input type="text" className="form-control" id="fullName" placeholder={user.name} value={name} onChange={(e) => setName(e.target.value)} />
               </div>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label htmlFor="fullName">Ник</label>
-                <input type="text" className="form-control" id="fullName" placeholder="Введите ник-нейм" />
+                <label htmlFor="fullName">Ник:</label>
+                <input type="text" className="form-control" id="fullName" placeholder={user.userName} />
               </div>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label htmlFor="fullName">Возраст</label>
-                <input type="text" className="form-control" id="fullName" placeholder="Введите возраст" />
+                <label htmlFor="fullName">Возраст:</label>
+                <input type="text" className="form-control" id="fullName" placeholder={user.age} value={age} onChange={(e) => setAge(e.target.value)} />
               </div>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label htmlFor="eMail">Email</label>
+                <label htmlFor="eMail">Email:</label>
                 <input type="email" className="form-control" id="eMail" placeholder="Введите E-mail" />
               </div>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label htmlFor="phone">Номер телефона</label>
+                <label htmlFor="phone">Номер телефона:</label>
                 <input type="text" className="form-control" id="phone" placeholder="Введите номер телефона" />
               </div>
             </div>
             <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
               <div className="form-group">
-                <label htmlFor="website">Город</label>
+                <label htmlFor="website">Город:</label>
                 <input type="text" className="form-control" id="cite" placeholder="Введите город" />
+              </div>
+            </div>
+            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+              <div className="form-group">
+                <label htmlFor="website">Фото:</label>
+                <input type="text" className="form-control" id="cite" placeholder={user.avatar} value={avatar} onChange={(e) => setAvatar(e.target.value)} />
               </div>
             </div>
           </div>
@@ -92,7 +143,7 @@ const Profile = () => {
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <div className="text-right">
                 
-                <button type="button" id="submit" name="submit" >Сохранить данные</button>
+                <button type="button" id="submit" name="submit" onClick={UserProfile}>Сохранить данные</button>
                 <button  onClick={handleLogout}>Выйти</button>
               </div>
             </div>

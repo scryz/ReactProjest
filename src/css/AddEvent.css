@@ -5,24 +5,30 @@ h2 {
     display: block;
     font-size: 11px;
     padding: 4px 2px;
-    border: solid 2px #b0b0b0;
+    border: solid 2px #cfd1d8;
     width: 100%;
     font-size: 18px;
-    margin: 2px 0 20px 10px;
-    background-color: #eee;
+    margin: 2px 0 20px 0px;
+    background-color: #ffffff;
+    border-radius: 2px
 }
 
 textarea {
     display: block;
-    border: solid 2px #b0b0b0;
+    border: solid 2px #cfd1d8;
     width: 100%;
     font-size: 18px;
-    margin: 2px 0 20px 10px;
+    margin: 2px 0 20px 0px;
     max-width: 1500px;
-    background-color: #eee;
+    background-color: #ffffff;
+    border-radius: 2px
 }
 
 .buttonEvent  {
     margin-left: auto;
     display: block;
+}
+
+.text-align {
+    text-align: left;
 }

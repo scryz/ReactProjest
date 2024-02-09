@@ -64,20 +64,18 @@ export const CreateChat = ({ showModalCreate, closeModalCreate }) => {
 };
 
 
-  export const RenameChat = ({ showModalRename, closeModalRename, onRename }) => {
+  export const RenameChat = ({ showModalRename, closeModalRename, id }) => {
     const [newRoomName, setNewRoomName] = useState('');
     const [roomAdmin, setRoomAdmin] = useState('string');
-  
-    const roomId = 1;
   
     const handleChange = (e) => {
       setNewRoomName(e.target.value);
     };
-  
+
     const handleRename = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.put(`https://localhost:7293/api/Rooms/${roomId}`, {
+        const response = await axios.put(`https://localhost:7293/api/Rooms/${id}`, {
           name: newRoomName,
           admin: roomAdmin 
         }, {
@@ -85,9 +83,6 @@ export const CreateChat = ({ showModalCreate, closeModalCreate }) => {
             Authorization: `Bearer ${token}`
           }
         });
-        const updatedRoom = response.data;
-        console.log('Room updated:', updatedRoom);
-        onRename(updatedRoom);
         closeModalRename();
       } catch (error) {
         console.error('Error:', error);
@@ -108,11 +103,21 @@ return(
     </Modal>
 )};
 
-export const DeleteChat = ({ showModalDelete, closeModalDelete, onRemove }) => {
-    const handleRemove = () => {
-      onRemove();
+export const DeleteChat = ({ showModalDelete, closeModalDelete, id }) => {
+
+  const handleRemove = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.delete(`https://localhost:7293/api/Rooms/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       closeModalDelete();
-    };
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
   
     return (
       <Modal show={showModalDelete} onHide={closeModalDelete}>

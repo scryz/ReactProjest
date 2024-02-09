@@ -1,11 +1,14 @@
 import "../../css/Footer.css"
-import Popup from "reactjs-popup";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import LoginPage from "../pages/LoginPage";
+import {LoginPage} from "../pages/LoginPage";
 import VerifyToken from "./VerifyToken";
 
 const Footer = () => {
     const { isValid, error } = VerifyToken();
+    const [showModalLogReg, setShowModalLogReg] = useState(false);
+    const handleShowModalLogReg = () => setShowModalLogReg(true);
+    const handleCloseModalLogReg = () => setShowModalLogReg(false);
 
     return(
 <footer id="ant-section__ant007_footer" className="">
@@ -18,14 +21,11 @@ const Footer = () => {
                 <p>Приложение для поиска компаний по интересам в Вашем городе.</p>
                 {isValid ? (<Link to="/Events" className="btn" title="Мероприятия">Мероприятия</Link>
                 ):(
-                    
-                      <Popup trigger = {<a href='#0' className="btn">Авторизация</a>} modal nested>
-                      {
-                            close => (
-                                <LoginPage></LoginPage>
-                            )
-                        }
-                      </Popup>
+                    <>
+                      <button className = "btn popup-btn xx-large rounded colorful hover-colorful-darken" onClick={handleShowModalLogReg}>
+                      Авторизация</button>
+                  <LoginPage showModalLogReg={showModalLogReg} closeModalLogReg={handleCloseModalLogReg} />
+                  </>
                 )
                 }
             </div>

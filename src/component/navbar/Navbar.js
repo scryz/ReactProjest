@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
-import Popup from "reactjs-popup";
 import "../../css/Navbar.css"
-import LoginPage from '../pages/LoginPage';
+import { LoginPage } from '../pages/LoginPage';
 import VerifyToken from '../body/VerifyToken';
 
 const Navbar = () => {
 
 const { isValid, error } = VerifyToken();
+const [showModalLogReg, setShowModalLogReg] = useState(false);
+const handleShowModalLogReg = () => setShowModalLogReg(true);
+const handleCloseModalLogReg = () => setShowModalLogReg(false);
 
 
  return (
@@ -32,14 +34,13 @@ const { isValid, error } = VerifyToken();
                         <li><Link to="/profile">Профиль</Link></li>
                       </>):
                       (<>
-                      <Popup trigger = {<li className='menu-item'><a href='#0'>Авторизация</a></li>} modal nested>
-                        {
-                            close => (
-                                <LoginPage></LoginPage>
-                            )
-                        }
-                      </Popup>
+                      <li className='menu-item'>
+                        <a href="#0" onClick={handleShowModalLogReg}>Авторизация / Регистрация</a>
+                        <LoginPage showModalLogReg={showModalLogReg} closeModalLogReg={handleCloseModalLogReg} />
+                        </li>  
+                                            
                       </>
+                      
                       )
                     }
                   </ul>
