@@ -22,8 +22,8 @@ const Footer = () => {
                 {isValid ? (<Link to="/Events" className="btn" title="Мероприятия">Мероприятия</Link>
                 ):(
                     <>
-                      <button className = "btn popup-btn xx-large rounded colorful hover-colorful-darken" onClick={handleShowModalLogReg}>
-                      Авторизация</button>
+                      <Link className="btn" onClick={handleShowModalLogReg}>
+                      Авторизация</Link>
                   <LoginPage showModalLogReg={showModalLogReg} closeModalLogReg={handleCloseModalLogReg} />
                   </>
                 )

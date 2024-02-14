@@ -31,6 +31,7 @@ const Chat = () => {
 
 
     const [rooms, setRooms] = useState([]);
+    const [messRoom, setMessRoom] = useState([]);
     const [name, setName] = useState('');
     const [id, setId] = useState(null);
 
@@ -53,6 +54,24 @@ useEffect(() => {
 
   fetchData();
 }, []);
+
+useEffect(() => {
+    const fetchMessRoom = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`https://localhost:7293/api/Messages/Room/${id}`, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+          });
+        setMessRoom(response.data);
+      } catch (error) {
+        console.error('Error fetching events: ', error);
+      }
+    };
+  
+    fetchMessRoom();
+  }, [id]);
 
 const onChatClick = async (id) => {
     setId(id);
@@ -85,9 +104,9 @@ const [content, setContent] = useState('');
         const response = await axios.post('https://localhost:7293/api/Messages', {
           content: content,
           timestamp: new Date(),
-          fromUserName: 'Bob',
-          fromFullName: 'MegaBob221',
-          room: 'Тест 1',
+          fromUserNameId: 'Bob',
+          fromFullName: 'MegaBob222',
+          roomId: id,
           avatar: 'https://w.forfun.com/fetch/5d/5d572d697e41c82ac511549420ebcf44.jpeg?w=1470&r=0.5625'
       }, {
           headers: {
@@ -96,7 +115,6 @@ const [content, setContent] = useState('');
         });
 
         setContent('');
-        console.log(response.data);
       } catch (error) {
         console.error('Error:', error);
       }

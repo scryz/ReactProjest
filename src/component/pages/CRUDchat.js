@@ -40,6 +40,7 @@ export const CreateChat = ({ showModalCreate, closeModalCreate }) => {
     <div>
       {isValid ? (
         <Modal className="create-room-modal" show={showModalCreate} onHide={closeModalCreate}>
+          <div>
           <Modal.Header>
             <Modal.Title>Создать чат</Modal.Title>
           </Modal.Header>
@@ -55,9 +56,10 @@ export const CreateChat = ({ showModalCreate, closeModalCreate }) => {
               Создать
             </Button>
           </Modal.Footer>
+          </div>
         </Modal>
       ) : (
-        <p>{error}</p>
+        <p>{err}</p>
       )}
     </div>
   );

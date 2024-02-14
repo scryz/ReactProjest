@@ -57,6 +57,7 @@ if (token) {
                                         ):
                                         (
                                             <>
+                                            
                                             <button className="btn popup-btn xx-large rounded colorful hover-colorful-darken" onClick={handleShowModalLogReg}>
                                                 Авторизация</button>
                                             <LoginPage showModalLogReg={showModalLogReg} closeModalLogReg={handleCloseModalLogReg} />

@@ -15,6 +15,8 @@ const Profile = () => {
   const [avatar, setAvatar] = useState('');
 
 
+
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -45,6 +47,7 @@ const Profile = () => {
           Authorization: `Bearer ${token}`,
         }
       });
+      
       console.log('User profile posted successfully:', response.data);
     } catch (error) {
       console.error('Error posting user profile:', error.response.data);
@@ -145,6 +148,17 @@ const Profile = () => {
                 
                 <button type="button" id="submit" name="submit" onClick={UserProfile}>Сохранить данные</button>
                 <button  onClick={handleLogout}>Выйти</button>
+              </div>
+            </div>
+          </div>
+          <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+      <div className="card h-100">
+        <div className="card-body">
+          <div className="row gutters">
+            <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <h4 className="mb-2 text-primary">Мои мероприятия</h4>
+            </div>
+            </div>
               </div>
             </div>
           </div>
