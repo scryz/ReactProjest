@@ -12,7 +12,7 @@ function EventDetail() {
     const { id } = useParams();
     const [event, setEvent] = useState(null);
     const [isJoined, setIsJoined] = useState(false);
-    const [participants, setParticipants] = useState('');
+    const [participants, setParticipants] = useState([]);
     const { isValid, error } = VerifyToken();
     const [ err, setErrorMessage] = useState('');
 
@@ -90,7 +90,10 @@ function EventDetail() {
                 )}
           <Link className="btnh" to="/chat">Чат</Link>
     <div className='row box-shadow'>
-    <h2>{participants.name}</h2>
+    {participants.map((participant, index) => (
+    
+  <li key={index}>{participant.name}</li>
+))}
     </div>
   </div>
   </div>

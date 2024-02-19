@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import "../../css/Char.css";
 import Navbar from '../navbar/Navbar';
 import Footer from '../body/Footer';
 import axios from 'axios';
+import socketIOClient from "socket.io-client";
 import { Link } from 'react-router-dom';
 import { RenameChat } from './CRUDchat';
 import { CreateChat } from './CRUDchat';
 import { DeleteChat } from './CRUDchat';
 import { DeleteMessage } from './CRUDchat';
+
 
 
 
@@ -30,12 +32,21 @@ const Chat = () => {
     const handleCloseModalDeleteMessage = () => setShowModalDeleteMessage(false);
 
 
-    const [rooms, setRooms] = useState([]);
-    const [messRoom, setMessRoom] = useState([]);
+    const [room, setRooms] = useState([]);
+    
+
     const [name, setName] = useState('');
     const [id, setId] = useState(null);
+    const [idMess, setIdMess] = useState(null);
 
-    
+    const [messRoom, setMessRoom] = useState([]);
+    const socketRef = socketIOClient("http://localhost:3000");
+    const [isFetched, setIsFetched] = useState(false);
+
+    const formatDate = (date) => {
+        const formattedDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+        return formattedDate;
+      };
 
 useEffect(() => {
   const fetchData = async () => {
@@ -52,26 +63,29 @@ useEffect(() => {
     }
   };
 
-  fetchData();
+fetchData();
 }, []);
+
 
 useEffect(() => {
     const fetchMessRoom = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`https://localhost:7293/api/Messages/Room/${id}`, {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(`https://localhost:7293/api/Messages/Room/${id}?RoomId=${id}`,
+          {
             headers: {
-              Authorization: `Bearer ${token}`
+              Authorization: `Bearer ${token}`,
             },
-          });
+          }
+        );
         setMessRoom(response.data);
       } catch (error) {
-        console.error('Error fetching events: ', error);
+        console.error("Error fetching events: ", error);
       }
     };
-  
+
     fetchMessRoom();
-  }, [id]);
+}, [id]);
 
 const onChatClick = async (id) => {
     setId(id);
@@ -84,6 +98,24 @@ const onChatClick = async (id) => {
           });
         const data = response.data;
         setName(data.name);
+        
+        console.log(data.name);
+    } catch (error) {
+        console.error('Error fetching chat details: ', error);
+    }
+}
+
+const onMessClick = async (idMess) => {
+    setIdMess(id);
+    try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`https://localhost:7293/api/Messages/${idMess}`, {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include the auth state as a bearer token
+            },
+          });
+        const data = response.data;
+        setIdMess();
         
         console.log(data.name);
     } catch (error) {
@@ -151,10 +183,10 @@ const [content, setContent] = useState('');
                 </a>
             </div>
         </div>
-        <ul className="rooms list-unstyled" id="rooms-list" >
-        {rooms.map((rooms, id) => (
+        <ul className="rooms list-unstyled" >
+        {room.map((room, id) => (
             <li key={id}>
-                <Link onClick={() => onChatClick(rooms.id)} >{rooms.name}</Link>
+                <Link onClick={() => onChatClick(room.id)} >{room.name}</Link>
             </li>
             ))}
         </ul>
@@ -174,35 +206,37 @@ const [content, setContent] = useState('');
             </div>
         </div>
         <div className="messages-container position-relative">
-            <div className="no-messages-info" /*проверка на наличие сообщений*/>Напиши первое сообщение!</div>
-            <ul className="list-unstyled" id="messages-list">
+            <div className="no-messages-info" /*проверка на наличие сообщений*/></div>
+            
+            <ul className="list-unstyled">
+    {messRoom.map((message, idMess) => (
+            <li key={idMess}>
+                
                 <li>
                     <div className="message-item">
                         <span className="avatar avatar-lg mx-2 text-uppercase">А</span>
                         
                         <div className="message-content">
-                            <div className="message-info d-flex flex-wrap align-items-center">
-                                <span className="author" data-bind="text: fromFullName">Александр</span>
-                                <span className="timestamp">12:30</span>
+                                <div className="message-info d-flex flex-wrap align-items-center">
+                                <span className="author">{message.fromFullName}</span>
+                                <span className="timestamp">{formatDate(new Date(message.timestamp))}</span>
                             </div>
-                            <div className="content" data-bind="html: content">Blazor - говно!</div>
+                            <div className="content">{message.content}</div>
                         </div>
                         <div className="actions">
                             <div className="dropdown dropstart">
                                 <a className="text-secondary" role="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={handleShowModalDeleteMessage}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                 </a>
-                                <DeleteMessage showModalDeleteMessage={showModalDeleteMessage} closeModalDeleteMessage={handleCloseModalDeleteMessage} />
-                                <ul className="dropdown-menu">
-                                    <li>
-                                        <a className="dropdown-item" href="#">Delete</a>
-                                    </li>
-                                </ul>
+                                <DeleteMessage showModalDeleteMessage={showModalDeleteMessage} closeModalDeleteMessage={handleCloseModalDeleteMessage} idMess={idMess} onClick={() => onMessClick(message.idMess)}/>
                             </div>
                         </div>
                     </div>
                 </li>
+            </li>
+            ))}
             </ul>
+
         </div>
         <div className="message-input-container">
             <input id="message-input" type="text" maxLength="500" placeholder="Напишите сообщение..." value={content} onChange={(e) => setContent(e.target.value)} />

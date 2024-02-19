@@ -137,10 +137,19 @@ export const DeleteChat = ({ showModalDelete, closeModalDelete, id }) => {
     );
   };
 
-  export const DeleteMessage = ({ showModalDeleteMessage, closeModalDeleteMessage, onRemoveMessage, itemToDelete }) => {
-    const handleRemove = () => {
-      onRemoveMessage(itemToDelete);
-      closeModalDeleteMessage();
+  export const DeleteMessage = ({ showModalDeleteMessage, closeModalDeleteMessage, onRemoveMessage, itemToDelete, idMess}) => {
+    const handleRemove = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.delete(`https://localhost:7293/api/Messages/${idMess}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        closeModalDeleteMessage();
+      } catch (error) {
+        console.error('Error:', error);
+      }
     };
   
     return (
@@ -150,7 +159,6 @@ export const DeleteChat = ({ showModalDelete, closeModalDelete, id }) => {
         </Modal.Header>
         <Modal.Body>
           <p className="mb-0">Вы действительно хотите удалить это сообщение?</p>
-          <input type="hidden" className="form-control" value={itemToDelete} readOnly />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalDeleteMessage}>Закрыть</Button>

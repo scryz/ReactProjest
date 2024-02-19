@@ -12,7 +12,8 @@ const Profile = () => {
   const [user, setUser] = useState('');
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
-  const [avatar, setAvatar] = useState('');
+  const [avatar, setAvatar] = useState();
+
 
 
 
@@ -34,6 +35,23 @@ const Profile = () => {
 
     fetchUser();
   }, []);
+
+  useEffect(() => {
+    const fetchAvatar = async () => {
+      try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get("https://localhost:7293/api/TestImage/GetImage", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setAvatar(response.data)
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+  fetchAvatar();
+  });
 
   const UserProfile = async () => {
     try {
@@ -77,7 +95,8 @@ const Profile = () => {
           <div className="account-settings">
             <div className="user-profile">
               <div className="user-avatar">
-                <img src={user.avatar} alt="Пользователь" />
+                <img src={avatar} alt="Пользователь" />
+                <input type="file" id="UploadedFile" name="File" accept=".jpg,.jpeg,.png" data-bind="event: {change: uploadFiles}"/>
               </div>
               <h5 className="user-name">{user.name}</h5>
               <h6 className="user-email">{user.userName}</h6>
@@ -135,12 +154,7 @@ const Profile = () => {
                 <input type="text" className="form-control" id="cite" placeholder="Введите город" />
               </div>
             </div>
-            <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div className="form-group">
-                <label htmlFor="website">Фото:</label>
-                <input type="text" className="form-control" id="cite" placeholder={user.avatar} value={avatar} onChange={(e) => setAvatar(e.target.value)} />
-              </div>
-            </div>
+    
           </div>
           <div className="row gutters">
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

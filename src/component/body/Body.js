@@ -31,9 +31,8 @@ if (token) {
 
     return(
         <>
-        <section id="ant-section__ant012_welcome" className="ant-section__ant012_welcome "> 
+        <article className="ant-section__ant012_welcome "> 
 
-                <div className="overlay-colored color-bg-heading opacity-60"></div>
 
                 <div className="slide-content">
 
@@ -68,7 +67,7 @@ if (token) {
                         </div>
                     </div>
                 </div>
-        </section>
+        </article>
 
 <section className="ant-section__ant047_text_0">
 <div className="container">
