@@ -13,11 +13,9 @@ const AddEvent = () => {
 
   const handleSubmit = async (e) => {
 
-    const url = "https://localhost:7293/AddEvent?EventName="+EventName+"&Description="+Description;
-
     try {
     const token = localStorage.getItem('token');
-    const response = await axios.post(url, {
+    const response = await axios.post(`https://localhost:7293/AddEvent?EventName=${EventName}&Description=${Description}`, {
     }, {
       headers: {
         Authorization: `Bearer ${token}`

@@ -137,6 +137,16 @@
 	}
 	}
 
+	::-webkit-scrollbar {
+		background-color: white;
+		width: 6px;
+		height: 6px;
+	}
+	::-webkit-scrollbar-thumb {
+		background-color: #3136b3;
+		border-radius: 5px;
+	}
+
 .ant-section__ant012_welcome .btn.rounded {
 	border-radius: 999px;
 }
