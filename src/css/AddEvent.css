@@ -26,7 +26,13 @@ textarea {
 
 .buttonEvent  {
     margin-left: auto;
+}
+
+@media screen and (min-width: 490px) {
+.buttonEvent  {
+    margin-left: auto;
     display: block;
+}
 }
 
 .text-align {

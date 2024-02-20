@@ -4,11 +4,11 @@
 }
 
 .ant-section__ant012_welcome .banner-center-box {
-	padding: 120px 0;
+	padding: 80px 0;
 	max-height: 100%;
 	max-width: 100%;
 	width: 100%;
-	text-align: center;
+	text-align: center;  
 }
 
 .ant-section__ant012_welcome .banner-center-box.text-white h1 {
@@ -121,11 +121,21 @@
 	border-color: #fff;
 }
 
+
 .ant-section__ant012_welcome .btn.xx-large {
-	padding: 12px 55px;
-	font-size: 24px;
+	padding: 12px 25px;
+	font-size: 18px;
 	border-width: 3px;
 }
+
+
+@media screen and (min-width: 490px) {
+	.ant-section__ant012_welcome .btn.xx-large {
+		padding: 12px 55px;
+		font-size: 24px;
+		border-width: 3px;
+	}
+	}
 
 .ant-section__ant012_welcome .btn.rounded {
 	border-radius: 999px;

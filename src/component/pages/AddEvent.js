@@ -39,7 +39,7 @@ const AddEvent = () => {
       <>
       <Navbar />
       <div className="container">
-        <h2>Добавление мероприятий</h2>
+        <h2>Добавление мероприятия</h2>
         <div className="text-align">
           <label htmlFor="name"><h5>Придумайте название:</h5></label>
           <input className="inputName" placeholder="Например: Пойдёмте гулять?" type="text" id="name" name="nameEvent"  value={EventName} onChange={(e) => setEventName(e.target.value)} />

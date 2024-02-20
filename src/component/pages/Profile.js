@@ -158,7 +158,7 @@ const Profile = () => {
           </div>
           <div className="row gutters">
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <div className="text-right">
+              <div>
                 
                 <button type="button" id="submit" name="submit" onClick={UserProfile}>Сохранить данные</button>
                 <button  onClick={handleLogout}>Выйти</button>
