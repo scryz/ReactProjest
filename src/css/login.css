@@ -355,5 +355,45 @@ input {
 	.container_log.right-panel-active .overlay-right {
 		transform: translateY(20%);
 	}
+
+	.close_btn{
+		position: absolute;
+		display: inline-block;
+		width: 25px;
+		height: 50px;
+		overflow: hidden;
+		right: 0;
+		top: 0;
+		margin-right: 5px;
+		&:hover {
+		  &::before, &::after {
+			background: blue;
+		  }
+		}
+	  
+		&::before, &::after {
+		  content: '';
+		  position: absolute;
+		  height: 2px;
+		  width: 100%;
+		  top: 50%;
+		  left: 0;
+		  margin-top: -9px;
+		  background: #000;
+		}
+		&::before {
+		  transform: rotate(45deg);
+		}
+		&::after {
+		  transform: rotate(-45deg);
+		}
+		&.heavy {
+			&::before &::after {
+			  height: 12px;
+			  margin-top: -6px;
+			}
+		  }
+		}
 }
+
 

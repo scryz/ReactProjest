@@ -33,7 +33,7 @@ const handleCloseModalLogReg = () => setShowModalLogReg(false);
     <section className="navigation">
     <div className="nav-container">
       <div className="brand">
-        <a href="/">GetToGether</a>
+        <a href="/">MeetMaker</a>
       </div>
               
               <nav>

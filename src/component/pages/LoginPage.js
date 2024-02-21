@@ -107,7 +107,7 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
       <div className="form-container_log sign-up-container_log">
         <form onSubmit={handleSubmitReg}>
           <h1>Создать аккаунт</h1>
-          <input type="text" name="userName" placeholder="Ник" value={userName} onChange={(e) => setUserName(e.target.value)} />
+          <input type="text" name="userName" placeholder="Ник" value={userName} onChange={(e) => setUserName(e.target.value)} autoFocus/>
           <input type="text" name="name" placeholder="Имя" value={name} onChange={(e) => setName(e.target.value)} />
           <input type="number" name="age" placeholder="Возраст" value={age} onChange={(e) => setAge(e.target.value)} />
           <input type="password" name="name" placeholder="Пароль" value={password} onChange={(e) => setPassword(e.target.value)} />
@@ -116,9 +116,10 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
         </form>
       </div>
       <div className="form-container_log sign-in-container_log">
+      <span class="close_btn heavy" onClick={closeModalLogReg}></span>
         <form onSubmit={handleSubmitLogin}>
           <h1>Авторизоваться</h1>
-          <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Ник" />
+          <input type="text"  value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Ник" autoFocus/>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
           <a href="#0">Забыли пароль?</a>
           {errorMessage && <p>{errorMessage}</p>}
@@ -128,6 +129,7 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
       <div className="overlay-container_log">
         <div className="overlay">
           <div className="overlay-panel overlay-left">
+          <span class="close_btn heavy" onClick={closeModalLogReg}></span>
             <h1>Добро пожаловать!</h1>
             <p>Уже есть аккаунт? Тогда жми кнопку ниже!</p>
             <button ref={signInButtonRef} onClick={handleSignInClick}>Войти</button>

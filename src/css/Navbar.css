@@ -1,7 +1,10 @@
 
 .navigation {
-  height: 70px;
-  background: #3136b3;
+    height: 70px;
+    background: #3136b3;
+    position: sticky;
+    z-index: 100;
+    top: 0;
 }
 
 .brand {
