@@ -11,7 +11,7 @@ const Footer = () => {
     const handleCloseModalLogReg = () => setShowModalLogReg(false);
 
     return(
-<footer id="ant-section__ant007_footer" className="">
+<footer id="ant-section__ant007_footer">
 
 <div className="container">
     <div className="row">

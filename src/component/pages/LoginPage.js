@@ -116,7 +116,7 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
         </form>
       </div>
       <div className="form-container_log sign-in-container_log">
-      <span class="close_btn heavy" onClick={closeModalLogReg}></span>
+      <span className="close_btn heavy" onClick={closeModalLogReg}></span>
         <form onSubmit={handleSubmitLogin}>
           <h1>Авторизоваться</h1>
           <input type="text"  value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Ник" autoFocus/>
@@ -129,7 +129,7 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
       <div className="overlay-container_log">
         <div className="overlay">
           <div className="overlay-panel overlay-left">
-          <span class="close_btn heavy" onClick={closeModalLogReg}></span>
+          <span className="close_btn heavy" onClick={closeModalLogReg}></span>
             <h1>Добро пожаловать!</h1>
             <p>Уже есть аккаунт? Тогда жми кнопку ниже!</p>
             <button ref={signInButtonRef} onClick={handleSignInClick}>Войти</button>
