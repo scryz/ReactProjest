@@ -35,7 +35,6 @@ const handleCloseModalLogReg = () => setShowModalLogReg(false);
       <div className="brand">
         <a href="/">MeetMaker</a>
       </div>
-              
               <nav>
               <div className="nav-mobile"><a id="nav-toggle"><span></span></a></div>
                   <ul className="nav-list">
