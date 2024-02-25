@@ -6,14 +6,12 @@ import VerifyToken from '../body/VerifyToken';
 import jQuery from 'jquery';
 
 const Navbar = () => {
-
-    (function($) { // Begin jQuery
-        $(function() { // DOM ready
-          // Toggle open and close nav styles on click
+  // менюшка для мобильных телефонов
+    (function($) {
+        $(function() { 
           $('#nav-toggle').off('click').on('click', function() {
             $('nav ul').slideToggle();
           });
-          // Hamburger to X toggle
           $('#nav-toggle').on('click', function() {
             this.classList.toggle('active');
           });
@@ -21,7 +19,7 @@ const Navbar = () => {
       })(jQuery);
 
 
-//поках регистрации и авторизации
+//показ регистрации и авторизации
 const { isValid, error } = VerifyToken();
 const [showModalLogReg, setShowModalLogReg] = useState(false);
 const handleShowModalLogReg = () => setShowModalLogReg(true);
@@ -42,12 +40,16 @@ const handleCloseModalLogReg = () => setShowModalLogReg(false);
                       {isValid ? ( <>
                         <li><Link to="/events">Мероприятия</Link></li>
                         <li><Link to="/addevent">Создать мероприятие</Link></li>
+                        <li><Link to="/map">Карта</Link></li>
                         <li><Link to="/chat">Сообщения</Link></li>
                         <li><Link to="/profile">Профиль</Link></li>
                       </>):
                       (<>
+                      <li><Link to="/events">Мероприятия</Link></li>
+                      <li><Link to="/map">Карта</Link></li>
                       <li>
-                        <a href="#0" onClick={handleShowModalLogReg}>Авторизация / Регистрация</a>
+                        <a href="#0" onClick={(event) => {event.preventDefault(); handleShowModalLogReg();}}>
+                          Авторизация / Регистрация</a>
                         <LoginPage showModalLogReg={showModalLogReg} closeModalLogReg={handleCloseModalLogReg} />
                         </li>  
                                             

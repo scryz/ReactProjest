@@ -1,10 +1,9 @@
-
 .navigation {
-    height: 70px;
-    background: #3136b3;
-    position: sticky;
-    z-index: 100;
-    top: 0;
+  height: 70px;
+  background: #3136b3;
+  position: sticky;
+  z-index: 100;
+  top: 0;
 }
 
 .brand {
@@ -13,62 +12,62 @@
   float: left;
   line-height: 70px;
   font-size: 1.4em;
-  size: 3rem;
-  text-decoration: none;
   font-weight: bold;
-  a,
-  a:visited {
-    color: #ffffff;
-    font-size: 2rem;
-    text-decoration: none;
-  }
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.brand a,
+.brand a:visited {
+  color: #ffffff;
+  font-size: 2rem;
+  text-decoration: none;
 }
 
 .nav-container {
-  max-width: 1000px;
-  margin: 0 auto;
+max-width: 1000px;
+margin: 0 auto;
 }
 
 
 nav {
   float: right;
-  ul {
+}
+nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    li {
+}
+nav ul li {
       float: left;
       position: relative;
-      a {
+}
+nav ul li a {
         display: block;
         line-height: 70px;
         padding: 0 20px;
         font-size: 1rem;
-        background: #3136b3;
         color: #ffffff;
         text-decoration: none;
-        margin: auto;
-        hover {
+}
+nav ul li a:hover {
           color: #ffffff;
         }
-        :not(:only-child):after {
+        nav ul li a:not(:only-child):after {
           padding-left: 4px;
           content: ' ▾';
         }
-      } 
-      ul li {
-        min-width: 190px;
-        a {
-          padding: 15px;
-          line-height: 20px;
-        }
+      nav ul li {
+        min-width: 95px;
       }
-    }
-  }
-}
+      nav ul li a {
+          padding: 15px;
+          line-height: 10px;
+        }
+
 
 a:hover {
-    color:#ffffff;
+  color:#ffffff;
 }
 
 
@@ -76,81 +75,97 @@ a:hover {
 /* Mobile navigation */
 
 .nav-mobile {
-  display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: #3136b3;
-  height: 70px;
-  width: 70px;
+display: none;
+position: absolute;
+top: 0;
+right: 0;
+background: #3136b3;
+height: 70px;
+width: 70px;
 }
-@media only screen and (max-width: 798px) {
+@media screen and (max-width: 780px) {
   .nav-mobile {
     display: block;
   }
   nav {
-   width: 100%;
-    padding: 70px 0 5px;
-    background: #3136b3;
-    ul {
-      display: none;
-      li {
-        float: none;
-        a {
-          padding: 15px;
-          line-height: 20px;
-        }
-        ul li a {
-          padding-left: 30px;
-        }
-      }
-    }
+      width: 100%;
+      padding: 70px 0 5px;
+      background: #3136b3;
   }
+     nav ul {
+        display: none;
+     }
+     nav ul li {
+          float: none;
+     }
+     nav ul li a {
+            padding: 15px;
+            line-height: 20px;
+     }
+     nav ul li a {
+              padding-left: 30px;
+            }
+          }
+
   .nav-dropdown {
     position: static;
   }
-}
-@media screen and (min-width: 799px) {
+
+@media screen and (min-width: 780px) {
   .nav-list {
     display: block !important;
   }
 }
+
 #nav-toggle {
-  position: absolute;
-  left: 18px;
-  top: 22px;
-  cursor: pointer;
-  span,
-  span:before,
-  span:after {
-    cursor: pointer;
-    border-radius: 1px;
-    height: 5px;
-    width: 35px;
-    background: #ffffff;
-    position: absolute;
-    display: block;
-    content: '';
-    transition: all 300ms ease-in-out;
-  }
-  span:before {
-    top: -10px;
-  }
-  span:after {
-    bottom: -10px;
-  }
-  .active span {
-    background-color: transparent;
-    :before,
-    :after {
-      top: 0;
-    }
-    :before {
-      transform: rotate(45deg);
-    }
-    :after {
-      transform: rotate(-45deg);
-    }
-  }
+position: absolute;
+left: 18px;
+top: 22px;
+cursor: pointer;
 }
-  
+
+#nav-toggle span {
+cursor: pointer;
+border-radius: 1px;
+height: 5px;
+width: 35px;
+background: #ffffff;
+position: absolute;
+display: block;
+transition: all 300ms ease-in-out;
+}
+
+#nav-toggle span:before,
+#nav-toggle span:after {
+cursor: pointer;
+border-radius: 1px;
+height: 5px;
+width: 35px;
+background: #ffffff;
+position: absolute;
+display: block;
+content: '';
+transition: all 300ms ease-in-out;
+}
+
+#nav-toggle span:before {
+top: -10px;
+}
+
+#nav-toggle span:after {
+bottom: -10px;
+}
+
+#nav-toggle.active span {
+background-color: transparent;
+}
+
+#nav-toggle.active span:before {
+top: 0;
+transform: rotate(45deg);
+}
+
+#nav-toggle.active span:after {
+bottom: 0;
+transform: rotate(-45deg);
+}

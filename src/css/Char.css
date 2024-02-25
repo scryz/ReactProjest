@@ -99,6 +99,7 @@
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #eee;
+    min-width: 310px;
   }
   .main-content .header h5 {
     margin: 0;
@@ -254,9 +255,6 @@
     font-size: 18px;
   }
   
-  #users-list {
-    overflow-y: auto;
-  }
   #users-list li {
     padding: 7px 10px;
   }
@@ -481,10 +479,12 @@
   }
   .app .main-content {
     flex-grow: 1;
+    min-inline-size: max-content;
   }
   .app .users-container {
     width: 250px;
     min-width: 250px;
+    overflow: auto;
   }
   
   #expand-users-list,
@@ -505,9 +505,9 @@
   @media screen and (max-width: 575.98px) {
     .app .sidebar,
   .app .users-container {
-      position: fixed;
+      position: absolute;
       width: 100%;
-      z-index: 1000;
+      z-index: 99;
       overflow: hidden;
     }
     .app .sidebar {

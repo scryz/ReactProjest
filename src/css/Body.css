@@ -1,6 +1,5 @@
 .ant-section__ant012_welcome {
 	position: relative;
-	overflow: hidden;
 }
 
 .ant-section__ant012_welcome .banner-center-box {
@@ -412,18 +411,3 @@ article {
 	padding: 10px;
 	background: #3136b3;
   }
-
-  #toTop {
-	position:fixed;
-	z-index:9999;
-	bottom: -10px;
-	right:5px;
-	background: url('../img/pngwing.com_1.png') no-repeat;
-	width: 64px;
-	height: 64px;
-	border: none;
-	padding: 5px;
-	cursor: pointer;
-	color: transparent;
-	text-decoration: none;
-   }

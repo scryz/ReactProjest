@@ -20,6 +20,7 @@ const Chat = () => {
     const [showModalRename, setShowModalRename] = useState(false);
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [showModalDeleteMessage, setShowModalDeleteMessage] = useState(false);
+    const [showEmojis, setShowEmojis] = useState(false);
 
     const handleShowModalCreate = () => setShowModalCreate(true);
     const handleShowModalRename = () => setShowModalRename(true);
@@ -40,7 +41,7 @@ const Chat = () => {
     const [idMess, setIdMess] = useState(null);
 
     const [messRoom, setMessRoom] = useState([]);
-    const socketRef = socketIOClient("http://localhost:3000");
+    const socketRef = socketIOClient("http://get-together.ru");
     const [isFetched, setIsFetched] = useState(false);
 
     const formatDate = (date) => {
@@ -52,7 +53,7 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('https://localhost:7293/api/Rooms', {
+      const response = await axios.get('http://95.163.241.39:5000/api/Rooms', {
           headers: {
             Authorization: `Bearer ${token}`
           },
@@ -71,7 +72,7 @@ useEffect(() => {
     const fetchMessRoom = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`https://localhost:7293/api/Messages/Room/${id}?RoomId=${id}`,
+        const response = await axios.get(`http://95.163.241.39:5000/api/Messages/Room/${id}?RoomId=${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -91,7 +92,7 @@ const onChatClick = async (id) => {
     setId(id);
     try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`https://localhost:7293/api/Rooms/${id}`, {
+        const response = await axios.get(`http://95.163.241.39:5000/api/Rooms/${id}`, {
             headers: {
               Authorization: `Bearer ${token}`, // Include the auth state as a bearer token
             },
@@ -109,7 +110,7 @@ const onMessClick = async (idMess) => {
     setIdMess(id);
     try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`https://localhost:7293/api/Messages/${idMess}`, {
+        const response = await axios.get(`http://95.163.241.39:5000/api/Messages/${idMess}`, {
             headers: {
               Authorization: `Bearer ${token}`, // Include the auth state as a bearer token
             },
@@ -133,7 +134,7 @@ const [content, setContent] = useState('');
   
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.post('https://localhost:7293/api/Messages', {
+        const response = await axios.post('http://95.163.241.39:5000/api/Messages', {
           content: content,
           timestamp: new Date(),
           fromUserNameId: 'Bob',
@@ -151,6 +152,11 @@ const [content, setContent] = useState('');
         console.error('Error:', error);
       }
     };
+
+
+    const handleShowEmojis = () => {
+        setShowEmojis(!showEmojis);
+      };
 
 
     return(
@@ -248,13 +254,14 @@ const [content, setContent] = useState('');
                     <input type="hidden" name="RoomId" />
                     <input type="file" id="UploadedFile" name="File" accept=".jpg,.jpeg,.png" data-bind="event: {change: uploadFiles}"/>
                 </div>
-                <a role="button" id="btn-show-emojis">
+                <a role="button" onClick={handleShowEmojis}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-smile"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
                 </a>
                 <a role="button" id="btn-send-message" data-bind="click: sendNewMessage" type='submit' onClick={handleSubmit}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-send"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 </a>
             </div>
+            {showEmojis && (
             <div className="emojis-containe d-none" id="emojis-container">
                 <button data-value=":)">
                     <img src="~/images/emojis/emoji1.png" />
@@ -278,6 +285,7 @@ const [content, setContent] = useState('');
                     <img src="~/images/emojis/emoji7.png" />
                 </button>
             </div>
+            )}
         </div>
     </div>
     <div className="users-container">
@@ -285,15 +293,17 @@ const [content, setContent] = useState('');
             <h5>Участники (<span>0</span>)</h5>
         </div>
         <ul className="list-unstyled flex-grow-1" id="users-list">
+        {messRoom.map((message) => (
             <li>
                 <div className="user">
                     <span className="avatar me-2 text-uppercase">А</span>
                     <div className="user-info">
-                        <span className="name">Александр</span>
+                        <span className="name">{message.fromFullName}</span>
                         <span className="device">Телефон</span>
                     </div>
                 </div>
             </li>
+            ))}
         </ul>
         <div className="position-relative search-container text-secondary">
             <input type="text" className="" placeholder="Поиск"/>

@@ -22,7 +22,7 @@ const Profile = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get("https://localhost:7293/GetMyProfile", {
+        const response = await axios.get("http://95.163.241.39:5000/GetMyProfile", {
           headers: {
             Authorization: `Bearer ${token}`,
           }
@@ -40,7 +40,7 @@ const Profile = () => {
     const fetchAvatar = async () => {
       try {
       const token = localStorage.getItem('token');
-      const response = await axios.get("https://localhost:7293/api/TestImage/GetImage", {
+      const response = await axios.get("http://95.163.241.39:5000/api/TestImage/GetImage", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -56,7 +56,7 @@ const Profile = () => {
   const UserProfile = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post(`https://localhost:7293/UpdateProfile?Name=${name}&Age=${age}&Avatar=${avatar}`, {
+      const response = await axios.post(`http://95.163.241.39:5000/UpdateProfile?Name=${name}&Age=${age}&Avatar=${avatar}`, {
       name: user.name,
       age: user.age,
       avatar: user.avatar
@@ -190,69 +190,3 @@ const Profile = () => {
     );
 }
 export default Profile;
-
-/*<h2>Редактирование профиля</h2>
-        <form>
-          <label>
-            Имя:
-            <input
-              type="text"
-              name="name"
-              value={profile.name}
-              onChange={handleChange}
-              />
-              </label>
-              <label>
-                Возраст:
-                <input
-                  type="number"
-                  name="age"
-                  value={profile.age}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                Город:
-                <input
-                  type="text"
-                  name="city"
-                  value={profile.city}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                Пол:
-                <select name="gender" value={profile.gender} onChange={handleChange}>
-                  <option value="">Выберите пол</option>
-                  <option value="male">Мужской</option>
-                  <option value="female">Женский</option>
-                </select>
-              </label>
-              <label>
-                Номер телефона:
-                <input
-                  type="tel"
-                  name="phone"
-                  value={profile.phone}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                Увлечения:
-                <textarea
-                  name="hobbies"
-                  value={profile.hobbies}
-                  onChange={handleChange}
-                />
-              </label>
-              <label>
-                О себе:
-                <textarea
-                  name="about"
-                  value={profile.about}
-                  onChange={handleChange}
-                />
-              </label>
-            </form>
-          </div>
-        </div>*/

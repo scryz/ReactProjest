@@ -53,7 +53,6 @@ if (token) {
 
     return(
         <>
-        <a href="#" id="toTop"></a>
         <article className="ant-section__ant012_welcome "> 
 
 

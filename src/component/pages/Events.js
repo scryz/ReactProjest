@@ -13,7 +13,7 @@ const Events = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://localhost:7293/GetTwelveEvents');
+        const response = await axios.get('http://95.163.241.39:5000/GetTwelveEvents');
         setEvents(response.data);
       } catch (error) {
         console.error('Error fetching events: ', error);
@@ -40,7 +40,6 @@ const Events = () => {
 
     return (
       <div>
-      {isValid ? (
         <>
       <Navbar />
       <div className="container">
@@ -74,9 +73,6 @@ const Events = () => {
       </div>
       <Footer />
       </>
-      ) : (
-        <p>{error}</p>
-      )}
     </div>
     );
 }

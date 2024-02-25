@@ -21,7 +21,7 @@
 } 
 #ant-section__ant007_footer .footer-item a.btn {
 	display: inline-block;
-	background: #007bff;
+	background: #3136b3;
 	color: #fff;
 	cursor: pointer;
     margin-top: 40px;
@@ -39,7 +39,7 @@
 }
 #ant-section__ant007_footer .footer-item a.btn:hover {
 	background: #fff;
-	color: #007bff;
+	color: #3136b3;
 }
 #ant-section__ant007_footer .footer-item span {
     color: #fff;
@@ -74,7 +74,7 @@
     letter-spacing: .4px;
 }
 #ant-section__ant007_footer .footer-menu li a:hover {
-    color: #007bff; 
+    color: #3136b3; 
 }
 #ant-section__ant007_footer .ant007_footer__foter-item-wrap {
     padding: 40px 20px;
