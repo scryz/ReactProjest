@@ -54,7 +54,7 @@ if (token) {
     return(
         <>
         <a href="#" id="toTop"></a>
-        <article className="ant-section__ant012_welcome"> 
+        <article className="ant-section__ant012_welcome "> 
 
 
                 <div className="slide-content">
