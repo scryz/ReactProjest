@@ -4,11 +4,9 @@ import Navbar from "../navbar/Navbar";
 import { Link } from 'react-router-dom';
 import Footer from "../body/Footer";
 import "../../css/Events.css"
-import VerifyToken from "../body/VerifyToken";
 const Events = () => {
 
   const [events, setEvents] = useState([]);
-  const { isValid, error } = VerifyToken();
 
   useEffect(() => {
     const fetchData = async () => {

@@ -58,7 +58,7 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
           }
          } else {
           setErrorMessage('Успешный вход!');
-          window.location.href="/";
+          window.location.reload();
           
        }
       }

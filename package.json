@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@microsoft/signalr": "^8.0.0",
     "@pbe/react-yandex-maps": "^1.2.5",
     "@sentry/react": "^7.93.0",
     "@sentry/tracing": "^7.93.0",

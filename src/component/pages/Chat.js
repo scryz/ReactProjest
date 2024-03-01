@@ -9,6 +9,15 @@ import { RenameChat } from './CRUDchat';
 import { CreateChat } from './CRUDchat';
 import { DeleteChat } from './CRUDchat';
 import { DeleteMessage } from './CRUDchat';
+import signalRService from '../SignalRService';
+import Smile1 from '../../img/emoji1.png'
+import Smile2 from '../../img/emoji2.png'
+import Smile3 from '../../img/emoji3.png'
+import Smile4 from '../../img/emoji4.png'
+import Smile5 from '../../img/emoji5.png'
+import Smile6 from '../../img/emoji6.png'
+import Smile7 from '../../img/emoji7.png'
+
 
 
 
@@ -21,6 +30,8 @@ const Chat = () => {
     const [showModalDelete, setShowModalDelete] = useState(false);
     const [showModalDeleteMessage, setShowModalDeleteMessage] = useState(false);
     const [showEmojis, setShowEmojis] = useState(false);
+    const [isVisibleUser, setIsVisibleUser] = useState(false);
+    const [isVisibleRooms, setIsVisibleRooms] = useState(true);
 
     const handleShowModalCreate = () => setShowModalCreate(true);
     const handleShowModalRename = () => setShowModalRename(true);
@@ -66,6 +77,11 @@ useEffect(() => {
 
 fetchData();
 }, []);
+
+const Hub = () => {
+    signalRService.startConnection(); // Вызов метода при открытии модального окна
+    console.log("fffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+};
 
 
 useEffect(() => {
@@ -158,6 +174,14 @@ const [content, setContent] = useState('');
         setShowEmojis(!showEmojis);
       };
 
+      const handleButtonClickUser = () => {
+        setIsVisibleUser(!isVisibleUser);
+      };
+
+      const handleButtonClickRooms = () => {
+        setIsVisibleRooms(!isVisibleRooms);
+      };
+
 
     return(
 <>
@@ -172,30 +196,33 @@ const [content, setContent] = useState('');
 </div>
 ) : (
 <div className="app">
-    <div className="sidebar container">
+    <div className="sidebar">
         <div className="header">
             <h5>Ваши чаты</h5>
             <div className="actions">
 
-                <a role="button" id="create-room" data-bs-toggle="modal" data-bs-target="#create-room-modal" onClick={handleShowModalCreate}>
+                <a role="button" id="create-room" onClick={handleShowModalCreate}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
                 </a>
                 <CreateChat showModalCreate={showModalCreate} closeModalCreate={handleCloseModalCreate} />
-                <a role="button" className="ms-3" id="expand-users-list">
+                <a role="button" className="ms-3" onClick={handleButtonClickUser}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                 </a>
-                <a role="button" id="expand-sidebar">
+                <a role="button" onClick={handleButtonClickRooms}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </a>
             </div>
         </div>
+        {isVisibleRooms && (
         <ul className="rooms list-unstyled" >
         {room.map((room, id) => (
-            <li key={id}>
-                <Link onClick={() => onChatClick(room.id)} >{room.name}</Link>
+            <li key={id} onClick={handleButtonClickRooms}>
+                <Link onClick={() => onChatClick(room.id)}>{room.name}</Link>
             </li>
             ))}
         </ul>
+        )}
+        <button onClick={Hub}>Проверка хаба</button>
     </div>
     <div className="main-content">
         <div className="header">
@@ -245,7 +272,7 @@ const [content, setContent] = useState('');
 
         </div>
         <div className="message-input-container">
-            <input id="message-input" type="text" maxLength="500" placeholder="Напишите сообщение..." value={content} onChange={(e) => setContent(e.target.value)} />
+            <textarea className='message-input-container input' type="text" maxLength="500" placeholder="Напишите сообщение..." value={content} onChange={(e) => setContent(e.target.value)} />
             <div className="actions d-flex align-items-center">
                 <div asp-action="Upload" asp-controller="Upload" encType="multipart/form-data" id="uploadForm">
                     <label htmlFor="UploadedFile" className="custom-file-upload">
@@ -262,32 +289,33 @@ const [content, setContent] = useState('');
                 </a>
             </div>
             {showEmojis && (
-            <div className="emojis-containe d-none" id="emojis-container">
-                <button data-value=":)">
-                    <img src="~/images/emojis/emoji1.png" />
+            <div className="emojis-container">
+                <button>
+                    <img src={Smile1} />
                 </button>
-                <button data-value=":P">
-                    <img src="~/images/emojis/emoji2.png" />
+                <button>
+                    <img src={Smile2} />
                 </button>
-                <button data-value=":O">
-                    <img src="~/images/emojis/emoji3.png" />
+                <button>
+                    <img src={Smile3} />
                 </button>
-                <button data-value=":-)">
-                    <img src="~/images/emojis/emoji4.png" />
+                <button>
+                    <img src={Smile4} />
                 </button>
-                <button data-value="B|">
-                    <img src="~/images/emojis/emoji5.png" />
+                <button>
+                    <img src={Smile5} />
                 </button>
-                <button data-value=":D">
-                    <img src="~/images/emojis/emoji6.png" />
+                <button>
+                    <img src={Smile6} />
                 </button>
-                <button data-value="<3">
-                    <img src="~/images/emojis/emoji7.png" />
+                <button>
+                    <img src={Smile7} />
                 </button>
             </div>
             )}
         </div>
     </div>
+    {isVisibleUser && (
     <div className="users-container">
         <div className="header">
             <h5>Участники (<span>0</span>)</h5>
@@ -312,6 +340,7 @@ const [content, setContent] = useState('');
             </svg>
         </div>
     </div>
+     )}
 </div>
 
 )}

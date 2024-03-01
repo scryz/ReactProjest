@@ -1,5 +1,5 @@
 import "../../css/Footer.css"
-import { useState } from "react";
+import { useState} from "react";
 import { Link } from "react-router-dom";
 import {LoginPage} from "../pages/LoginPage";
 import VerifyToken from "./VerifyToken";
@@ -7,9 +7,12 @@ import VerifyToken from "./VerifyToken";
 const Footer = () => {
     const { isValid, error } = VerifyToken();
     const [showModalLogReg, setShowModalLogReg] = useState(false);
-    const handleShowModalLogReg = () => setShowModalLogReg(true);
-    const handleCloseModalLogReg = () => setShowModalLogReg(false);
 
+    const handleShowModalLogReg = () => {
+        setShowModalLogReg(true);
+    };
+
+    const handleCloseModalLogReg = () => setShowModalLogReg(false);
     return(
 <footer id="ant-section__ant007_footer">
 
@@ -54,7 +57,7 @@ const Footer = () => {
 
                 <ul className="footer-menu">
                     <li><a href="#0">Новости</a></li>
-                    <li><a href="#0">Безопсность</a></li>
+                    <li><a href="#0">Безопасность</a></li>
                     <li><a href="#0">Поддержка</a></li>
                     <li><a href="#0">Разработчикам</a></li>
                     <li><a href="#0">Telegram</a></li>
