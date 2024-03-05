@@ -52,7 +52,7 @@ const Chat = () => {
     const [idMess, setIdMess] = useState(null);
 
     const [messRoom, setMessRoom] = useState([]);
-    const socketRef = socketIOClient("http://get-together.ru");
+    const socketRef = socketIOClient("http://localhost:3000/");
     const [isFetched, setIsFetched] = useState(false);
 
     const formatDate = (date) => {
@@ -64,7 +64,7 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.get('http://95.163.241.39:5000/api/Rooms', {
+      const response = await axios.get('https://localhost:7293/api/Rooms', {
           headers: {
             Authorization: `Bearer ${token}`
           },
@@ -83,7 +83,7 @@ useEffect(() => {
     const fetchMessRoom = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`http://95.163.241.39:5000/api/Messages/Room/${id}?RoomId=${id}`,
+        const response = await axios.get(`https://localhost:7293/api/Messages/Room/${id}?RoomId=${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -103,7 +103,7 @@ const onChatClick = async (id) => {
     setId(id);
     try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://95.163.241.39:5000/api/Rooms/${id}`, {
+        const response = await axios.get(`https://localhost:7293/api/Rooms/${id}`, {
             headers: {
               Authorization: `Bearer ${token}`, // Include the auth state as a bearer token
             },
@@ -121,7 +121,7 @@ const onMessClick = async (idMess) => {
     setIdMess(id);
     try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`http://95.163.241.39:5000/api/Messages/${idMess}`, {
+        const response = await axios.get(`https://localhost:7293/api/Messages/${idMess}`, {
             headers: {
               Authorization: `Bearer ${token}`, // Include the auth state as a bearer token
             },
@@ -145,7 +145,7 @@ const [content, setContent] = useState('');
   
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.post('http://95.163.241.39:5000/api/Messages', {
+        const response = await axios.post('https://localhost:7293/api/Messages', {
           content: content,
           timestamp: new Date(),
           fromUserNameId: 'Bob',

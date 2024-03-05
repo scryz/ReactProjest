@@ -5,7 +5,7 @@ class SignalRService {
     constructor() {
         const token = localStorage.getItem("token");
         this.connection = new signalR.HubConnectionBuilder()
-            .withUrl("http://95.163.241.39:5000/chatHub", {
+            .withUrl("https://localhost:7293/chatHub", {
                 accessTokenFactory: () => `${token}`
             })
             .build();

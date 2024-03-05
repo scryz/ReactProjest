@@ -11,7 +11,7 @@ const Events = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://95.163.241.39:5000/GetTwelveEvents');
+        const response = await axios.get('https://localhost:7293/GetTwelveEvents');
         setEvents(response.data);
       } catch (error) {
         console.error('Error fetching events: ', error);
