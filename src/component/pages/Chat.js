@@ -78,11 +78,6 @@ useEffect(() => {
 fetchData();
 }, []);
 
-const Hub = () => {
-    signalRService.startConnection(); // Вызов метода при открытии модального окна
-    console.log("fffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-};
-
 
 useEffect(() => {
     const fetchMessRoom = async () => {
@@ -167,6 +162,8 @@ const [content, setContent] = useState('');
       } catch (error) {
         console.error('Error:', error);
       }
+      
+      signalRService.startConnection(); // Вызов метода при открытии модального окна
     };
 
 
@@ -222,7 +219,6 @@ const [content, setContent] = useState('');
             ))}
         </ul>
         )}
-        <button onClick={Hub}>Проверка хаба</button>
     </div>
     <div className="main-content">
         <div className="header">
@@ -254,7 +250,7 @@ const [content, setContent] = useState('');
                                 <span className="author">{message.fromFullName}</span>
                                 <span className="timestamp">{formatDate(new Date(message.timestamp))}</span>
                             </div>
-                            <div className="content">{message.content}</div>
+                            <div className="content" message={message.content}>{message.content}</div>
                         </div>
                         <div className="actions">
                             <div className="dropdown dropstart">
