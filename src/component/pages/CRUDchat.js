@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Modal, Button } from 'react-bootstrap';
 import VerifyToken from "../body/VerifyToken";
 
-export const CreateChat = ({ showModalCreate, closeModalCreate }) => {
+export const CreateChat = ({ showModalCreate, closeModalCreate, url }) => {
   const [roomName, setRoomName] = useState('');
   const [roomAdmin, setRoomAdmin] = useState('string');
   const [rooms, setRooms] = useState('');
@@ -17,7 +17,7 @@ export const CreateChat = ({ showModalCreate, closeModalCreate }) => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post("http://95.163.241.39:5000/api/Rooms", {
+      const response = await axios.post(`${url}/api/Rooms`, {
         name: roomName,
         admin: roomAdmin 
       }, {
@@ -66,7 +66,7 @@ export const CreateChat = ({ showModalCreate, closeModalCreate }) => {
 };
 
 
-  export const RenameChat = ({ showModalRename, closeModalRename, id }) => {
+  export const RenameChat = ({ showModalRename, closeModalRename, id, url }) => {
     const [newRoomName, setNewRoomName] = useState('');
     const [roomAdmin, setRoomAdmin] = useState('string');
   
@@ -77,7 +77,7 @@ export const CreateChat = ({ showModalCreate, closeModalCreate }) => {
     const handleRename = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.put(`http://95.163.241.39:5000/api/Rooms/${id}`, {
+        const response = await axios.put(`${url}/api/Rooms/${id}`, {
           name: newRoomName,
           admin: roomAdmin 
         }, {
@@ -105,12 +105,12 @@ return(
     </Modal>
 )};
 
-export const DeleteChat = ({ showModalDelete, closeModalDelete, id }) => {
+export const DeleteChat = ({ showModalDelete, closeModalDelete, id, url }) => {
 
   const handleRemove = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.delete(`http://95.163.241.39:5000/api/Rooms/${id}`, {
+      const response = await axios.delete(`${url}/api/Rooms/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -137,11 +137,11 @@ export const DeleteChat = ({ showModalDelete, closeModalDelete, id }) => {
     );
   };
 
-  export const DeleteMessage = ({ showModalDeleteMessage, closeModalDeleteMessage, onRemoveMessage, itemToDelete, idMess}) => {
+  export const DeleteMessage = ({ showModalDeleteMessage, closeModalDeleteMessage, onRemoveMessage, itemToDelete, url, idMess}) => {
     const handleRemove = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.delete(`http://95.163.241.39:5000/api/Messages/${idMess}`, {
+        const response = await axios.delete(`${url}/api/Messages/${idMess}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
