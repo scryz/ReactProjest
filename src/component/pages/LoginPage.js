@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 
 
 
-export const LoginPage = ({ showModalLogReg, closeModalLogReg, url }) => {
+export const LoginPage = ({ showModalLogReg, closeModalLogReg}) => {
  const [userName, setUserName] = useState('');
  const [password, setPassword] = useState('');
  const [errorMessage, setErrorMessage] = useState(null);
@@ -28,7 +28,7 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg, url }) => {
    setErrorMessage(null);
  };
 
- const handleSubmitLogin = async (e) => {
+ const handleSubmitLogin = async (e, url) => {
     e.preventDefault();
     
     try {
@@ -64,7 +64,7 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg, url }) => {
       }
       }
 
-      const handleSubmitReg = async (e) => {
+      const handleSubmitReg = async (e, url) => {
         e.preventDefault();
         
         try {

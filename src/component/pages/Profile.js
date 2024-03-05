@@ -53,7 +53,7 @@ const Profile = ({ url }) => {
   fetchAvatar();
   });
 
-  const UserProfile = async () => {
+  const UserProfile = async ({url}) => {
     try {
       const token = localStorage.getItem('token');
       const response = await axios.post(`${url}/UpdateProfile?Name=${name}&Age=${age}&Avatar=${avatar}`, {

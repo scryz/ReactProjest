@@ -19,7 +19,7 @@ function EventDetail({ url }) {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.post(`${url}/GetEventById?EventId=${id}`);
+          const response = await axios.post(url`/GetEventById?EventId=${id}`);
           setEvent(response.data);
         } catch (error) {
           console.error('Error fetching event details: ', error);
@@ -33,7 +33,7 @@ function EventDetail({ url }) {
     useEffect(() => {
       const fetchParticipants = async () => {
         try {
-          const response = await axios.get(`${url}/GetParticipants/${id}`);
+          const response = await axios.get(url`/GetParticipants/${id}`);
           setParticipants(response.data);
         } catch (error) {
           console.error("Error fetching user:", error);

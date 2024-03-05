@@ -1,17 +1,14 @@
 import React from 'react';
-import ChildComponent from './ChildComponent';
+import UrlProvider from './UrlProvider';
 
-class ParentComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      url: 'https://localhost:7266',
-    };
-  }
+const url = () => {
+  const url = 'https://localhost:7266';
 
-  render() {
-    return <ChildComponent url={this.state.url} />;
-  }
-}
+  return (
+    <div>
+      <UrlProvider url={url} />
+    </div>
+  );
+};
 
-export default ParentComponent;
+export default url;
