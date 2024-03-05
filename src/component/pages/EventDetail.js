@@ -8,7 +8,7 @@ import VerifyToken from "../body/VerifyToken";
 import "../../css/EventDetail.css"
 import "../../css/login.css"
 
-function EventDetail({ url }) {
+function EventDetail() {
     const { id } = useParams();
     const [event, setEvent] = useState(null);
     const [isJoined, setIsJoined] = useState(false);
@@ -19,7 +19,7 @@ function EventDetail({ url }) {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const response = await axios.post(url`/GetEventById?EventId=${id}`);
+          const response = await axios.post(`http://95.163.241.39:5000/GetEventById?EventId=${id}`);
           setEvent(response.data);
         } catch (error) {
           console.error('Error fetching event details: ', error);
@@ -33,7 +33,7 @@ function EventDetail({ url }) {
     useEffect(() => {
       const fetchParticipants = async () => {
         try {
-          const response = await axios.get(url`/GetParticipants/${id}`);
+          const response = await axios.get(`http://95.163.241.39:5000/GetParticipants/${id}`);
           setParticipants(response.data);
         } catch (error) {
           console.error("Error fetching user:", error);
@@ -46,7 +46,7 @@ function EventDetail({ url }) {
     const joinEvent = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.post(`${url}/ADDPatricipant?eventId=${id}`, {}, {
+        const response = await axios.post(`http://95.163.241.39:5000/ADDPatricipant?eventId=${id}`, {}, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

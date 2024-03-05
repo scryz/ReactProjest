@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import VerifyToken from "../body/VerifyToken";
 
-const Profile = ({ url }) => {
+const Profile = () => {
   const { isValid, error } = VerifyToken();
   const [user, setUser] = useState('');
   const [name, setName] = useState('');
@@ -22,7 +22,7 @@ const Profile = ({ url }) => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`${url}/GetMyProfile`, {
+        const response = await axios.get("http://95.163.241.39:5000/GetMyProfile", {
           headers: {
             Authorization: `Bearer ${token}`,
           }
@@ -40,7 +40,7 @@ const Profile = ({ url }) => {
     const fetchAvatar = async () => {
       try {
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${url}/api/TestImage/GetImage`, {
+      const response = await axios.get("http://95.163.241.39:5000/api/TestImage/GetImage", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -53,10 +53,10 @@ const Profile = ({ url }) => {
   fetchAvatar();
   });
 
-  const UserProfile = async ({url}) => {
+  const UserProfile = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post(`${url}/UpdateProfile?Name=${name}&Age=${age}&Avatar=${avatar}`, {
+      const response = await axios.post(`http://95.163.241.39:5000/UpdateProfile?Name=${name}&Age=${age}&Avatar=${avatar}`, {
       name: user.name,
       age: user.age,
       avatar: user.avatar

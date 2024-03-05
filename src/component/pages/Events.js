@@ -4,14 +4,14 @@ import Navbar from "../navbar/Navbar";
 import { Link } from 'react-router-dom';
 import Footer from "../body/Footer";
 import "../../css/Events.css"
-const Events = ({ url }) => {
+const Events = () => {
 
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${url}/GetTwelveEvents`);
+        const response = await axios.get('http://95.163.241.39:5000/GetTwelveEvents');
         setEvents(response.data);
       } catch (error) {
         console.error('Error fetching events: ', error);

@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 
 
 
-export const LoginPage = ({ showModalLogReg, closeModalLogReg}) => {
+export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
  const [userName, setUserName] = useState('');
  const [password, setPassword] = useState('');
  const [errorMessage, setErrorMessage] = useState(null);
@@ -28,11 +28,11 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg}) => {
    setErrorMessage(null);
  };
 
- const handleSubmitLogin = async (e, url) => {
+ const handleSubmitLogin = async (e) => {
     e.preventDefault();
     
     try {
-      const response = await axios.post(`${url}/api/Auth/Login`, {
+      const response = await axios.post('http://95.163.241.39:5000/api/Auth/Login', {
           userName: userName,
           password: password
           },
@@ -64,11 +64,11 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg}) => {
       }
       }
 
-      const handleSubmitReg = async (e, url) => {
+      const handleSubmitReg = async (e) => {
         e.preventDefault();
         
         try {
-          const response = await fetch(`${url}/api/Auth/Register`, 
+          const response = await fetch('http://95.163.241.39:5000/api/Auth/Register', 
            {
             
             method: 'POST',

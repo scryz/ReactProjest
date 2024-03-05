@@ -5,7 +5,7 @@ import VerifyToken from "../body/VerifyToken";
 import { useState } from "react";
 import axios from "axios";
 
-const AddEvent = ({ url }) => {
+const AddEvent = () => {
   const [EventName, setEventName] = useState('');
   const [Description, setDescription] = useState('');
   const [errorMessage, setErrorMessage] = useState(null);
@@ -15,7 +15,7 @@ const AddEvent = ({ url }) => {
 
     try {
     const token = localStorage.getItem('token');
-    const response = await axios.post(`${url}/AddEvent?EventName=${EventName}&Description=${Description}`, {
+    const response = await axios.post(`http://95.163.241.39:5000/AddEvent?EventName=${EventName}&Description=${Description}`, {
     }, {
       headers: {
         Authorization: `Bearer ${token}`
