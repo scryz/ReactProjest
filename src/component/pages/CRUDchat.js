@@ -17,7 +17,7 @@ export const CreateChat = ({ showModalCreate, closeModalCreate }) => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post("https://localhost:7293/api/Rooms", {
+      const response = await axios.post("http://localhost:7293/api/Rooms", {
         name: roomName,
         admin: roomAdmin 
       }, {
@@ -69,6 +69,7 @@ export const CreateChat = ({ showModalCreate, closeModalCreate }) => {
   export const RenameChat = ({ showModalRename, closeModalRename, id }) => {
     const [newRoomName, setNewRoomName] = useState('');
     const [roomAdmin, setRoomAdmin] = useState('string');
+    const [errorMessage, setError] = useState(null);
   
     const handleChange = (e) => {
       setNewRoomName(e.target.value);
@@ -77,7 +78,7 @@ export const CreateChat = ({ showModalCreate, closeModalCreate }) => {
     const handleRename = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.put(`https://localhost:7293/api/Rooms/${id}`, {
+        const response = await axios.put(`http://localhost:7293/api/Rooms/${id}`, {
           name: newRoomName,
           admin: roomAdmin 
         }, {
@@ -87,7 +88,7 @@ export const CreateChat = ({ showModalCreate, closeModalCreate }) => {
         });
         closeModalRename();
       } catch (error) {
-        console.error('Error:', error);
+        setError('Вы не являетесь администратором!');
       }
     };
 return(
@@ -97,6 +98,7 @@ return(
       </Modal.Header>
       <Modal.Body>
         <input type="text" className="form-control" value={newRoomName} onChange={handleChange} maxLength="100" placeholder="Введите новое название чата..." />
+        <p>{errorMessage && <p>{errorMessage}</p>}</p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={closeModalRename}>Закрыть</Button>
@@ -106,18 +108,19 @@ return(
 )};
 
 export const DeleteChat = ({ showModalDelete, closeModalDelete, id }) => {
-
+  const [errorMessage, setError] = useState(null);
   const handleRemove = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.delete(`https://localhost:7293/api/Rooms/${id}`, {
+      const response = await axios.delete(`http://localhost:7293/api/Rooms/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
       closeModalDelete();
     } catch (error) {
-      console.error('Error:', error);
+      setError('Вы не являетесь создателем чата!');
+    
     }
   };
   
@@ -128,6 +131,7 @@ export const DeleteChat = ({ showModalDelete, closeModalDelete, id }) => {
         </Modal.Header>
         <Modal.Body>
           <p className="mb-0">Вы действительно хотите удалить этот чат? Это действие невозможно будет отменить!</p>
+          <p>{errorMessage && <p>{errorMessage}</p>}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalDelete}>Закрыть</Button>
@@ -137,18 +141,19 @@ export const DeleteChat = ({ showModalDelete, closeModalDelete, id }) => {
     );
   };
 
-  export const DeleteMessage = ({ showModalDeleteMessage, closeModalDeleteMessage, onRemoveMessage, itemToDelete, idMess}) => {
+  export const DeleteMessage = ({ showModalDeleteMessage, closeModalDeleteMessage, idMess}) => {
+    const [errorMessage, setError] = useState(null);
     const handleRemove = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.delete(`https://localhost:7293/api/Messages/${idMess}`, {
+        const response = await axios.delete(`http://localhost:7293/api/Messages/${idMess}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
         closeModalDeleteMessage();
       } catch (error) {
-        console.error('Error:', error);
+        setError('Вы не являетесь отправителем сообщения!');
       }
     };
   
@@ -159,6 +164,7 @@ export const DeleteChat = ({ showModalDelete, closeModalDelete, id }) => {
         </Modal.Header>
         <Modal.Body>
           <p className="mb-0">Вы действительно хотите удалить это сообщение?</p>
+          <p>{errorMessage && <p>{errorMessage}</p>}</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={closeModalDeleteMessage}>Закрыть</Button>

@@ -15,7 +15,7 @@ const AddEvent = () => {
 
     try {
     const token = localStorage.getItem('token');
-    const response = await axios.post(`https://localhost:7293/AddEvent?EventName=${EventName}&Description=${Description}`, {
+    const response = await axios.post(`http://localhost:7293/AddEvent?EventName=${EventName}&Description=${Description}`, {
     }, {
       headers: {
         Authorization: `Bearer ${token}`

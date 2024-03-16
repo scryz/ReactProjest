@@ -66,9 +66,6 @@ nav ul li a:hover {
         }
 
 
-a:hover {
-  color:#ffffff;
-}
 
 
 
@@ -83,7 +80,7 @@ background: #3136b3;
 height: 70px;
 width: 70px;
 }
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 840px) {
   .nav-mobile {
     display: block;
   }
@@ -111,7 +108,7 @@ width: 70px;
     position: static;
   }
 
-@media screen and (min-width: 780px) {
+@media screen and (min-width: 840px) {
   .nav-list {
     display: block !important;
   }

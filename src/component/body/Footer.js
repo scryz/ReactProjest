@@ -22,7 +22,7 @@ const Footer = () => {
         <div className="col-lg-5 ant007_footer__foter-item-wrap">
             <div className="footer-item">
                 <p>Приложение для поиска компаний по интересам в Вашем городе.</p>
-                {isValid ? (<Link to="/Events" className="btn" title="Мероприятия">Мероприятия</Link>
+                {isValid ? (<Link to="/Events/1" className="btn" title="Мероприятия">Мероприятия</Link>
                 ):(
                     <>
                       <Link className="btn" onClick={handleShowModalLogReg}>

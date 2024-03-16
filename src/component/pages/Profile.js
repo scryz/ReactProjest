@@ -22,7 +22,7 @@ const Profile = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get("https://localhost:7293/GetMyProfile", {
+        const response = await axios.get("http://localhost:7293/GetMyProfile", {
           headers: {
             Authorization: `Bearer ${token}`,
           }
@@ -40,7 +40,7 @@ const Profile = () => {
     const fetchAvatar = async () => {
       try {
       const token = localStorage.getItem('token');
-      const response = await axios.get("https://localhost:7293/api/TestImage/GetImage", {
+      const response = await axios.get("http://localhost:7293/api/TestImage/GetImage", {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -56,7 +56,7 @@ const Profile = () => {
   const UserProfile = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post(`https://localhost:7293/UpdateProfile?Name=${name}&Age=${age}&Avatar=${avatar}`, {
+      const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&Age=${age}&Avatar=${avatar}`, {
       name: user.name,
       age: user.age,
       avatar: user.avatar

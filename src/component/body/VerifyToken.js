@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import { LoginPage } from '../pages/LoginPage';
 
 const VerifyToken = () => {
     const [isValid, setIsValid] = useState(false);
     const [error, setError] = useState('');
+    const [showModalLogReg, setShowModalLogReg] = useState(false);
+    const handleCloseModalLogReg = () => setShowModalLogReg(false);
   
     useEffect(() => {
       const token = localStorage.getItem('token');
@@ -19,10 +22,10 @@ const VerifyToken = () => {
         if (decoded.exp > currentTime) {
           setIsValid(true);
         } else {
-          setError('Token is expired');
+          <LoginPage showModalLogReg={showModalLogReg} closeModalLogReg={handleCloseModalLogReg} />
         }
       } catch (error) {
-        setError('Invalid token');
+        <LoginPage showModalLogReg={showModalLogReg} closeModalLogReg={handleCloseModalLogReg} />
       }
     };
   

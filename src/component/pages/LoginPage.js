@@ -32,7 +32,7 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
     e.preventDefault();
     
     try {
-      const response = await axios.post('https://localhost:7293/api/Auth/Login', {
+      const response = await axios.post('http://localhost:7293/api/Auth/Login', {
           userName: userName,
           password: password
           },
@@ -68,7 +68,7 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
         e.preventDefault();
         
         try {
-          const response = await fetch('http://95.163.241.39:5000/api/Auth/Register', 
+          const response = await fetch('http://localhost:7293/api/Auth/Register', 
            {
             
             method: 'POST',

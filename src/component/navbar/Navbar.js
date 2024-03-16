@@ -38,14 +38,14 @@ const handleCloseModalLogReg = () => setShowModalLogReg(false);
               <div className="nav-mobile"><a id="nav-toggle"><span></span></a></div>
                   <ul className="nav-list">
                       {isValid ? ( <>
-                        <li><Link to="/events">Мероприятия</Link></li>
+                        <li><Link to="/events/1">Мероприятия</Link></li>
                         <li><Link to="/addevent">Создать мероприятие</Link></li>
                         <li><Link to="/map">Карта</Link></li>
                         <li><Link to="/chat">Сообщения</Link></li>
                         <li><Link to="/profile">Профиль</Link></li>
                       </>):
                       (<>
-                      <li><Link to="/events">Мероприятия</Link></li>
+                      <li><Link to="/events/1">Мероприятия</Link></li>
                       <li><Link to="/map">Карта</Link></li>
                       <li>
                         <a href="#0" onClick={(event) => {event.preventDefault(); handleShowModalLogReg();}}>
