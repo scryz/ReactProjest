@@ -53,6 +53,34 @@ const Profile = () => {
   fetchAvatar();
   });
 
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileInputChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append('image', selectedFile);
+
+    try {
+      const response = await fetch('/api/TestImage/AddImage', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        console.log('Image uploaded successfully');
+      } else {
+        console.error('Image upload failed');
+      }
+    } catch (error) {
+      console.error('Error during image upload:', error);
+    }
+  };
+
+
   const UserProfile = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -96,7 +124,10 @@ const Profile = () => {
             <div className="user-profile">
               <div className="user-avatar">
                 <img src={avatar} alt="Пользователь" />
-                <input type="file" id="UploadedFile" name="File" accept=".jpg,.jpeg,.png" data-bind="event: {change: uploadFiles}"/>
+                <div>
+      <input type="file" onChange={handleFileInputChange} />
+      <button onClick={handleSubmit}>Upload Image</button>
+    </div>
               </div>
               <h5 className="user-name">{user.name}</h5>
               <h6 className="user-email">{user.userName}</h6>
