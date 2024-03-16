@@ -65,7 +65,7 @@ const Profile = () => {
     formData.append('image', selectedFile);
 
     try {
-      const response = await fetch('/api/TestImage/AddImage', {
+      const response = await fetch('http://localhost:7293/api/TestImage/AddImage', {
         method: 'POST',
         body: formData,
       });
