@@ -14,7 +14,7 @@ const Profile = () => {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [avatar, setAvatar] = useState(null);
-  const [avatarUrl, setAvatarUrl] = useState(null);
+  const [uploadResult, setUploadResult] = useState('');
 
 
 
@@ -30,6 +30,7 @@ const Profile = () => {
           }
         });
         setUser(response.data);
+        console.log(response.data.avatar)
       } catch (error) {
         console.error("Error fetching user:", error);
       }
@@ -41,53 +42,51 @@ const Profile = () => {
   useEffect(() => {
     const fetchAvatar = async () => {
       try {
-      const token = localStorage.getItem('token');
-      const response = await axios.get("http://localhost:7293/api/TestImage/GetImage", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`http://localhost:7293/api/TestImage/GetImage?link=${uploadResult}`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          responseType: 'arraybuffer' // This is important
+        });
+        const base64 = btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+        setAvatar(`data:${response.headers['content-type'].toLowerCase()};base64,${base64}`);
+        console.log(uploadResult);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+    fetchAvatar();
+  }, [uploadResult]);
+
+  async function uploadFile(file) {
+    const formData = new FormData();
+    formData.append('uploadedFile', file);
+  
+    try {
+      const response = await fetch('http://localhost:7293/api/TestImage/AddImage', {
+        method: 'POST',
+        body: formData,
       });
-      setAvatar(response.data)
+  
+      if (!response.ok) {
+        throw new Error('Error during image upload');
+      }
+  
+      const result = await response.text(); // Изменение здесь
+      setUploadResult(result); // Изменение здесь
     } catch (error) {
-      console.error("Error fetching user:", error);
+      console.error('Error during image upload:', error);
     }
-  };
-  fetchAvatar();
-  });
-
-
-  const [uploadResult, setUploadResult] = useState('');
-
-async function uploadFile(file) {
-  const formData = new FormData();
-  formData.append('uploadedFile', file);
-
-  try {
-    const response = await fetch('http://localhost:7293/api/TestImage/AddImage', {
-      method: 'POST',
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error('Error during image upload');
-    }
-
-    const result = await response.text();
-    setUploadResult(result); // Сохраняем путь к загруженной картинке в состоянии
-  } catch (error) {
-    console.error('Error during image upload:', error);
-    setUploadResult('Error during image upload');
   }
-}
 
 
 const UserProfile = async () => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&Age=${age}&Avatar=`, {
+    const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&Age=${age}&Avatar=${uploadResult}`, {
       name: user.name,
-      age: user.age,
-      avatar: user.avatar
+      age: user.age
     }, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -127,6 +126,7 @@ const UserProfile = async () => {
                 <img src={avatar} alt="Avatar" />
               ) : (
                 <img src={defaultImg} alt="Default Avatar" />
+      
               )}
               <div>
                 <input type="file" onChange={(event) => uploadFile(event.target.files[0])} />
