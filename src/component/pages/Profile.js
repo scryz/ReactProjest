@@ -10,81 +10,77 @@ import VerifyToken from "../body/VerifyToken";
 
 const Profile = () => {
   const { isValid, error } = VerifyToken();
-  const [user, setUser] = useState('');
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [avatar, setAvatar] = useState(null);
-  const [uploadResult, setUploadResult] = useState('');
+const [user, setUser] = useState('');
+const [name, setName] = useState('');
+const [age, setAge] = useState('');
+const [avatar, setAvatar] = useState();
+const [uploadResult, setUploadResult] = useState('');
 
-
-
-
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get("http://localhost:7293/GetMyProfile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          }
-        });
-        setUser(response.data);
-        console.log(response.data.avatar)
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
-  
-    fetchUser();
-  }, []);
-
-  useEffect(() => {
-    const fetchAvatar = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.get(`http://localhost:7293/api/TestImage/GetImage?link=${uploadResult}`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          },
-          responseType: 'arraybuffer' // This is important
-        });
-        const base64 = btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
-        setAvatar(`data:${response.headers['content-type'].toLowerCase()};base64,${base64}`);
-        console.log(uploadResult);
-      } catch (error) {
-        console.error("Error fetching user:", error);
-      }
-    };
-    fetchAvatar();
-  }, [uploadResult]);
-
-  async function uploadFile(file) {
-    const formData = new FormData();
-    formData.append('uploadedFile', file);
-  
+useEffect(() => {
+  const fetchUser = async () => {
     try {
-      const response = await fetch('http://localhost:7293/api/TestImage/AddImage', {
-        method: 'POST',
-        body: formData,
+      const token = localStorage.getItem('token');
+      const response = await axios.get("http://localhost:7293/GetMyProfile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
       });
-  
-      if (!response.ok) {
-        throw new Error('Error during image upload');
-      }
-  
-      const result = await response.text(); // Изменение здесь
-      setUploadResult(result); // Изменение здесь
+      setUser(response.data);
     } catch (error) {
-      console.error('Error during image upload:', error);
+      console.error("Error fetching user:", error);
     }
-  }
+  };
 
+  fetchUser();
+}, []);
+
+useEffect(() => {
+  const fetchAvatar = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`http://localhost:7293/api/TestImage/GetImage?link=${user.avatar}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        responseType: 'arraybuffer' // This is important
+      });
+     const base64 = btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+      setAvatar(`data:${response.headers['content-type'].toLowerCase()};base64,${base64}`);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+
+  if (user.avatar) {
+    fetchAvatar();
+  }
+}, [user.avatar]);
+
+async function uploadFile(file) {
+  const formData = new FormData();
+  formData.append('uploadedFile', file);
+
+  try {
+    const response = await fetch('http://localhost:7293/api/TestImage/AddImage', {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error('Error during image upload');
+    }
+
+    const result = await response.text(); // Изменение здесь
+    setUploadResult(result); // Изменение здесь
+  } catch (error) {
+    console.error('Error during image upload:', error);
+  }
+}
 
 const UserProfile = async () => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&Age=${age}&Avatar=${uploadResult}`, {
+    const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&Age=${age}&Avatar=${user.avatar}`, {
       name: user.name,
       age: user.age
     }, {
