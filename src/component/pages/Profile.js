@@ -54,15 +54,11 @@ const Profile = () => {
   });
 
 
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadResult, setUploadResult] = useState('');
 
-  const handleFileInputChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
-
-  const handleSubmit = async () => {
+  async function uploadFile(file) {
     const formData = new FormData();
-    formData.append('image', selectedFile);
+    formData.append('uploadedFile', file);
 
     try {
       const response = await fetch('http://localhost:7293/api/TestImage/AddImage', {
@@ -70,15 +66,17 @@ const Profile = () => {
         body: formData,
       });
 
-      if (response.ok) {
-        console.log('Image uploaded successfully');
-      } else {
-        console.error('Image upload failed');
+      if (!response.ok) {
+        throw new Error('Error during image upload');
       }
+
+      const result = await response.text();
+      setUploadResult(result);
     } catch (error) {
       console.error('Error during image upload:', error);
+      setUploadResult('Error during image upload');
     }
-  };
+  }
 
 
   const UserProfile = async () => {
@@ -125,8 +123,8 @@ const Profile = () => {
               <div className="user-avatar">
                 <img src={avatar} alt="Пользователь" />
                 <div>
-      <input type="file" onChange={handleFileInputChange} />
-      <button onClick={handleSubmit}>Upload Image</button>
+      <input type="file" onChange={(event) => uploadFile(event.target.files[0])} />
+      <p>{uploadResult}</p>
     </div>
               </div>
               <h5 className="user-name">{user.name}</h5>
