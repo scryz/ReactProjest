@@ -2,6 +2,7 @@ import Navbar from "../navbar/Navbar";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import "../../css/Profile.css"
+import defaultImg from '../../img/avatar.png';
 import Footer from "../body/Footer";
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
@@ -12,7 +13,8 @@ const Profile = () => {
   const [user, setUser] = useState('');
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
-  const [avatar, setAvatar] = useState();
+  const [avatar, setAvatar] = useState(null);
+  const [avatarUrl, setAvatarUrl] = useState(null);
 
 
 
@@ -32,7 +34,7 @@ const Profile = () => {
         console.error("Error fetching user:", error);
       }
     };
-
+  
     fetchUser();
   }, []);
 
@@ -56,47 +58,47 @@ const Profile = () => {
 
   const [uploadResult, setUploadResult] = useState('');
 
-  async function uploadFile(file) {
-    const formData = new FormData();
-    formData.append('uploadedFile', file);
+async function uploadFile(file) {
+  const formData = new FormData();
+  formData.append('uploadedFile', file);
 
-    try {
-      const response = await fetch('http://localhost:7293/api/TestImage/AddImage', {
-        method: 'POST',
-        body: formData,
-      });
+  try {
+    const response = await fetch('http://localhost:7293/api/TestImage/AddImage', {
+      method: 'POST',
+      body: formData,
+    });
 
-      if (!response.ok) {
-        throw new Error('Error during image upload');
-      }
-
-      const result = await response.text();
-      setUploadResult(result);
-    } catch (error) {
-      console.error('Error during image upload:', error);
-      setUploadResult('Error during image upload');
+    if (!response.ok) {
+      throw new Error('Error during image upload');
     }
+
+    const result = await response.text();
+    setUploadResult(result); // Сохраняем путь к загруженной картинке в состоянии
+  } catch (error) {
+    console.error('Error during image upload:', error);
+    setUploadResult('Error during image upload');
   }
+}
 
 
-  const UserProfile = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&Age=${age}&Avatar=${avatar}`, {
+const UserProfile = async () => {
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&Age=${age}&Avatar=`, {
       name: user.name,
       age: user.age,
       avatar: user.avatar
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        }
-      });
-      
-      console.log('User profile posted successfully:', response.data);
-    } catch (error) {
-      console.error('Error posting user profile:', error.response.data);
-    }
-  };
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+
+    console.log('User profile posted successfully:', response.data);
+  } catch (error) {
+    console.error('Error posting user profile:', error.response.data);
+  }
+};
 
 
 
@@ -120,12 +122,16 @@ const Profile = () => {
         <div className="card-body">
           <div className="account-settings">
             <div className="user-profile">
-              <div className="user-avatar">
-                <img src={avatar} alt="Пользователь" />
-                <div>
-      <input type="file" onChange={(event) => uploadFile(event.target.files[0])} />
-      <p>{uploadResult}</p>
-    </div>
+            <div className="user-avatar">
+              {avatar ? (
+                <img src={avatar} alt="Avatar" />
+              ) : (
+                <img src={defaultImg} alt="Default Avatar" />
+              )}
+              <div>
+                <input type="file" onChange={(event) => uploadFile(event.target.files[0])} />
+                <p>{uploadResult}</p>
+              </div>
               </div>
               <h5 className="user-name">{user.name}</h5>
               <h6 className="user-email">{user.userName}</h6>
