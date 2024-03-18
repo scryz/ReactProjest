@@ -5,13 +5,14 @@ class SignalRService {
     constructor() {
         const token = localStorage.getItem("token");
         this.connection = new signalR.HubConnectionBuilder()
-            .withUrl("https://localhost:7293/chatHub", {
+            .withUrl("http://localhost:7293/chatHub", {
                 accessTokenFactory: () => `${token}`
             })
             .build();
 
         this.connection.on("ReceiveMessage", (message) => {
             console.log(`Received message: ${message}`); // Обработка полученного сообщения
+            console.log(`HHHHHHHHHHHHHHHH`);
         });
 
         this.connection.onclose(error => {
@@ -30,6 +31,12 @@ class SignalRService {
         try {
             await this.connection.start();
             console.log('Connection started');
+            
+            if (this.connection.state === 'Connected') {
+                console.log("Подключение к серверу SignalR установлено.");
+            } else {
+                console.log("Подключение к серверу SignalR не установлено.");
+            }
         } catch (error) {
             console.error('Error starting connection: ', error);
             if (retryCount < 5) { // Maximum number of retries
@@ -37,6 +44,8 @@ class SignalRService {
             } else {
                 console.error('Maximum number of retries reached');
             }
+        } finally {
+            console.log('Connection start attempt finished');
         }
     }
 

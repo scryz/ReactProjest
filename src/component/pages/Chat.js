@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect} from 'react';
+import * as signalR from "@microsoft/signalr";
 import "../../css/Char.css";
 import Navbar from '../navbar/Navbar';
 import Footer from '../body/Footer';
@@ -91,13 +92,41 @@ useEffect(() => {
           }
         );
         setMessRoom(response.data);
+  
+        const connection = new signalR.HubConnectionBuilder()
+          .withUrl("/chatHub") // Укажите правильный URL вашего SignalR хаба
+          .build();
+  
+        // Обработчики событий для соединения
+        connection.on("Connected", () => {
+          console.log("Connected be invoked");
+        });
+  
+        connection.on("Join", (roomName) => {
+          console.log("Join be invoked");
+          connection.invoke("Join", roomName);
+        });
+  
+        // Запуск соединения
+        await connection.start();
+  
+        // Проверка, что соединение уже запущено и успешно подключено
+        if (connection.state === signalR.HubConnectionState.Connected) {
+          console.log("Join22222 be invoked");
+          connection.invoke("Join", "RoomName"); // Замените "RoomName" на имя комнаты, в которую вы хотите присоединиться
+          console.log("Join33333 be invoked");
+        } else {
+          console.error("SignalR connection is not in a connected state.");
+        }
       } catch (error) {
         console.error("Error fetching events: ", error);
       }
     };
-
+  
     fetchMessRoom();
-}, [id]);
+  }, [id]);
+
+
 
 const onChatClick = async (id) => {
     setId(id);
