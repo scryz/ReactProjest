@@ -7,14 +7,37 @@ import Footer from "../body/Footer";
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import VerifyToken from "../body/VerifyToken";
+import $ from 'jquery';
+
 
 const Profile = () => {
-  const { isValid, error } = VerifyToken();
+const { isValid, error } = VerifyToken();
 const [user, setUser] = useState('');
 const [name, setName] = useState('');
 const [age, setAge] = useState('');
 const [avatar, setAvatar] = useState();
 const [uploadResult, setUploadResult] = useState('');
+
+//кнопка загрузки аватара
+(function() {
+  
+  'use strict';
+
+  $('.input-file').each(function() {
+    var $input = $(this),
+        $label = $input.next('.js-labelFile'),
+        labelVal = $label.html();
+    
+   $input.on('change', function(element) {
+      var fileName = '';
+      if (element.target.value) fileName = element.target.value.split('\\').pop();
+      fileName ? $label.addClass('has-file').find('.js-fileName').html(fileName) : $label.removeClass('has-file').html(labelVal);
+   });
+  });
+
+})();
+
+
 
 useEffect(() => {
   const fetchUser = async () => {
@@ -80,7 +103,7 @@ async function uploadFile(file) {
 const UserProfile = async () => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&Age=${age}&Avatar=${user.avatar}`, {
+    const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&Age=${age}&Avatar=${uploadResult}`, {
       name: user.name,
       age: user.age
     }, {
@@ -125,8 +148,15 @@ const UserProfile = async () => {
       
               )}
               <div>
-                <input type="file" onChange={(event) => uploadFile(event.target.files[0])} />
-                <p>{uploadResult}</p>
+              <div class="example-2">
+  <div class="form-group">
+    <input type="file" name="file" id="file" onChange={(event) => uploadFile(event.target.files[0])} class="input-file" />
+    <label for="file" class="btn btn-tertiary js-labelFile">
+      <i class="icon fa fa-check"></i>
+      <span class="js-fileName">Загрузить файл</span>
+    </label>
+  </div>
+ </div>
               </div>
               </div>
               <h5 className="user-name">{user.name}</h5>

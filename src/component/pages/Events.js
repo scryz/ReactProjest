@@ -4,10 +4,13 @@ import Navbar from "../navbar/Navbar";
 import { Link } from 'react-router-dom';
 import Footer from "../body/Footer";
 import "../../css/Events.css"
+import defaultImg from '../../img/avatar.png';
 const Events = () => {
 
   const [page, setPage] = useState(1);
   const [events, setEvents] = useState([]);
+  const [user, setUser] = useState('');
+  const [avatar, setAvatar] = useState();
 
   const eventsPerPage = 12;
   const totalPages = Math.ceil(events.length / eventsPerPage);
@@ -32,6 +35,7 @@ const Events = () => {
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
   };
+
 
 
 
@@ -62,7 +66,12 @@ const Events = () => {
               <div className="lib-panel">
                 <div className="row box-shadow">
                   <div className="circle">
-                    <img src="https://sun9-77.userapi.com/impg/hOzKxV4E-EzCsL_9x_EodSfQsAjZCqUjrRdHCA/8MPpyb-Y0ZY.jpg?size=972x2160&quality=95&sign=0a2c08de5862fb032bd95b6ba184e88f&type=album" alt="about" />
+                  {avatar ? (
+                <img src={avatar} alt="Avatar" />
+              ) : (
+                <img src={defaultImg} alt="Default Avatar" />
+      
+              )}
                   </div>
                   <div className="col-md-6">
                   <div className="lib-row lib-header">
