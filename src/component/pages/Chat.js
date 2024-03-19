@@ -96,13 +96,6 @@ useEffect(() => {
           }
         );
         setMessRoom(response.data);
-
-   
-        console.log("Join be invoked");
-        signalRS.join("RoomName"); // Замените "RoomName" на имя комнаты, в которую вы хотите присоединиться
-        console.log("Join be invoked");
-
-
       } catch (error) {
         console.error("Error fetching events: ", error);
       }
