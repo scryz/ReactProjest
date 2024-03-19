@@ -18,12 +18,16 @@ import Smile5 from '../../img/emoji5.png'
 import Smile6 from '../../img/emoji6.png'
 import Smile7 from '../../img/emoji7.png'
 
+import { useSignalR } from '../SignalRContext'; // Импортируем useSignalR из вашего файла SignalRContext.js
+
+
 
 
 
 
 const Chat = () => {
 
+    const signalRS = useSignalR(); // Получаем экземпляр SignalRService с помощью useSignalR
     const [isLoading, setIsLoading] = useState(false);
     const [showModalCreate, setShowModalCreate] = useState(false);
     const [showModalRename, setShowModalRename] = useState(false);
@@ -91,6 +95,11 @@ useEffect(() => {
           }
         );
         setMessRoom(response.data);
+   
+        console.log("Join be invoked");
+        signalRS.join("RoomName"); // Замените "RoomName" на имя комнаты, в которую вы хотите присоединиться
+        console.log("Join be invoked");
+
       } catch (error) {
         console.error("Error fetching events: ", error);
       }

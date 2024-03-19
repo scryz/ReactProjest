@@ -9,6 +9,16 @@ import AddEvent from './component/pages/AddEvent';
 import Chat from './component/pages/Chat';
 import Map from './component/pages/Map';
 
+
+
+
+
+
+
+
+
+
+
 function App() { 
 
 
