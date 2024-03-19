@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect} from 'react';
+import * as signalR from "@microsoft/signalr";
 import "../../css/Char.css";
 import Navbar from '../navbar/Navbar';
 import Footer from '../body/Footer';
@@ -95,18 +96,22 @@ useEffect(() => {
           }
         );
         setMessRoom(response.data);
+
    
         console.log("Join be invoked");
         signalRS.join("RoomName"); // Замените "RoomName" на имя комнаты, в которую вы хотите присоединиться
         console.log("Join be invoked");
 
+
       } catch (error) {
         console.error("Error fetching events: ", error);
       }
     };
-
+  
     fetchMessRoom();
-}, [id]);
+  }, [id]);
+
+
 
 const onChatClick = async (id) => {
     setId(id);

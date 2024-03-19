@@ -113,6 +113,7 @@ const UserProfile = async () => {
     });
 
     console.log('User profile posted successfully:', response.data);
+    window.location.reload();
   } catch (error) {
     console.error('Error posting user profile:', error.response.data);
   }
@@ -152,8 +153,7 @@ const UserProfile = async () => {
   <div class="form-group">
     <input type="file" name="file" id="file" onChange={(event) => uploadFile(event.target.files[0])} class="input-file" />
     <label for="file" class="btn btn-tertiary js-labelFile">
-      <i class="icon fa fa-check"></i>
-      <span class="js-fileName">Загрузить файл</span>
+      <span class="js-fileName">Загрузить аватар</span>
     </label>
   </div>
  </div>

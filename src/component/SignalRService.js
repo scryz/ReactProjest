@@ -45,6 +45,7 @@ class SignalRService {
             }
         } finally {
             console.log('Connection start attempt finished');
+
         }
     }
 
@@ -54,6 +55,7 @@ class SignalRService {
             console.log(`Joined room: ${roomName}`);
         } catch (error) {
             console.error(`Error joining room ${roomName}: `, error);
+
         }
     }
 
