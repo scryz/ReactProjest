@@ -17,7 +17,7 @@ const Events = () => {
 
   const startIndex = (page - 1) * eventsPerPage;
   const endIndex = startIndex + eventsPerPage;
-  const currentEvents = events.slice(startIndex, endIndex);
+  const currentEvents = events.slice(startIndex, endIndex).reverse();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,12 +36,8 @@ const Events = () => {
     setPage(pageNumber);
   };
 
-
-
-
-
   function Text({text, id}) {
-    const words = text.split(' ');
+   const words = text.split(' ');
     if (words.length > 30){
        return <p>{words.slice(0, 30).join(' ')} <Link to={`/event/${id}`}>ещё</Link></p>;
     }
@@ -50,11 +46,8 @@ const Events = () => {
     }
    }
 
-
-
-    return (
-      <div>
-        <>
+  return (
+    <>
       <Navbar />
       <div className="container">
         <h1>Мероприятия</h1>
@@ -120,7 +113,6 @@ const Events = () => {
     </div>
       <Footer />
       </>
-    </div>
     );
 }
 

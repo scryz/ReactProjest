@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import axios from 'axios';
 import Navbar from '../navbar/Navbar';
 import Footer from '../body/Footer';
@@ -8,13 +8,16 @@ import VerifyToken from "../body/VerifyToken";
 import "../../css/EventDetail.css"
 import "../../css/login.css"
 
-function EventDetail() {
+const EventDetail = (props) => {
+
     const { id } = useParams();
     const [event, setEvent] = useState(null);
     const [isJoined, setIsJoined] = useState(false);
+    const [delite, setDelite] = useState(false);
     const [participants, setParticipants] = useState([]);
     const { isValid, error } = VerifyToken();
     const [ err, setErrorMessage] = useState('');
+    const history = useHistory();
 
     useEffect(() => {
       const fetchData = async () => {
@@ -62,6 +65,27 @@ function EventDetail() {
         setErrorMessage('Вы уже присоединились к данному мероприятию!');
       }
     };
+
+    const handleDeleteEvent = async (id) => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.post(`http://localhost:7293/DeleteEvent?EventId=${id}`, {}, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+  
+        if (response.status === 200) {
+          setDelite(true);
+        } 
+        else {
+          console.log('Мероприятие удалено!');
+          history.goBack();
+        }
+      } catch (err) {
+        setErrorMessage('Ошибка, вы не создатель мероприятия!');
+      }
+    };
   
     if (!event) {
       return <div>Немного подождите, идёт загрузка мероприятия</div>;
@@ -74,6 +98,7 @@ function EventDetail() {
       <>
 <Navbar />
 <div className="cardEvent">
+<button onClick={() => handleDeleteEvent(props.eventId)}>Удалить мероприятие</button>
 <div className="containerEvent">
 <div className="circle">
     <img src="https://sun9-77.userapi.com/impg/hOzKxV4E-EzCsL_9x_EodSfQsAjZCqUjrRdHCA/8MPpyb-Y0ZY.jpg?size=972x2160&quality=95&sign=0a2c08de5862fb032bd95b6ba184e88f&type=album" about='imgPart' alt=''/>

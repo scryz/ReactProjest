@@ -22,7 +22,7 @@ const AddEvent = () => {
       }
     });
     setErrorMessage('Мероприяте создано!');
-    window.location.href="/events";
+    window.location.href="/events/1";
     
     } catch (err) {
       setErrorMessage('Ошибка при создании мероприятия, заполните все поля ввода!');
