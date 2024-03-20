@@ -69,7 +69,7 @@ const EventDetail = (props) => {
     const handleDeleteEvent = async (id) => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.delite(`http://localhost:7293/DeleteEvent?EventId=${id}`, {}, {
+        const response = await axios.delete(`http://localhost:7293/DeleteEvent?EventId=${id}`, {}, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
