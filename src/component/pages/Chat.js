@@ -88,35 +88,42 @@ fetchData();
 const lastMessageRef = useRef(null);
 
 useEffect(() => {
-    const fetchMessRoom = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get(`http://localhost:7293/api/Messages/Room/${id}?RoomId=${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setMessRoom(response.data);
-        signalRService.startConnection(messRoom);
-        if (lastMessageRef.current) {
-          lastMessageRef.current.focus();
+  const fetchMessRoom = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`http://localhost:7293/api/Messages/Room/${id}?RoomId=${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      } catch (error) {
-        console.error("Error fetching events: ", error);
+      );
+      setMessRoom(response.data);
+      signalRService.startConnection(messRoom);
+      if (lastMessageRef.current) {
+        lastMessageRef.current.focus();
       }
-    };
-  
-    fetchMessRoom();
-  }, [id]);
+    } catch (error) {
+      console.error("Error fetching events: ", error);
+    }
+  };
 
-  useEffect(() => {
-    signalRService.connection.on("ReceiveMessage", (messRoom) => {
-      console.log("Received message:", messRoom);
-      setMessRoom((prevMessages) => [...prevMessages, messRoom]);
-    });
-  }, []);
+  fetchMessRoom();
+}, [id]);
+
+useEffect(() => {
+  const handleReceiveMessage = (messRoom) => {
+    console.log("Received message:", messRoom);
+    setMessRoom((prevMessages) => [...prevMessages, messRoom]);
+  };
+
+  signalRService.connection.on("ReceiveMessage", handleReceiveMessage);
+
+  // Cleanup function
+  return () => {
+    signalRService.connection.off("ReceiveMessage", handleReceiveMessage);
+  }
+}, []);
 
 
 
