@@ -67,24 +67,25 @@ const EventDetail = (props) => {
     };
 
     const handleDeleteEvent = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await axios.post(`http://localhost:7293/DeleteEvent?EventId=${id}`, {}, {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-  
-        if (response.status === 200) {
-          setDelite(true);
-        } 
-        else {
-          console.log('Мероприятие удалено!');
-        }
-      } catch (err) {
-        setErrorMessage('Ошибка, вы не создатель мероприятия!');
+  try {
+    const token = localStorage.getItem('token');
+    const response = await axios.post(`http://localhost:7293/DeleteEvent?EventId=${id}`, {}, {
+      headers: {
+        'Authorization': `Bearer ${token}`
       }
-    };
+    });
+
+    if (response.status === 200) {
+      setDelite(true);
+      window.history.back();
+    } 
+    else {
+      setErrorMessage('Ошибка, вы не создатель мероприятия!');
+    }
+  } catch (err) {
+    setErrorMessage('Ошибка, вы не создатель мероприятия!');
+  }
+};
   
     if (!event) {
       return <div>Немного подождите, идёт загрузка мероприятия</div>;
