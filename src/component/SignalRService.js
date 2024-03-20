@@ -8,10 +8,8 @@ class SignalRService {
                 accessTokenFactory: () => `${token}`
             })
             .build();
-
-        this.connection.on("ReceiveMessage", (message) => {
-            console.log(`Received message: ${message}`); // Обработка полученного сообщения
-            console.log(`HHHHHHHHHHHHHHHH`);
+        this.connection.on("ReceiveMessage", (messRoom) => {
+            console.log("Received message:", messRoom);
         });
 
         this.connection.onclose(error => {
@@ -50,21 +48,22 @@ class SignalRService {
         }
     }
 
-    async join(roomName) {
+    async join(id) {
         try {
-            await this.connection.invoke("Join", roomName);
-            console.log(`Joined room: ${roomName}`);
+            await this.connection.invoke("Join", id);
+            console.log(`Joined room: ${id}`);
         } catch (error) {
-            console.error(`Error joining room ${roomName}: `, error);
+            console.error(`Error joining room ${id}: `, error);
 
 
         }
     }
 
-    sendMessage(message) {
-        this.connection.invoke("SendMessage", message)
+    sendMessage(messages) {
+        this.connection.invoke("SendMessage", messages)
             .catch(error => {
                 console.error('Error sending message: ', error);
+                console.log(messages)
                 // Provide feedback to the user about what went wrong
             });
     }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from 'react';
-import * as signalR from "@microsoft/signalr";
+import { useRef } from 'react';
 import "../../css/Char.css";
 import Navbar from '../navbar/Navbar';
 import Footer from '../body/Footer';
@@ -11,7 +11,7 @@ import { CreateChat } from './CRUDchat';
 import { DeleteChat } from './CRUDchat';
 import { DeleteMessage } from './CRUDchat';
 import signalRService from '../SignalRService';
-import Smile1 from '../../img/emoji1.png'
+import Smile1 from '../../img/emoji1.png';
 import Smile2 from '../../img/emoji2.png'
 import Smile3 from '../../img/emoji3.png'
 import Smile4 from '../../img/emoji4.png'
@@ -20,6 +20,7 @@ import Smile6 from '../../img/emoji6.png'
 import Smile7 from '../../img/emoji7.png'
 
 import { useSignalR } from '../SignalRContext'; // Импортируем useSignalR из вашего файла SignalRContext.js
+
 
 
 
@@ -53,7 +54,7 @@ const Chat = () => {
     
 
     const [name, setName] = useState('');
-    const [id, setId] = useState(null);
+    const [id, setId] = useState(1);
     const [idMess, setIdMess] = useState(null);
 
     const [messRoom, setMessRoom] = useState([]);
@@ -84,6 +85,8 @@ fetchData();
 }, []);
 
 
+const lastMessageRef = useRef(null);
+
 useEffect(() => {
     const fetchMessRoom = async () => {
       try {
@@ -96,6 +99,10 @@ useEffect(() => {
           }
         );
         setMessRoom(response.data);
+        signalRService.startConnection(messRoom);
+        if (lastMessageRef.current) {
+          lastMessageRef.current.focus();
+        }
       } catch (error) {
         console.error("Error fetching events: ", error);
       }
@@ -103,6 +110,13 @@ useEffect(() => {
   
     fetchMessRoom();
   }, [id]);
+
+  useEffect(() => {
+    signalRService.connection.on("ReceiveMessage", (messRoom) => {
+      console.log("Received message:", messRoom);
+      setMessRoom((prevMessages) => [...prevMessages, messRoom]);
+    });
+  }, []);
 
 
 
@@ -117,8 +131,8 @@ const onChatClick = async (id) => {
           });
         const data = response.data;
         setName(data.name);
-        
-        console.log(data.name);
+        signalRS.join(`${id}`); // Замените "RoomName" на имя комнаты, в которую вы хотите присоединиться
+        console.log("Join be invoked");
     } catch (error) {
         console.error('Error fetching chat details: ', error);
     }
@@ -135,7 +149,6 @@ const onMessClick = async (idMess) => {
           });
         const data = response.data;
         setIdMess();
-        
         console.log(data.name);
     } catch (error) {
         console.error('Error fetching chat details: ', error);
@@ -170,7 +183,7 @@ const [content, setContent] = useState('');
         console.error('Error:', error);
       }
       
-      signalRService.startConnection(); // Вызов метода при открытии модального окна
+  
     };
 
 
@@ -246,9 +259,9 @@ const [content, setContent] = useState('');
             
             <ul className="list-unstyled">
     {messRoom.map((message, idMess) => (
-            <li key={idMess}>
+            <ul className="list-unstyled" key={idMess}>
                 
-                <li>
+                <li ref={idMess === messRoom.length - 1 ? lastMessageRef : null}>
                     <div className="message-item">
                         <span className="avatar avatar-lg mx-2 text-uppercase">А</span>
                         
@@ -269,7 +282,7 @@ const [content, setContent] = useState('');
                         </div>
                     </div>
                 </li>
-            </li>
+            </ul>
             ))}
             </ul>
 
