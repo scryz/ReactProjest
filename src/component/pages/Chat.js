@@ -1,5 +1,4 @@
-import React, { useState, useEffect} from 'react';
-import { useRef } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import "../../css/Char.css";
 import Navbar from '../navbar/Navbar';
 import Footer from '../body/Footer';
@@ -58,13 +57,18 @@ const Chat = () => {
     const [idMess, setIdMess] = useState(null);
 
     const [messRoom, setMessRoom] = useState([]);
+    const messagesEndRef = useRef(null);
     const socketRef = socketIOClient("http://localhost:3000/");
-    const [isFetched, setIsFetched] = useState(false);
 
     const formatDate = (date) => {
         const formattedDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
         return formattedDate;
       };
+
+      const scrollToBottom = () => {
+        messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+      };
+
 
 useEffect(() => {
   const fetchData = async () => {
@@ -85,8 +89,6 @@ fetchData();
 }, []);
 
 
-const lastMessageRef = useRef(null);
-
 useEffect(() => {
   const fetchMessRoom = async () => {
     try {
@@ -100,9 +102,6 @@ useEffect(() => {
       );
       setMessRoom(response.data);
       signalRService.startConnection(messRoom);
-      if (lastMessageRef.current) {
-        lastMessageRef.current.focus();
-      }
     } catch (error) {
       console.error("Error fetching events: ", error);
     }
@@ -110,6 +109,10 @@ useEffect(() => {
 
   fetchMessRoom();
 }, [id]);
+
+useEffect(() => {
+  scrollToBottom();
+}, [messRoom]);
 
 useEffect(() => {
   const handleReceiveMessage = (messRoom) => {
@@ -261,14 +264,13 @@ const [content, setContent] = useState('');
                 <DeleteChat showModalDelete={showModalDelete} closeModalDelete={handleCloseModalDelete} id={id}/>
             </div>
         </div>
-        <div className="messages-container position-relative">
+        <div className="messages-container position-relative" ref={messagesEndRef}>
             <div className="no-messages-info" /*проверка на наличие сообщений*/></div>
             
             <ul className="list-unstyled">
     {messRoom.map((message, idMess) => (
             <ul className="list-unstyled" key={idMess}>
-                
-                <li ref={idMess === messRoom.length - 1 ? lastMessageRef : null}>
+                <li>
                     <div className="message-item">
                         <span className="avatar avatar-lg mx-2 text-uppercase">А</span>
                         
@@ -326,7 +328,7 @@ const [content, setContent] = useState('');
                     <img src={Smile4} />
                 </button>
                 <button>
-                    <img src={Smile5} />
+                    <img src={Smile5} about='смайл'/>
                 </button>
                 <button>
                     <img src={Smile6} />
