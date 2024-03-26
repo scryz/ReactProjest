@@ -12,8 +12,17 @@ h1 {
 	margin: 0;
 }
 
+@media screen and (max-width: 380px) {
 h2 {
 	text-align: center;
+	font-size: 24px;
+	
+}
+}
+
+h2 {
+	text-align: center;
+	
 }
 
 .p {
@@ -46,7 +55,7 @@ button {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
-	margin-bottom: 0.5rem;
+	margin-bottom: 1.5rem;
 	margin-right: 0.5rem;
 }
 .btnh {

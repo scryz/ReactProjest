@@ -58,3 +58,30 @@
 .example-2 .input-file + .js-labelFile{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 10px;cursor:pointer}
 .example-2 .input-file + .js-labelFile .icon:before{content:"\f093"}
 .example-2 .input-file + .js-labelFile.has-file .icon:before{content:"\f00c";color:#5AAC7B}
+
+.col-lg-9 {
+    max-width: 100%;
+}
+
+.col-md-six {
+    max-width: 100%;
+    flex: 1 0 100%;
+}
+
+.lib-panel {
+    padding: 0;
+    background-color: #FFFFFF;
+    padding: 0px 10px 0px 10px;
+    display: contents;
+}
+
+.icon_myevents {
+    width: 20px;
+    margin: 0px 4px 0px 4px;
+    float: right;
+}
+
+.right {
+    float: left;
+    margin: 5px 90% 5px 5px;
+}

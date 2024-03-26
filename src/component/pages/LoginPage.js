@@ -9,6 +9,7 @@ import { jwtDecode } from 'jwt-decode';
 export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
  const [userName, setUserName] = useState('');
  const [password, setPassword] = useState('');
+ const [confirmPassword, setConfirmPassword] = useState('');
  const [errorMessage, setErrorMessage] = useState(null);
  const [name, setName] = useState('');
  const [age, setAge] = useState('');
@@ -30,6 +31,11 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
 
  const handleSubmitLogin = async (e) => {
     e.preventDefault();
+
+    if (!userName || !password) {
+      setErrorMessage('Неверно введены данные или пропущены поля!');
+      return;
+    }
     
     try {
       const response = await axios.post('http://localhost:7293/api/Auth/Login', {
@@ -64,37 +70,58 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
       }
       }
 
+
       const handleSubmitReg = async (e) => {
         e.preventDefault();
-        
+      
+        const ageErrorMessage = validateAge(age);
+        if (ageErrorMessage) {
+          setErrorMessage(ageErrorMessage);
+          return;
+        }
+      
+        if (!userName || !password || !name || !age || !confirmPassword) {
+          setErrorMessage('Неверно введены данные или пропущены поля!');
+          return;
+        }
+    
+        if (password !== confirmPassword) {
+          setErrorMessage('Пароли не совпадают!');
+          return;
+        }
+      
         try {
-          const response = await fetch('http://localhost:7293/api/Auth/Register', 
-           {
-            
+          const response = await fetch('http://localhost:7293/api/Auth/Register', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({ userName, password, name, age }),
           });
-          setErrorMessage(null);
+      
+          if (response.status === 400) {
             const data = await response.json();
-            console.log(data);
-            setErrorMessage('Неверно введены данные или пропущены поля!');
+            setErrorMessage(data.message);
+          } else {
+            setErrorMessage(null);
+            handleSignInClick();
+          }
         } catch (error) {
-            if (error.response) {
-                if (error.response.status === 400) {
-                  setErrorMessage('Неправильно введены данные или пропущены поля!');
-                } else {
-                  setErrorMessage('Ошибка сервера');
-                }
-               } else {
-                setErrorMessage('Аккаунт успешно зарегистрирован!');
-                handleSignInClick();
-             }
-           
+          setErrorMessage('Ошибка сервера');
         }
-    }
+      };
+      
+      const validateAge = (age) => {
+        if (!age) {
+          return 'Поле возраст обязательно для заполнения!';
+        }
+      
+        if (age < 18 || age > 100) {
+          return 'Возраст должен быть в диапазоне от 18 до 100 лет!';
+        }
+      
+        return null;
+      };
 
 
 
@@ -108,11 +135,12 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
     <div className="container_log" ref={containerRef}>
       <div className="form-container_log sign-up-container_log">
         <form onSubmit={handleSubmitReg}>
-          <h1>Создать аккаунт</h1>
+          <h2>Создать аккаунт</h2>
           <input type="text" name="userName" placeholder="Ник" value={userName} onChange={(e) => setUserName(e.target.value)} autoFocus/>
           <input type="text" name="name" placeholder="Имя" value={name} onChange={(e) => setName(e.target.value)} />
           <input type="number" name="age" placeholder="Возраст" value={age} onChange={(e) => setAge(e.target.value)} />
           <input type="password" name="name" placeholder="Пароль" value={password} onChange={(e) => setPassword(e.target.value)} />
+          <input type="password" name="confirmPassword" placeholder="Подтвердите пароль" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
           {errorMessage && <p>{errorMessage}</p>}
           <button type="submit" ref={signInButtonRef} >Создать</button>
         </form>

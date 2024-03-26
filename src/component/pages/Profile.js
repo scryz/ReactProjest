@@ -8,15 +8,28 @@ import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import VerifyToken from "../body/VerifyToken";
 import $ from 'jquery';
+import calendar from '../../img/calendar.png';
+import view_icon from '../../img/view.png'
+import comment_icon from '../../img/comment.png'
+import like_icon from '../../img/like.png'
+import edit from '../../img/edit.png';
+import trash from '../../img/trash.png';
+import { Link } from 'react-router-dom';
 
 
 const Profile = () => {
 const { isValid, error } = VerifyToken();
+const [ id, setId ] = useState('');
 const [user, setUser] = useState('');
 const [name, setName] = useState('');
 const [age, setAge] = useState('');
 const [avatar, setAvatar] = useState();
 const [uploadResult, setUploadResult] = useState('');
+const [views, setViews] = useState(0);
+const [comment, setComment] = useState(0);
+const [like, setLike] = useState(0);
+const [events, setEvents] = useState([]);
+const [delite, setDelite] = useState(false);
 
 //кнопка загрузки аватара
 (function() {
@@ -58,6 +71,29 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:7293/GetTwelveEvents');
+      setEvents(response.data);
+    } catch (error) {
+      console.error('Error fetching events: ', error);
+    }
+  };
+
+  fetchData();
+}, [user.id]);
+
+function Text({text, id}) {
+  const words = text.split(' ');
+   if (words.length > 30){
+      return <p>{words.slice(0, 30).join(' ')} <Link to={`/event/${id}`}>ещё</Link></p>;
+   }
+   else{
+      return text;
+   }
+  }
+
+useEffect(() => {
   const fetchAvatar = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -65,7 +101,7 @@ useEffect(() => {
         headers: {
           Authorization: `Bearer ${token}`
         },
-        responseType: 'arraybuffer' // This is important
+        responseType: 'arraybuffer'
       });
      const base64 = btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
       setAvatar(`data:${response.headers['content-type'].toLowerCase()};base64,${base64}`);
@@ -119,7 +155,31 @@ const UserProfile = async () => {
   }
 };
 
+const handleDeleteEvent = async () => {
+  if (window.confirm('Are you sure you want to delete this event?')) {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.post(`http://localhost:7293/DeleteEvent?EventId=${id}`, {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
+      if (response.status === 200) {
+        setDelite(true);
+        window.history.back();
+      } else {
+        //setErrorMessage('Произошла ошибка при удаления мероприятию. Пожалуйста, повторите попытку позже.');
+      }
+    } catch (err) {
+      if (err.response.status === 401) {
+        //setErrorMessage('Вы не авторизованы! Пожалуйста, войдите в аккаунт.');
+      } else {
+        //setErrorMessage('Ошибка, вы не создатель мероприятия!');
+      }
+    }
+  }
+};
 
   const navigate = useNavigate();
 
@@ -227,12 +287,50 @@ const UserProfile = async () => {
             </div>
           </div>
           <div className="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-      <div className="card h-100">
-        <div className="card-body">
+      <div className="h-100">
+        
           <div className="row gutters">
             <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
               <h4 className="mb-2 text-primary">Мои мероприятия</h4>
             </div>
+            <div className="container">
+        <div className="row row-margin-bottom">
+          {events.map((event, id) => (
+            <div className="col-md-six" key={id}>
+              <div className="lib-panel">
+                <div className="row box-shadow">
+                  <div className="col-md-six">
+                  <div className="lib-row lib-header">
+                    <a onClick={handleLogout}>
+                      <img className='icon_myevents' src={edit} />
+                    </a>
+                    <a onClick={handleDeleteEvent}>
+                      <img className='icon_myevents' src={trash} />
+                    </a>
+                      <Link to={`/event/${event.id}`}><h4>{event.eventName}</h4></Link>
+                      <div className="lib-header-seperator"></div>
+                    </div>
+                    <div className="lib-row lib-desc">
+                      <div className="right">
+                        <span className="glyphicon" aria-hidden="true">
+                          <img className='icon' src={calendar} />26.08.2003</span>
+                      </div>
+                      <h5 className='H5_center'><Text text={event.description} id={event.id}/></h5>
+                    </div>
+                    <div className='icon_position'>
+                    <p><span class="glyphicon" aria-hidden="true">
+                        <img className='icon' src={view_icon} /></span> {views} |
+                      <span class=" glyphicon" aria-hidden="true">
+                      <img className='icon' src={comment_icon} /></span> {comment} |
+                      <span class="glyphicon" aria-hidden="true">
+                      <img className='icon' src={like_icon} /></span> {like} |</p>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
             </div>
               </div>
             </div>

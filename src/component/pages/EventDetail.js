@@ -5,8 +5,10 @@ import axios from 'axios';
 import Navbar from '../navbar/Navbar';
 import Footer from '../body/Footer';
 import VerifyToken from "../body/VerifyToken";
+import defaultImg from "../../img/avatar.png"
 import "../../css/EventDetail.css"
 import "../../css/login.css"
+
 
 const EventDetail = (props) => {
 
@@ -18,14 +20,18 @@ const EventDetail = (props) => {
     const { isValid, error } = VerifyToken();
     const [ err, setErrorMessage] = useState('');
     const history = useHistory();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
       const fetchData = async () => {
+        setIsLoading(true);
         try {
           const response = await axios.post(`http://localhost:7293/GetEventById?EventId=${id}`);
           setEvent(response.data);
+          setIsLoading(false);
         } catch (error) {
           console.error('Error fetching event details: ', error);
+          setIsLoading(false);
         }
       };
   
@@ -54,51 +60,33 @@ const EventDetail = (props) => {
             'Authorization': `Bearer ${token}`
           }
         });
-  
+    
         if (response.status === 200) {
           setIsJoined(true);
-        } 
-        else {
-          console.error('Failed to join event.');
+          setErrorMessage('');
+        } else {
+          console.error('Failed to join event:', response.statusText);
+          setErrorMessage('Произошла ошибка при присоединении к мероприятию. Пожалуйста, повторите попытку позже.');
         }
       } catch (err) {
-        setErrorMessage('Вы уже присоединились к данному мероприятию!');
+        if (err.response.status === 401) {
+          setErrorMessage('Вы не авторизованы! Пожалуйста, войдите в аккаунт.');
+        } else {
+          setErrorMessage('Вы уже присоединились к мероприятию!');
+        }
       }
     };
-
-    const handleDeleteEvent = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    const response = await axios.post(`http://localhost:7293/DeleteEvent?EventId=${id}`, {}, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
-
-    if (response.status === 200) {
-      setDelite(true);
-      window.history.back();
-    } 
-    else {
-      setErrorMessage('Ошибка, вы не создатель мероприятия!');
-    }
-  } catch (err) {
-    setErrorMessage('Ошибка, вы не создатель мероприятия!');
-  }
-};
-  
-    if (!event) {
-      return <div>Немного подождите, идёт загрузка мероприятия</div>;
-    }
 
           
   return (
     <div>
-    {isValid ? (
       <>
 <Navbar />
+{isLoading ? (
+        <h2 className='loading'>Загрузка мероприятия, немного подождите ...</h2>
+        ) : (
+      <div>
 <div className="cardEvent">
-<button onClick={() => handleDeleteEvent(props.eventId)}>Удалить мероприятие</button>
 <div className="containerEvent">
 <div className="circle">
     <img src="https://sun9-77.userapi.com/impg/hOzKxV4E-EzCsL_9x_EodSfQsAjZCqUjrRdHCA/8MPpyb-Y0ZY.jpg?size=972x2160&quality=95&sign=0a2c08de5862fb032bd95b6ba184e88f&type=album" about='imgPart' alt=''/>
@@ -114,21 +102,26 @@ const EventDetail = (props) => {
                   <p>Вы успешно присоединились!</p>
                 )}
           <Link className="btnh" to="/chat">Чат</Link>
-    <div className='row box-shadow'>
+    <section class="overflow-x">
+  <div class="horizontal-friends-list" >
     {participants.map((participant, index) => (
-    
-  <li key={index}>{participant.name}</li>
+    <figure className='friend-item' key={index}>
+      <picture>
+        <img src={defaultImg}/>
+      </picture>
+      <figcaption>{participant.name}</figcaption>
+    </figure>
+
 ))}
+</div>
+  </section>
     </div>
   </div>
   </div>
   </div>
-
+)}
     <Footer />
     </>
-    ) : (
-      <p>{error}</p>
-    )}
   </div>
   );
 }
