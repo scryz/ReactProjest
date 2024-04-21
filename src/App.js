@@ -8,6 +8,7 @@ import EventDetail from './component/pages/EventDetail';
 import AddEvent from './component/pages/AddEvent';
 import Chat from './component/pages/Chat';
 import Map from './component/pages/Map';
+import MyProfile from './component/pages/MyProfile';
 
 
 
@@ -19,24 +20,24 @@ import Map from './component/pages/Map';
 
 
 
-function App() { 
+function App() {
 
 
   return (
     <YMaps>
       <Router>
-          <Routes>
-            <Route path ="/" element={<Home/>}/>
-            <Route path='/map' element={<Map/>}/>
-            <Route path="/profile" element={<Profile/>}/>
-            <Route path='/events/:pageNumber' element={<Events/>}/>
-            <Route path='/event/:id' element={<EventDetail/>}/>
-            <Route path='/addevent' element={<AddEvent/>}/>
-            <Route path='/chat' element={<Chat/>}/>
-          </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path='/map' element={<Map />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path='/events/:pageNumber' element={<Events />} />
+          <Route path='/event/:id' element={<EventDetail />} />
+          <Route path='/chat' element={<Chat />} />
+          <Route path='/myprofile' element={<MyProfile />} />
+        </Routes>
       </Router>
-      </YMaps>
-        
+    </YMaps>
+
   );
 }
 
