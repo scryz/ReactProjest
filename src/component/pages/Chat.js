@@ -127,11 +127,6 @@ const Chat = () => {
     fetchUser();
   }, []);
 
-  const formatDate = (date) => {
-    const formattedDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
-    return formattedDate;
-  };
-
   const scrollToBottom = () => {
     messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
   };
