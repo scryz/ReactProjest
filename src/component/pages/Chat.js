@@ -246,7 +246,6 @@ const Chat = () => {
   }
 
 
-
   const [content, setContent] = useState('');
 
   const handleSubmit = async (e) => {
