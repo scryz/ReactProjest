@@ -396,7 +396,7 @@ const MyProfile = () => {
                                     <div className="row row-margin-bottom">
                                         {events.map((event, id) => (
                                             <div className="col-md-six" key={id}>
-                                                {id == 0 ? (<div className="no-messages-info">У вас нет ещё событий, скорее создайте их!<p />
+                                                {event == 0 ? (<div className="no-messages-info">У вас нет ещё событий, скорее создайте их!<p />
                                                 </div>
                                                 ) : (
                                                     <div className="lib-panel">
