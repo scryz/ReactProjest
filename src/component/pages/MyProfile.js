@@ -70,6 +70,7 @@ const MyProfile = () => {
                 });
                 setUser(response.data);
                 console.log(user.birthDate);
+                console.log(user)
             } catch (error) {
                 console.error("Error fetching user:", error);
             }
@@ -274,7 +275,7 @@ const MyProfile = () => {
                             <h2 class="media-heading">{user.name}
                                 <small> - ColorCloudCo</small>
                             </h2>
-                            <p class="lead">Я не боюсь шутить про дьявола, потому что я абсолютно уверен, никто из вас сейчас из зала не выкрикнет «Э! Э! Не шути про дьявола, у меня брат черт!»</p>
+                            <p class="lead">{user.status}</p>
                         </div>
                     </div>
                 </div>
