@@ -89,6 +89,7 @@ const MyProfile = () => {
         fetchData();
     }, [user.id]);
 
+
     const handleDeleteEvent = async () => {
         if (window.confirm('Are you sure you want to delete this event?')) {
             try {
