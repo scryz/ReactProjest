@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { Link } from 'react-router-dom';
 import '../../css/MyProfile.css'
+import defaultImg from '../../img/avatar.png';
 import Navbar from "../navbar/Navbar";
 import Footer from "../body/Footer";
 import calendar from '../../img/calendar.png';
@@ -19,6 +20,7 @@ const MyProfile = () => {
     const [activeTab, setActiveTab] = useState("tab1");
     const [user, setUser] = useState('');
     const [name, setName] = useState('');
+    const [status, setStatus] = useState('');
     const [birthDate, setBirthDate] = useState('');
     const [avatar, setAvatar] = useState();
     const [uploadResult, setUploadResult] = useState('');
@@ -116,12 +118,59 @@ const MyProfile = () => {
         }
     };
 
+    async function uploadFile(file) {
+        const formData = new FormData();
+        formData.append('uploadedFile', file);
+
+        try {
+            const token = localStorage.getItem('token');
+            const response = await axios.post('http://localhost:7293/api/Image/AddImage', formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data', // Add this line
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Error during image upload');
+            }
+
+            const result = await response.text(); // Изменение здесь
+            setUploadResult(result); // Изменение здесь
+        } catch (error) {
+            console.error('Error during image upload:', error);
+        }
+    }
+
+    useEffect(() => {
+        const fetchAvatar = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`http://localhost:7293/api/Image/GetImage?FileId=1`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    responseType: 'arraybuffer'
+                });
+                const base64 = btoa(new Uint8Array(response.data).reduce((data, byte) => data + String.fromCharCode(byte), ''));
+                setAvatar(`data:${response.headers['content-type'].toLowerCase()};base64,${base64}`);
+            } catch (error) {
+                console.error("Error fetching user:", error);
+            }
+        };
+
+        if (user.avatar) {
+            fetchAvatar();
+        }
+    }, [user.avatar]);
+
     const UserProfile = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&BirthDate=${birthDate}&Avatar=${uploadResult}`, {
+            const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&BirthDate=${birthDate}&Avatar=${uploadResult}&AvatarId=1&Status=${status}`, {
                 name: user.name,
-                birthDate: user.birthDate
+                birthDate: user.birthDate,
+                status: user.status
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -129,7 +178,7 @@ const MyProfile = () => {
             });
 
             console.log('User profile posted successfully:', response.data);
-            window.location.reload();
+            //window.location.reload();
         } catch (error) {
             console.error('Error posting user profile:', error.response.data);
         }
@@ -189,6 +238,12 @@ const MyProfile = () => {
         };
     }, [isDragging, startX, scrollLeft]);
 
+
+
+
+
+
+
     return (
         <>
             <Navbar />
@@ -199,12 +254,24 @@ const MyProfile = () => {
                             <img className="cover" src="https://webmg.ru/wp-content/uploads/2022/10/i-200-3.jpeg" />
                         </div>
                         <div class="myavatar-padding">
-                            <a href="#">
-                                <img class="myavatar" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="..." />
-                            </a>
+                            {avatar ? (
+                                <label className="label_avatar">
+                                    <img class="myavatar" src={avatar} alt="Avatar" />
+                                    <input type="file" name="file" onClick={(event) => uploadFile(event.target.files[0])} hidden />
+                                </label>
+                            ) : (
+                                <label className="label_avatar">
+
+                                    <img class="myavatar" id="img" src={defaultImg} alt="Default Avatar" />
+                                    <input type="file" name="file" onClick={(event) => uploadFile(event.target.files[0])} hidden />
+
+                                </label>
+
+
+                            )}
                         </div>
                         <div class="media-body va-m">
-                            <h2 class="media-heading">Михаил чОРт
+                            <h2 class="media-heading">{user.name}
                                 <small> - ColorCloudCo</small>
                             </h2>
                             <p class="lead">Я не боюсь шутить про дьявола, потому что я абсолютно уверен, никто из вас сейчас из зала не выкрикнет «Э! Э! Не шути про дьявола, у меня брат черт!»</p>
@@ -452,89 +519,93 @@ const MyProfile = () => {
                                     <div className="row gutters setting-content">
                                         <div>
                                             <div>
-                                                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
                                                     <div className="form-group">
-                                                        <label htmlFor="fullName">Имя:</label>
+                                                        <label className="label_setting">Имя:</label>
                                                         <input type="text" className="form-control" id="fullName" placeholder={user.name} onChange={(e) => setName(e.target.value)} />
                                                     </div>
                                                 </div>
-                                                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                                     <div className="form-group">
-                                                        <label htmlFor="fullName">Ник:</label>
+                                                        <label className="label_setting">Ник:</label>
                                                         <input type="text" className="form-control" id="fullName" placeholder={user.userName} />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="fullName">Дата рождения:</label>
-                                                        <input type="date" className="form-control" id="birthDate" value={user.birthDate} onChange={(e) => setBirthDate(e.target.value)} />
+                                                        <label className="label_setting">Дата рождения:</label>
+                                                        <input type="date" className="form-control" onChange={(e) => setBirthDate(e.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="eMail">Email:</label>
+                                                        <label className="label_setting">Email:</label>
                                                         <input type="email" className="form-control" id="eMail" />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="eMail">Чтот ещё:</label>
+                                                        <label className="label_setting">Чтот ещё:</label>
                                                         <input type="text" className="form-control" id="eMail" />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="phone">Номер телефона:</label>
+                                                        <label className="label_setting">Номер телефона:</label>
                                                         <input type="tel" className="form-control" id="phone" />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="website">Город:</label>
+                                                        <label className="label_setting">Город:</label>
                                                         <input type="text" className="form-control" id="cite" placeholder="Введите город" />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="website">Хобби:</label>
+                                                        <label className="label_setting">Хобби:</label>
                                                         <input type="text" className="form-control" id="cite" placeholder="Введите город" />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="website">Образование:</label>
+                                                        <label className="label_setting">Образование:</label>
                                                         <input type="text" className="form-control" id="cite" placeholder="Введите город" />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="website">Место работы:</label>
+                                                        <label className="label_setting">Место работы:</label>
                                                         <input type="text" className="form-control" id="cite" placeholder="Введите город" />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="website">ВКонтакте:</label>
+                                                        <label className="label_setting">ВКонтакте:</label>
                                                         <input type="url" className="form-control" id="eMail" />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="website">Instagram:</label>
+                                                        <label className="label_setting">Instagram:</label>
+                                                        <input type="url" className="form-control" id="eMail" />
+                                                    </div>
+                                                </div>
+                                                <div className="col-xl-6 col-md-6 col-sm-6 col-12">
+                                                    <div className="form-group">
+                                                        <label className="label_setting">Telegram:</label>
                                                         <input type="url" className="form-control" id="eMail" />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
-                                                        <label htmlFor="website">Telegram:</label>
+                                                        <label className="label_setting">Twitter:</label>
                                                         <input type="url" className="form-control" id="eMail" />
                                                     </div>
                                                 </div>
-                                                <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                                    <div className="form-group">
-                                                        <label htmlFor="eMail">Twitter:</label>
-                                                        <input type="url" className="form-control" id="eMail" />
-                                                    </div>
+                                                <div className="form-group">
+                                                    <label className="label_setting">Статус:</label>
+                                                    <textarea required class="textarea_floatLabel" placeholder={user.status} onChange={(e) => setStatus(e.target.value)} />
                                                 </div>
                                             </div>
                                         </div>

@@ -82,49 +82,38 @@ const Events = () => {
           <div className="container">
             <div className="row row-margin-bottom">
               {currentEvents.map((event, id) => (
-                <div className="lib-panel-wrapper" key={id}>
+                <div className="col-md-six" key={id}>
                   <div className="lib-panel">
-                    <div className="box-shadow">
-                      <div className="circle">
-                        {avatar ? (
-                          <img src={avatar} alt="Avatar" />
-                        ) : (
-                          <img src={defaultImg} alt="Default Avatar" />
-                        )}
+                    <div className="lib-row lib-header">
+                      <Link to={`/event/${event.id}`}><h4>{event.eventName}</h4></Link>
+                      <div className="lib-header-seperator"></div>
+                    </div>
+                    <div className="title-event-container">
+                      <div className="right">
+                        <span className="glyphicon" aria-hidden="true">
+                          <img className='icon' src={calendar} />26.08.2003</span>
                       </div>
-                      <div className="lib-panel-content">
-                        <div className="lib-row lib-header">
-                          <Link to={`/event/${event.id}`}>
-                            <h4>{event.eventName}</h4>
-                          </Link>
-                          <div className="lib-header-seperator"></div>
-                        </div>
-                        <div className="lib-row lib-desc">
-                          <span className="glyphicon" aria-hidden="true">
-                            <img className="icon" src={calendar} />
-                            26.08.2003
-                          </span>
-
-                          <h5 className="H5_center">
-                            <Text text={event.description} id={event.id} />
-                          </h5>
-                        </div>
-                        <div className="icon_position">
-                          <p>
-                            <span className="glyphicon" aria-hidden="true">
-                              <img className="icon" src={view_icon} />
-                            </span>
-                            {views} |
-                            <span className=" glyphicon" aria-hidden="true">
-                              <img className="icon" src={comment_icon} />
-                            </span>
-                            {comment} |
-                            <span className="glyphicon" aria-hidden="true">
-                              <img className="icon" src={like_icon} />
-                            </span>
-                            {like} |
-                          </p>
-                        </div>
+                      <h5 className='H5_center'><Text text={event.description} id={event.id} /></h5>
+                    </div>
+                    <div className="icon_position_container">
+                      <div className='icon_position'>
+                        <p><span class="glyphicon" aria-hidden="true">
+                          <img className='icon' src={view_icon} />
+                        </span> {views}
+                        </p>
+                      </div>
+                      <div className='icon_position'>
+                        <p>
+                          <span class=" glyphicon" aria-hidden="true">
+                            <img className='icon' src={comment_icon} />
+                          </span> {comment}
+                        </p>
+                      </div>
+                      <div className='icon_position'>
+                        <p>
+                          <span class="glyphicon" aria-hidden="true">
+                            <img className='icon' src={like_icon} /></span> {like}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -132,7 +121,6 @@ const Events = () => {
               ))}
             </div>
           </div>
-
           <div className="container_pagin">
             <div className="pagination p1">
               <ul>

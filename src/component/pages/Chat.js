@@ -67,6 +67,8 @@ const Chat = () => {
   const [filteredUsers, setFilteredUsers] = useState(messRoom);
   const messagesEndRef = useRef(null);
   const socketRef = socketIOClient("http://localhost:3000/");
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
 
 
 
@@ -171,7 +173,7 @@ const Chat = () => {
     const fetchMessRoom = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`http://localhost:7293/api/Messages/Room/${id}?RoomId=${id}&pageSize=100&pageIndex=0`,
+        const response = await axios.get(`http://localhost:7293/api/Messages/Room/${id}?RoomId=${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

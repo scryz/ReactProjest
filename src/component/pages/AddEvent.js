@@ -65,29 +65,29 @@ const AddEvent = ({ showModalAddEvent, closeModalAddEvent }) => {
               <div class="form-group">
                 <span className="close_btn heavy" onClick={closeModalAddEvent}></span>
                 <h2 class="heading">Добавить событие</h2>
-                <div class="controls">
-                  <input type="text" class="floatLabel" id="name" name="nameEvent" value={EventName} onChange={(e) => setEventName(e.target.value)} />
-                  <label for="name">Название</label>
+                <div>
+                  <div for="name">Название</div>
+                  <input type="text" id="name" name="nameEvent" value={EventName} onChange={(e) => setEventName(e.target.value)} />
                 </div>
                 <div class="grid">
                   <div class="col-1-3">
-                    <div class="controls">
-                      <input type="number" id="street-number" class="floatLabel" name="street-number" />
-                      <label for="street-number">Количество участников</label>
+                    <div>
+                      <div for="street-number">Количество участников</div>
+                      <input type="number" id="street-number" name="street-number" />
                     </div>
                   </div>
                 </div>
                 <div class="grid">
                   <div class="col-2-3">
-                    <div class="controls">
-                      <input type="text" id="city" class="floatLabel" name="city" />
-                      <label for="city">Место</label>
+                    <div>
+                      <div for="city">Место</div>
+                      <input type="text" id="city" name="city" />
                     </div>
                   </div>
                   <div class="col-1-3">
-                    <div class="controls">
-                      <input type="text" id="post-code" class="floatLabel" name="post-code" />
-                      <label for="post-code">чтот ещё</label>
+                    <div>
+                      <div for="post-code">чтот ещё</div>
+                      <input type="text" id="post-code" name="post-code" />
                     </div>
                   </div>
                 </div>
@@ -97,23 +97,22 @@ const AddEvent = ({ showModalAddEvent, closeModalAddEvent }) => {
                 <h2 class="heading">Детали</h2>
                 <div class="grid">
                   <div class="col-1-4 col-1-4-sm">
-                    <div class="controls">
-                      <input type="date" id="arrive" class="floatLabel" name="arrive" value="<?php echo date('Y-m-d'); ?>" />
-                      <label for="arrive" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Начало</label>
+                    <div>
+                      <div for="arrive" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Начало</div>
+                      <input type="date" id="arrive" />
                     </div>
                   </div>
                   <div class="col-1-4 col-1-4-sm">
-                    <div class="controls">
-                      <input type="date" id="depart" class="floatLabel" name="depart" value="<?php echo date('Y-m-d'); ?>" />
-                      <label for="depart" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Окончание</label>
+                    <div>
+                      <div for="arrive" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Окончание</div>
+                      <input type="date" id="arrive" />
                     </div>
                   </div>
                 </div>
                 <div class="grid">
-                  <br />
-                  <div class="controls">
+                  <div>
+                    <div for="comments">Описание</div>
                     <textarea name="description" value={Description} onChange={(e) => setDescription(e.target.value)} required class="floatLabel" id="comments"></textarea>
-                    <label for="comments">Описание</label>
                   </div>
                   <h6>{errorMessage && <p>{errorMessage}</p>}</h6>
                   <button className="buttonEvent button_addevent" type="submit" onClick={handleSubmit}>Добавить мероприятие</button>

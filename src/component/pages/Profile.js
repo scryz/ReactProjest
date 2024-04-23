@@ -2,7 +2,6 @@ import Navbar from "../navbar/Navbar";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../css/Profile.css"
-import Chat from "./Chat";
 import defaultImg from '../../img/avatar.png';
 import Footer from "../body/Footer";
 import { useNavigate } from 'react-router-dom';

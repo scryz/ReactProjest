@@ -54,7 +54,7 @@ const Navbar = () => {
                 <li><Link onClick={handleLogout}>Выйти</Link></li>
               </>) :
                 (<>
-                  <li><Link to="/events/1">Мероприятия</Link></li>
+                  <li><Link to="/events/1">События</Link></li>
                   <li><Link to="/map">Карта</Link></li>
                   <li>
                     <a href="#0" onClick={(event) => { event.preventDefault(); handleShowModalLogReg(); }}>
