@@ -23,15 +23,7 @@ import { useSignalR } from '../SignalRContext'; // Импортируем useSig
 
 
 
-const formatDate = (date) => {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  }).format(date);
-}
+
 
 
 
@@ -179,7 +171,7 @@ const Chat = () => {
     const fetchMessRoom = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get(`http://localhost:7293/api/Messages/Room/${id}?RoomId=${id}`,
+        const response = await axios.get(`http://localhost:7293/api/Messages/Room/${id}?RoomId=${id}&pageSize=100&pageIndex=0`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -397,7 +389,7 @@ const Chat = () => {
                             <div className="message-content">
                               <div className="message-info d-flex flex-wrap align-items-center">
                                 <span className="author">{message.fromFullName}</span>
-                                <span className="timestamp">{formatDate(new Date(message.timestamp))}</span>
+                                <span className="timestamp"></span>
                               </div>
                               <div className="content" message={message.content}>{message.content}</div>
                             </div>

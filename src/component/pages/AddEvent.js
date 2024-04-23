@@ -69,25 +69,11 @@ const AddEvent = ({ showModalAddEvent, closeModalAddEvent }) => {
                   <input type="text" class="floatLabel" id="name" name="nameEvent" value={EventName} onChange={(e) => setEventName(e.target.value)} />
                   <label for="name">Название</label>
                 </div>
-                <div class="controls">
-                  <input type="text" id="email" class="floatLabel" name="email" />
-                  <label for="email">Email</label>
-                </div>
-                <div class="controls">
-                  <input type="tel" id="phone" class="floatLabel" name="phone" />
-                  <label for="phone">Phone</label>
-                </div>
                 <div class="grid">
-                  <div class="col-2-3">
-                    <div class="controls">
-                      <input type="text" id="street" class="floatLabel" name="street" />
-                      <label for="street">Street</label>
-                    </div>
-                  </div>
                   <div class="col-1-3">
                     <div class="controls">
                       <input type="number" id="street-number" class="floatLabel" name="street-number" />
-                      <label for="street-number">Number</label>
+                      <label for="street-number">Количество участников</label>
                     </div>
                   </div>
                 </div>
@@ -95,19 +81,15 @@ const AddEvent = ({ showModalAddEvent, closeModalAddEvent }) => {
                   <div class="col-2-3">
                     <div class="controls">
                       <input type="text" id="city" class="floatLabel" name="city" />
-                      <label for="city">Город</label>
+                      <label for="city">Место</label>
                     </div>
                   </div>
                   <div class="col-1-3">
                     <div class="controls">
                       <input type="text" id="post-code" class="floatLabel" name="post-code" />
-                      <label for="post-code">Post Code</label>
+                      <label for="post-code">чтот ещё</label>
                     </div>
                   </div>
-                </div>
-                <div class="controls">
-                  <input type="text" id="country" class="floatLabel" name="country" />
-                  <label for="country">Country</label>
                 </div>
               </div>
 
@@ -126,44 +108,6 @@ const AddEvent = ({ showModalAddEvent, closeModalAddEvent }) => {
                       <label for="depart" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Окончание</label>
                     </div>
                   </div>
-                </div>
-                <div class="grid">
-                  <div class="col-1-3 col-1-3-sm">
-                    <div class="controls">
-                      <i class="fa fa-sort"></i>
-                      <select class="floatLabel">
-                        <option value="blank"></option>
-                        <option value="1">1</option>
-                        <option value="2" selected>2</option>
-                        <option value="3">3</option>
-                      </select>
-                      <label for="fruit"><i class="fa fa-male"></i>&nbsp;&nbsp;People</label>
-                    </div>
-                  </div>
-                  <div class="col-1-3 col-1-3-sm">
-                    <div class="controls">
-                      <i class="fa fa-sort"></i>
-                      <select class="floatLabel">
-                        <option value="blank"></option>
-                        <option value="deluxe" selected>With Bathroom</option>
-                        <option value="Zuri-zimmer">Without Bathroom</option>
-                      </select>
-                      <label for="fruit">Room</label>
-                    </div>
-                  </div>
-
-                  <div class="col-1-3 col-1-3-sm">
-                    <div class="controls">
-                      <i class="fa fa-sort"></i>
-                      <select class="floatLabel">
-                        <option value="blank"></option>
-                        <option value="single-bed">Zweibett</option>
-                        <option value="double-bed" selected>Doppelbett</option>
-                      </select>
-                      <label for="fruit">Bedding</label>
-                    </div>
-                  </div>
-
                 </div>
                 <div class="grid">
                   <br />
