@@ -71,7 +71,10 @@ const Chat = () => {
   const [page, setPage] = useState(1);
 
 
-
+  const formatDate = (date) => {
+    const formattedDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+    return formattedDate;
+  };
 
 
 
@@ -391,6 +394,7 @@ const Chat = () => {
                             <div className="message-content">
                               <div className="message-info d-flex flex-wrap align-items-center">
                                 <span className="author">{message.fromFullName}</span>
+                                <span className="timestamp">{formatDate(new Date(message.timestamp))}</span>
                                 <span className="timestamp"></span>
                               </div>
                               <div className="content" message={message.content}>{message.content}</div>
