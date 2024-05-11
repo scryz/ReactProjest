@@ -71,7 +71,7 @@ const Body = () => {
                                     {isValid ? (
                                         <>
                                             <Link className="btn popup-btn xx-large rounded colorful hover-colorful-darken" to="/addevent" title="Создать мероприятие">
-                                                Создать мероприятие</Link>
+                                                Создать событие</Link>
                                             <Link className="btn popup-btn xx-large rounded colorful hover-colorful-darken" to="/events" title="Присоединиться">
                                                 Присоединиться</Link>
                                         </>

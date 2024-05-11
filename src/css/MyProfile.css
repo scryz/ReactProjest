@@ -1097,11 +1097,13 @@ a {
 .label_avatar {
     position: static;
     padding: 0;
+    display: inline-block;
 }
 
 .label_setting {
     position: static;
     padding: 0;
+    display: contents;
 }
 
 .form-group {

@@ -86,7 +86,7 @@ const AddEvent = ({ showModalAddEvent, closeModalAddEvent }) => {
                   </div>
                   <div class="col-1-3">
                     <div>
-                      <div for="post-code">чтот ещё</div>
+                      <div for="post-code">Теги</div>
                       <input type="text" id="post-code" name="post-code" />
                     </div>
                   </div>

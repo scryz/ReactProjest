@@ -40,7 +40,7 @@ const Navbar = () => {
       <section className="navigation">
         <div className="nav-container">
           <div className="brand">
-            <a href="/">MeetMaker</a>
+            <a href="/">GodSend</a>
           </div>
 
           <nav>

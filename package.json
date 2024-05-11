@@ -36,6 +36,7 @@
     "react-router": "^5.1.0",
     "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.1",
+    "react-select": "^5.8.0",
     "react-slick": "^0.30.2",
     "reactjs-popup": "^2.0.6",
     "reactstrap": "^9.2.0",

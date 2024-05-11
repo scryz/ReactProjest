@@ -13,6 +13,15 @@ import edit from '../../img/edit.png';
 import trash from '../../img/trash.png';
 import AddEvent from './AddEvent';
 import jQuery from "jquery";
+import Select from "react-select";
+
+const options = [
+    { value: 'Футбол', label: 'Футбол' },
+    { value: 'Теннис', label: 'Теннис' },
+    { value: 'Прогулки', label: 'Прогулки' },
+    { value: 'Видеоигры', label: 'Видеоигры' },
+    { value: 'Активный отдых', label: 'Активный отдых' }
+];
 
 const DRAG_SENSITIVITY = 3;
 
@@ -22,6 +31,12 @@ const MyProfile = () => {
     const [name, setName] = useState('');
     const [status, setStatus] = useState('');
     const [birthDate, setBirthDate] = useState('');
+    const [work, setWork] = useState();
+    const [education, setEducation] = useState();
+    const [vk, setVk] = useState();
+    const [inst, setInst] = useState();
+    const [tg, setTg] = useState();
+    const [hobbies, setHobbies] = useState();
     const [avatar, setAvatar] = useState();
     const [uploadResult, setUploadResult] = useState('');
     const [views, setViews] = useState(0);
@@ -33,6 +48,16 @@ const MyProfile = () => {
     const [showModalAddEvent, setShowModalAddEvent] = useState(false);
     const handleShowModalAddEvent = () => setShowModalAddEvent(true);
     const handleCloseModalAddEvent = () => setShowModalAddEvent(false);
+
+
+    const [selectedOptions, setSelectedOptions] = useState([]);
+
+    const handleChange = (selected) => {
+        setSelectedOptions(selected);
+        setHobbies(selected.value);
+    };
+
+
 
     (function ($) {
         function floatLabel(inputType) {
@@ -69,8 +94,6 @@ const MyProfile = () => {
                     }
                 });
                 setUser(response.data);
-                console.log(user.birthDate);
-                console.log(user)
             } catch (error) {
                 console.error("Error fetching user:", error);
             }
@@ -168,10 +191,17 @@ const MyProfile = () => {
     const UserProfile = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&BirthDate=${birthDate}&Avatar=${uploadResult}&AvatarId=1&Status=${status}`, {
+            const response = await axios.post(`http://localhost:7293/UpdateProfile?Name=${name}&BirthDate=${birthDate}&Avatar=${uploadResult}&AvatarId=1&Status=${status}
+            &Work=${work}&Education=${education}&Vk=${vk}&Inst=${inst}&Tg=${tg}&Hobbies=${name}`, {
                 name: user.name,
                 birthDate: user.birthDate,
-                status: user.status
+                status: user.status,
+                work: user.work,
+                education: user.education,
+                vk: user.vk,
+                inst: user.inst,
+                tg: user.tg,
+                hobbies: user.hobbies
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -263,7 +293,7 @@ const MyProfile = () => {
                             ) : (
                                 <label className="label_avatar">
 
-                                    <img class="myavatar" id="img" src={defaultImg} alt="Default Avatar" />
+                                    <img class="myavatar" id="img" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Default Avatar" />
                                     <input type="file" name="file" onClick={(event) => uploadFile(event.target.files[0])} hidden />
 
                                 </label>
@@ -330,7 +360,6 @@ const MyProfile = () => {
                             </div>
                             <div class="panel-body pb5">
                                 <ul class="social-icons">
-                                    <li><a class="social-icon-twitter" href="https://twitter.com/itchief_ru" title="Официальная страница ИТ Шеф в Twitter" target="_blank" rel="noopener"></a></li>
                                     <li><a class="social-icon-fb" href="https://www.facebook.com/itchief.ru" title="Официальная страница ИТ Шеф в Facebook" target="_blank" rel="noopener"></a></li>
                                     <li><a class="social-icon-vk" href="https://vk.com/itchief" title="Официальная страница ИТ Шеф в ВКонтакте" target="_blank" rel="noopener"></a></li>
                                     <li><a class="social-icon-telegram" href="https://t.me/itchief_ru" title="Официальная страница ИТ Шеф в Telegram" target="_blank" rel="noopener"></a></li>
@@ -366,8 +395,8 @@ const MyProfile = () => {
                                         <div className="post">
                                             <img className="postImage" src="https://bootdey.com/img/Content/avatar/avatar7.png" />
                                             <div className="postDetails">
-                                                <div className="postTitle">Имя/Ник пользователя/орги</div>
-                                                <div className="postDate">12.06.2003</div>
+                                                <div className="postTitle">{user.name}</div>
+                                                <div className="postDate">12.06.2023</div>
                                             </div>
                                         </div>
                                         <div className="postName">
@@ -383,7 +412,7 @@ const MyProfile = () => {
                                                     <img className="postImage" src="https://bootdey.com/img/Content/avatar/avatar7.png" />
                                                     <div className="postDetails">
                                                         <div className="postTitle">Название события</div>
-                                                        <div className="postDate">12.06.2003</div>
+                                                        <div className="postDate">01.02.2024</div>
                                                     </div>
                                                 </div>
                                             </a>
@@ -519,7 +548,7 @@ const MyProfile = () => {
                                 <div id="tab3" className={`tab-pane ${activeTab === "tab3" ? "active" : ""}`}>
                                     <div className="row gutters setting-content">
                                         <div>
-                                            <div>
+                                            <div className="row">
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 ">
                                                     <div className="form-group">
                                                         <label className="label_setting">Имя:</label>
@@ -565,37 +594,42 @@ const MyProfile = () => {
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
                                                         <label className="label_setting">Хобби:</label>
-                                                        <input type="text" className="form-control" id="cite" placeholder="Введите город" />
+                                                        <Select
+                                                            options={options}
+                                                            value={selectedOptions}
+                                                            onChange={handleChange}
+                                                            isMulti
+                                                        />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
                                                         <label className="label_setting">Образование:</label>
-                                                        <input type="text" className="form-control" id="cite" placeholder="Введите город" />
+                                                        <input type="text" className="form-control" id="cite" placeholder={user.education} onChange={(e) => setEducation(e.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
                                                         <label className="label_setting">Место работы:</label>
-                                                        <input type="text" className="form-control" id="cite" placeholder="Введите город" />
+                                                        <input type="text" className="form-control" id="cite" placeholder={user.work} onChange={(e) => setWork(e.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
                                                         <label className="label_setting">ВКонтакте:</label>
-                                                        <input type="url" className="form-control" id="eMail" />
+                                                        <input type="url" className="form-control" id="eMail" placeholder={user.vk} onChange={(e) => setVk(e.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
                                                         <label className="label_setting">Instagram:</label>
-                                                        <input type="url" className="form-control" id="eMail" />
+                                                        <input type="url" className="form-control" id="eMail" placeholder={user.inst} onChange={(e) => setInst(e.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-md-6 col-sm-6 col-12">
                                                     <div className="form-group">
                                                         <label className="label_setting">Telegram:</label>
-                                                        <input type="url" className="form-control" id="eMail" />
+                                                        <input type="url" className="form-control" id="eMail" placeholder={user.tg} onChange={(e) => setTg(e.target.value)} />
                                                     </div>
                                                 </div>
                                                 <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
@@ -604,10 +638,10 @@ const MyProfile = () => {
                                                         <input type="url" className="form-control" id="eMail" />
                                                     </div>
                                                 </div>
-                                                <div className="form-group">
-                                                    <label className="label_setting">Статус:</label>
-                                                    <textarea required class="textarea_floatLabel" placeholder={user.status} onChange={(e) => setStatus(e.target.value)} />
-                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label className="label_setting">Статус:</label>
+                                                <textarea required class="textarea_floatLabel" placeholder={user.status} onChange={(e) => setStatus(e.target.value)} maxLength={180} />
                                             </div>
                                         </div>
                                         <div>

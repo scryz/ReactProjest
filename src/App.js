@@ -29,11 +29,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path='/map' element={<Map />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profileold" element={<Profile />} />
           <Route path='/events/:pageNumber' element={<Events />} />
           <Route path='/event/:id' element={<EventDetail />} />
           <Route path='/chat' element={<Chat />} />
-          <Route path='/myprofile' element={<MyProfile />} />
+          <Route path='/profile' element={<MyProfile />} />
         </Routes>
       </Router>
     </YMaps>
