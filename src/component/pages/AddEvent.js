@@ -1,6 +1,4 @@
 import "../../css/AddEvent.css";
-import Navbar from "../navbar/Navbar";
-import Footer from "../body/Footer";
 import VerifyToken from "../body/VerifyToken";
 import { useState } from "react";
 import axios from "axios";
@@ -9,15 +7,14 @@ import { Modal } from "react-bootstrap";
 
 const AddEvent = ({ showModalAddEvent, closeModalAddEvent }) => {
 
+  //анимашки для полей (исправить)
   (function ($) {
     function floatLabel(inputType) {
       $(inputType).each(function () {
         var $this = $(this);
-        // on focus add cladd active to label
         $this.focus(function () {
           $this.next().addClass("active");
         });
-        //on blur check field and remove class if needed
         $this.blur(function () {
           if ($this.val() === '' || $this.val() === 'blank') {
             $this.next().removeClass();
@@ -25,7 +22,6 @@ const AddEvent = ({ showModalAddEvent, closeModalAddEvent }) => {
         });
       });
     }
-    // just add a class of "floatLabel to the input field!"
     floatLabel(".floatLabel");
   })(jQuery);
 
@@ -62,29 +58,29 @@ const AddEvent = ({ showModalAddEvent, closeModalAddEvent }) => {
         <Modal show={showModalAddEvent} onHide={closeModalAddEvent}>
           <Modal.Body>
             <>
-              <div class="form-group">
+              <div className="form-group">
                 <span className="close_btn heavy" onClick={closeModalAddEvent}></span>
-                <h2 class="heading">Добавить событие</h2>
+                <h2 className="heading">Добавить событие</h2>
                 <div>
                   <div for="name">Название</div>
                   <input type="text" id="name" name="nameEvent" value={EventName} onChange={(e) => setEventName(e.target.value)} />
                 </div>
-                <div class="grid">
-                  <div class="col-1-3">
+                <div className="grid">
+                  <div className="col-1-3">
                     <div>
                       <div for="street-number">Количество участников</div>
                       <input type="number" id="street-number" name="street-number" />
                     </div>
                   </div>
                 </div>
-                <div class="grid">
-                  <div class="col-2-3">
+                <div className="grid">
+                  <div className="col-2-3">
                     <div>
                       <div for="city">Место</div>
                       <input type="text" id="city" name="city" />
                     </div>
                   </div>
-                  <div class="col-1-3">
+                  <div className="col-1-3">
                     <div>
                       <div for="post-code">Теги</div>
                       <input type="text" id="post-code" name="post-code" />
@@ -93,26 +89,26 @@ const AddEvent = ({ showModalAddEvent, closeModalAddEvent }) => {
                 </div>
               </div>
 
-              <div class="form-group">
-                <h2 class="heading">Детали</h2>
-                <div class="grid">
-                  <div class="col-1-4 col-1-4-sm">
+              <div className="form-group">
+                <h2 className="heading">Детали</h2>
+                <div className="grid">
+                  <div className="col-1-4 col-1-4-sm">
                     <div>
-                      <div for="arrive" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Начало</div>
+                      <div for="arrive" className="label-date"><i className="fa fa-calendar"></i>&nbsp;&nbsp;Начало</div>
                       <input type="date" id="arrive" />
                     </div>
                   </div>
-                  <div class="col-1-4 col-1-4-sm">
+                  <div className="col-1-4 col-1-4-sm">
                     <div>
-                      <div for="arrive" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Окончание</div>
+                      <div for="arrive" className="label-date"><i className="fa fa-calendar"></i>&nbsp;&nbsp;Окончание</div>
                       <input type="date" id="arrive" />
                     </div>
                   </div>
                 </div>
-                <div class="grid">
+                <div className="grid">
                   <div>
                     <div for="comments">Описание</div>
-                    <textarea name="description" value={Description} onChange={(e) => setDescription(e.target.value)} required class="floatLabel" id="comments"></textarea>
+                    <textarea name="description" value={Description} onChange={(e) => setDescription(e.target.value)} required className="floatLabel" id="comments"></textarea>
                   </div>
                   <h6>{errorMessage && <p>{errorMessage}</p>}</h6>
                   <button className="buttonEvent button_addevent" type="submit" onClick={handleSubmit}>Добавить мероприятие</button>

@@ -18,7 +18,7 @@ const Body = () => {
 
     const token = localStorage.getItem('token');
 
-
+    //Скролл наверх(не доделана)
     $(function () {
         $.fn.scrollToTop = function () {
             $(this).hide().removeAttr("href");
@@ -40,7 +40,7 @@ const Body = () => {
     });
     $(function () { $("#toTop").scrollToTop(); });
 
-
+    //Проверка токена
     if (token) {
         try {
             const decoded = jwtDecode(token);

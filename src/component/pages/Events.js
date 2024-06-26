@@ -31,6 +31,7 @@ const Events = () => {
   const endIndex = startIndex + eventsPerPage;
   const currentEvents = events.slice(startIndex, endIndex).reverse();
 
+  //получение списка ивентов
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -54,10 +55,12 @@ const Events = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  //пагинация
   const handlePageChange = (pageNumber) => {
     setPage(pageNumber);
   };
 
+  //ограничений по словам
   function Text({ text, id }) {
     const words = text.split(' ');
     if (words.length > 30) {

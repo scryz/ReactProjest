@@ -58,16 +58,14 @@ const MyProfile = () => {
     };
 
 
-
+    //анимашка активного поля
     (function ($) {
         function floatLabel(inputType) {
             $(inputType).each(function () {
                 var $this = $(this);
-                // on focus add cladd active to label
                 $this.focus(function () {
                     $this.next().addClass("active");
                 });
-                //on blur check field and remove class if needed
                 $this.blur(function () {
                     if ($this.val() === '' || $this.val() === 'blank') {
                         $this.next().removeClass();
@@ -75,7 +73,6 @@ const MyProfile = () => {
                 });
             });
         }
-        // just add a class of "floatLabel to the input field!"
         floatLabel(".floatLabel");
     })(jQuery);
 
@@ -84,6 +81,7 @@ const MyProfile = () => {
         setActiveTab(tab);
     };
 
+    //получение профиля
     useEffect(() => {
         const fetchUser = async () => {
             try {
@@ -102,6 +100,7 @@ const MyProfile = () => {
         fetchUser();
     }, []);
 
+    //получение ивентов
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -115,7 +114,7 @@ const MyProfile = () => {
         fetchData();
     }, [user.id]);
 
-
+    //удаление ивентов
     const handleDeleteEvent = async () => {
         if (window.confirm('Are you sure you want to delete this event?')) {
             try {
@@ -141,7 +140,7 @@ const MyProfile = () => {
             }
         }
     };
-
+    //загрузка изображения
     async function uploadFile(file) {
         const formData = new FormData();
         formData.append('uploadedFile', file);
@@ -159,13 +158,13 @@ const MyProfile = () => {
                 throw new Error('Error during image upload');
             }
 
-            const result = await response.text(); // Изменение здесь
-            setUploadResult(result); // Изменение здесь
+            const result = await response.text();
+            setUploadResult(result);
         } catch (error) {
             console.error('Error during image upload:', error);
         }
     }
-
+    //получение изображения
     useEffect(() => {
         const fetchAvatar = async () => {
             try {
@@ -187,7 +186,7 @@ const MyProfile = () => {
             fetchAvatar();
         }
     }, [user.avatar]);
-
+    //изменение профиля пользователя
     const UserProfile = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -231,6 +230,7 @@ const MyProfile = () => {
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
 
+    //сколлинг альбома
     useEffect(() => {
         const slider = sliderRef.current;
 
@@ -278,22 +278,22 @@ const MyProfile = () => {
     return (
         <>
             <Navbar />
-            <section class="container">
-                <div class="page-heading">
-                    <div class="myprofile clearfix">
+            <section className="container">
+                <div className="page-heading">
+                    <div className="myprofile clearfix">
                         <div className="cover-size">
                             <img className="cover" src="https://webmg.ru/wp-content/uploads/2022/10/i-200-3.jpeg" />
                         </div>
-                        <div class="myavatar-padding">
+                        <div className="myavatar-padding">
                             {avatar ? (
                                 <label className="label_avatar">
-                                    <img class="myavatar" src={avatar} alt="Avatar" />
+                                    <img className="myavatar" src={avatar} alt="Avatar" />
                                     <input type="file" name="file" onClick={(event) => uploadFile(event.target.files[0])} hidden />
                                 </label>
                             ) : (
                                 <label className="label_avatar">
 
-                                    <img class="myavatar" id="img" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Default Avatar" />
+                                    <img className="myavatar" id="img" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Default Avatar" />
                                     <input type="file" name="file" onClick={(event) => uploadFile(event.target.files[0])} hidden />
 
                                 </label>
@@ -301,27 +301,27 @@ const MyProfile = () => {
 
                             )}
                         </div>
-                        <div class="media-body va-m">
-                            <h2 class="media-heading">{user.name}
+                        <div className="media-body va-m">
+                            <h2 className="media-heading">{user.name}
                                 <small> - ColorCloudCo</small>
                             </h2>
-                            <p class="lead">{user.status}</p>
+                            <p className="lead">{user.status}</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <span class="panel-icon">
-                                    <i class="fa fa-star"></i>
+                <div className="row">
+                    <div className="col-md-4">
+                        <div className="panel">
+                            <div className="panel-heading">
+                                <span className="panel-icon">
+                                    <i className="fa fa-star"></i>
                                 </span>
-                                <span class="panel-title">Альбом</span>
+                                <span className="panel-title">Альбом</span>
                                 <span>+</span>
                             </div>
-                            <div class="panel-body pn">
-                                <ul ref={sliderRef} class="gallery">
+                            <div className="panel-body pn">
+                                <ul ref={sliderRef} className="gallery">
                                     <li><img className="img-gallery" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="..." /></li>
                                     <li><img className="img-gallery" src="https://gas-kvas.com/grafic/uploads/posts/2023-10/1696502271_gas-kvas-com-p-kartinki-lyubie-5.jpg" alt="..." /></li>
                                     <li><img className="img-gallery" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="..." /></li>
@@ -330,40 +330,40 @@ const MyProfile = () => {
                                 </ul>
                             </div>
                         </div>
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <span class="panel-icon">
-                                    <i class="fa fa-trophy"></i>
+                        <div className="panel">
+                            <div className="panel-heading">
+                                <span className="panel-icon">
+                                    <i className="fa fa-trophy"></i>
                                 </span>
-                                <span class="panel-title"> Мои интересы</span>
+                                <span className="panel-title"> Мои интересы</span>
                             </div>
-                            <div class="panel-body pb5">
-                                <span class="label label-warning mr5 mb10 ib lh15">Футбол</span>
-                                <span class="label label-primary mr5 mb10 ib lh15">Теннис</span><br />
-                                <span class="label label-info mr5 mb10 ib lh15">Видео игры</span>
-                                <span class="label label-success mr5 mb10 ib lh15">Прогулки</span>
-                                <span class="label label-warning mr5 mb10 ib lh15">Общение</span><br />
-                                <span class="label label-primary mr5 mb10 ib lh15">Программирование</span>
-                                <span class="label label-info mr5 mb10 ib lh15">UI дизайн</span><br />
-                                <span class="label label-success mr5 mb10 ib lh15">Миша чОРт</span>
-                                <span class="label label-primary mr5 mb10 ib lh15">Активный отдых</span>
+                            <div className="panel-body pb5">
+                                <span className="label label-warning mr5 mb10 ib lh15">Футбол</span>
+                                <span className="label label-primary mr5 mb10 ib lh15">Теннис</span><br />
+                                <span className="label label-info mr5 mb10 ib lh15">Видео игры</span>
+                                <span className="label label-success mr5 mb10 ib lh15">Прогулки</span>
+                                <span className="label label-warning mr5 mb10 ib lh15">Общение</span><br />
+                                <span className="label label-primary mr5 mb10 ib lh15">Программирование</span>
+                                <span className="label label-info mr5 mb10 ib lh15">UI дизайн</span><br />
+                                <span className="label label-success mr5 mb10 ib lh15">Миша чОРт</span>
+                                <span className="label label-primary mr5 mb10 ib lh15">Активный отдых</span>
 
                             </div>
                         </div>
 
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <span class="panel-icon">
-                                    <i class="fa fa-trophy"></i>
+                        <div className="panel">
+                            <div className="panel-heading">
+                                <span className="panel-icon">
+                                    <i className="fa fa-trophy"></i>
                                 </span>
-                                <span class="panel-title"> Социальные сети</span>
+                                <span className="panel-title"> Социальные сети</span>
                             </div>
-                            <div class="panel-body pb5">
-                                <ul class="social-icons">
-                                    <li><a class="social-icon-fb" href="https://www.facebook.com/itchief.ru" title="Официальная страница ИТ Шеф в Facebook" target="_blank" rel="noopener"></a></li>
-                                    <li><a class="social-icon-vk" href="https://vk.com/itchief" title="Официальная страница ИТ Шеф в ВКонтакте" target="_blank" rel="noopener"></a></li>
-                                    <li><a class="social-icon-telegram" href="https://t.me/itchief_ru" title="Официальная страница ИТ Шеф в Telegram" target="_blank" rel="noopener"></a></li>
-                                    <li><a class="social-icon-youtube" href="https://www.youtube.com/channel/UCbh6Tqnw22ZBRvELewUXgxA" title="Официальный канал ИТ Шеф на Youtube" target="_blank" rel="noopener"></a></li>
+                            <div className="panel-body pb5">
+                                <ul className="social-icons">
+                                    <li><a className="social-icon-fb" href="https://www.facebook.com/itchief.ru" title="Официальная страница ИТ Шеф в Facebook" target="_blank" rel="noopener"></a></li>
+                                    <li><a className="social-icon-vk" href="https://vk.com/itchief" title="Официальная страница ИТ Шеф в ВКонтакте" target="_blank" rel="noopener"></a></li>
+                                    <li><a className="social-icon-telegram" href="https://t.me/itchief_ru" title="Официальная страница ИТ Шеф в Telegram" target="_blank" rel="noopener"></a></li>
+                                    <li><a className="social-icon-youtube" href="https://www.youtube.com/channel/UCbh6Tqnw22ZBRvELewUXgxA" title="Официальный канал ИТ Шеф на Youtube" target="_blank" rel="noopener"></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -418,7 +418,7 @@ const MyProfile = () => {
                                             </a>
                                             <div className="icon_position_container">
                                                 <div className='icon_position'>
-                                                    <p><span class="glyphicon" aria-hidden="true">
+                                                    <p><span className="glyphicon" aria-hidden="true">
                                                         <img className='icon' src={like_icon} /></span> {like}</p>
                                                 </div>
                                             </div>
@@ -517,21 +517,21 @@ const MyProfile = () => {
                                                         </div>
                                                         <div className="icon_position_container">
                                                             <div className='icon_position'>
-                                                                <p><span class="glyphicon" aria-hidden="true">
+                                                                <p><span className="glyphicon" aria-hidden="true">
                                                                     <img className='icon' src={view_icon} />
                                                                 </span> {views}
                                                                 </p>
                                                             </div>
                                                             <div className='icon_position'>
                                                                 <p>
-                                                                    <span class=" glyphicon" aria-hidden="true">
+                                                                    <span className=" glyphicon" aria-hidden="true">
                                                                         <img className='icon' src={comment_icon} />
                                                                     </span> {comment}
                                                                 </p>
                                                             </div>
                                                             <div className='icon_position'>
                                                                 <p>
-                                                                    <span class="glyphicon" aria-hidden="true">
+                                                                    <span className="glyphicon" aria-hidden="true">
                                                                         <img className='icon' src={like_icon} /></span> {like}
                                                                 </p>
                                                             </div>
@@ -641,7 +641,7 @@ const MyProfile = () => {
                                             </div>
                                             <div className="form-group">
                                                 <label className="label_setting">Статус:</label>
-                                                <textarea required class="textarea_floatLabel" placeholder={user.status} onChange={(e) => setStatus(e.target.value)} maxLength={180} />
+                                                <textarea required className="textarea_floatLabel" placeholder={user.status} onChange={(e) => setStatus(e.target.value)} maxLength={180} />
                                             </div>
                                         </div>
                                         <div>

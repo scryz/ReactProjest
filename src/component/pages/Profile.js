@@ -1,3 +1,10 @@
+
+
+
+
+
+//старый профиль (ДИАКТИВИРОВАТЬ!)
+
 import Navbar from "../navbar/Navbar";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -209,11 +216,11 @@ const Profile = () => {
 
                           )}
                           <div>
-                            <div class="example-2">
-                              <div class="form-group">
-                                <input type="file" name="file" id="file" onChange={(event) => uploadFile(event.target.files[0])} class="input-file" />
-                                <label for="file" class="btn btn-tertiary js-labelFile">
-                                  <span class="js-fileName">Загрузить аватар</span>
+                            <div className="example-2">
+                              <div className="form-group">
+                                <input type="file" name="file" id="file" onChange={(event) => uploadFile(event.target.files[0])} className="input-file" />
+                                <label for="file" className="btn btn-tertiary js-labelFile">
+                                  <span className="js-fileName">Загрузить аватар</span>
                                 </label>
                               </div>
                             </div>
@@ -318,11 +325,11 @@ const Profile = () => {
                                           <h5 className='H5_center'><Text text={event.description} id={event.id} /></h5>
                                         </div>
                                         <div className='icon_position'>
-                                          <p><span class="glyphicon" aria-hidden="true">
+                                          <p><span className="glyphicon" aria-hidden="true">
                                             <img className='icon' src={view_icon} /></span> {views} |
-                                            <span class=" glyphicon" aria-hidden="true">
+                                            <span className=" glyphicon" aria-hidden="true">
                                               <img className='icon' src={comment_icon} /></span> {comment} |
-                                            <span class="glyphicon" aria-hidden="true">
+                                            <span className="glyphicon" aria-hidden="true">
                                               <img className='icon' src={like_icon} /></span> {like} |</p>
                                         </div>
                                       </div>

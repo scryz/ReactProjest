@@ -23,6 +23,7 @@ const EventDetail = (props) => {
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
 
+  //получение ивентов по id
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -40,6 +41,8 @@ const EventDetail = (props) => {
 
   }, [id]);
 
+
+  //получение пользователей присоединённых к ивенту
   useEffect(() => {
     const fetchParticipants = async () => {
       try {
@@ -60,6 +63,7 @@ const EventDetail = (props) => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  //присоедение пользователей к ивенту
   const joinEvent = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -110,8 +114,8 @@ const EventDetail = (props) => {
                     <p>Вы успешно присоединились!</p>
                   )}
                   <Link className="btnh" to="/chat">Чат</Link>
-                  <section class="overflow-x">
-                    <div class="horizontal-friends-list" >
+                  <section className="overflow-x">
+                    <div className="horizontal-friends-list" >
                       {participants.map((participant, index) => (
                         <figure className='friend-item' key={index}>
                           <picture>

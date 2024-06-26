@@ -28,6 +28,8 @@ const Navbar = () => {
   const handleCloseModalLogReg = () => setShowModalLogReg(false);
 
   const navigate = useNavigate();
+
+  //выход/удаление токена из локалки
   const handleLogout = () => {
     localStorage.clear();
     Cookies.remove('token');
@@ -40,7 +42,7 @@ const Navbar = () => {
       <section className="navigation">
         <div className="nav-container">
           <div className="brand">
-            <a href="/">GodSend</a>
+            <a href="/">GetToGether</a>
           </div>
 
           <nav>

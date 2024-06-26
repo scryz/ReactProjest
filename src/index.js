@@ -2,8 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import { SignalRProvider } from './component/SignalRContext';
+
+
+//сентри тест (оплатить доступ!)
 //import * as Sentry from "@sentry/react";
- 
+
 /*Sentry.init({
   dsn: "https://0d57838c87ae1f917e7a5ce5de595484@o4506552476893184.ingest.sentry.io/4506552479252480",
   integrations: [
@@ -39,10 +42,10 @@ const rootElement = document.getElementById('root');
 const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
-  
-  <SignalRProvider>
+
+    <SignalRProvider>
       <App />
     </SignalRProvider>
-  
+
   </React.StrictMode>
 );

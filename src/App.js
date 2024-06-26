@@ -10,19 +10,9 @@ import Chat from './component/pages/Chat';
 import Map from './component/pages/Map';
 import MyProfile from './component/pages/MyProfile';
 
-
-
-
-
-
-
-
-
-
-
 function App() {
 
-
+  //роутинг
   return (
     <YMaps>
       <Router>

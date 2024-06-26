@@ -19,7 +19,7 @@ import Smile6 from '../../img/emoji6.png'
 import Smile7 from '../../img/emoji7.png'
 import defaultImg from '../../img/avatar.png';
 import { useLocation } from 'react-router-dom';
-import { useSignalR } from '../SignalRContext'; // Импортируем useSignalR из вашего файла SignalRContext.js
+import { useSignalR } from '../SignalRContext';
 
 
 
@@ -70,14 +70,14 @@ const Chat = () => {
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
-
+  //формат даты и времени для сообщений
   const formatDate = (date) => {
     const formattedDate = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
     return formattedDate;
   };
 
 
-
+  //запрос на получение аватаров
   useEffect(() => {
     const fetchAvatar = async () => {
       try {
@@ -102,15 +102,7 @@ const Chat = () => {
   }, [messRoom.avatar]);
 
 
-
-
-
-
-
-
-
-
-
+  //Запрос на получение данных профиля
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -132,11 +124,12 @@ const Chat = () => {
     fetchUser();
   }, []);
 
+  //скролл вниз при отправлении сообщения
   const scrollToBottom = () => {
     messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
   };
 
-
+  //фильтр пользователей по комнате
   const handleSearchChange = (e) => {
     setSearch(e.target.value);
     if (e.target.value === '') {
@@ -153,6 +146,7 @@ const Chat = () => {
 
   };
 
+  //получение комнат
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -171,7 +165,7 @@ const Chat = () => {
     fetchData();
   }, []);
 
-
+  //получение определённой комнаты
   useEffect(() => {
     const fetchMessRoom = async () => {
       try {
@@ -197,6 +191,7 @@ const Chat = () => {
     scrollToBottom();
   }, [messRoom]);
 
+  //связь с сигнал р
   useEffect(() => {
     const handleReceiveMessage = (messRoom) => {
       console.log("Received message:", messRoom);
@@ -205,26 +200,25 @@ const Chat = () => {
 
     signalRService.connection.on("ReceiveMessage", handleReceiveMessage);
 
-    // Cleanup function
     return () => {
       signalRService.connection.off("ReceiveMessage", handleReceiveMessage);
     }
   }, []);
 
 
-
+  //получение название комнаты
   const onChatClick = async (id) => {
     setId(id);
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(`http://localhost:7293/api/Rooms/${id}`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Include the auth state as a bearer token
+          Authorization: `Bearer ${token}`,
         },
       });
       const data = response.data;
       setName(data.name);
-      signalRS.join(`${id}`); // Замените "RoomName" на имя комнаты, в которую вы хотите присоединиться
+      signalRS.join(`${id}`);
       console.log("Join be invoked");
     } catch (error) {
       console.error('Error fetching chat details: ', error);
@@ -232,14 +226,14 @@ const Chat = () => {
   }
 
 
-
+  //получение сообщения
   const onMessClick = async (idMess) => {
     setIdMess(id);
     try {
       const token = localStorage.getItem('token');
       const response = await axios.get(`http://localhost:7293/api/Messages/${idMess}`, {
         headers: {
-          Authorization: `Bearer ${token}`, // Include the auth state as a bearer token
+          Authorization: `Bearer ${token}`,
         },
       });
       const data = response.data;
@@ -251,7 +245,7 @@ const Chat = () => {
   }
 
 
-
+  //отправка сообщения
   const [content, setContent] = useState('');
 
   const handleSubmit = async (e) => {
@@ -268,7 +262,7 @@ const Chat = () => {
         avatar: user.avatar,
       }, {
         headers: {
-          Authorization: `Bearer ${token}`, // Include the auth state as a bearer token
+          Authorization: `Bearer ${token}`,
         }
       });
 

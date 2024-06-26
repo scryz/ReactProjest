@@ -19,16 +19,20 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
   const signInButtonRef = useRef(null);
   const containerRef = useRef(null);
 
+  //клик на кнопку автоиизации
   const handleSignUpClick = () => {
     containerRef.current.classList.add("right-panel-active");
     setErrorMessage(null);
   };
 
+  //клик на кнопку регистрации
   const handleSignInClick = () => {
     containerRef.current.classList.remove("right-panel-active");
     setErrorMessage(null);
   };
 
+
+  //авторизация
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
 
@@ -70,10 +74,11 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
   }
 
 
+  //регистрация
   const handleSubmitReg = async (e) => {
     e.preventDefault();
 
-
+    //проверки
     if (!userName || !password || !name || !confirmPassword) {
       setErrorMessage('Неверно введены данные или пропущены поля!');
       return;
