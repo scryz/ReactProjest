@@ -1,86 +1,88 @@
 .cardEvent {
-    width: 100%;
-    padding: 15px;
-    margin: auto;
+  width: 100%;
+  padding: 15px;
+  margin: auto;
 }
-  
-  .descriptionEvent {
-     padding: 0px 15px 0px 15px;
-     width: 100%;
-  }
-  .containerEvent {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-  }
 
+.descriptionEvent {
+  padding: 0px 15px 0px 15px;
+  width: 100%;
+}
 
-  
-  .overflow-x {
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    border: 1px solid hsl(0 0% 80%);
-    border-radius: 1ex;
-    padding: 0.5rem;
-  }
-  
-  .horizontal-friends-list {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 9ch;
-    gap: 1rem;
-  }
-  
-  .horizontal-friends-list .friend-item {
-    display: grid;
-    margin: 0;
-    text-align: center;
-    position: relative;
-    cursor: pointer;
-    user-select: none;
-    transition: transform 0.2s ease-in-out;
-  }
-  
-  .horizontal-friends-list .friend-item:hover {
-    transform: scale(1.1);
-  }
-  
-  .horizontal-friends-list .friend-item:last-child::after {
-    content: "";
-    position: absolute;
-    width: 2rem;
-    height: 100%;
-    right: -2rem;
-    inline-size: 2rem;
-    block-size: 100%;
-    inset-end: -2rem;
-  }
-  
-  .horizontal-friends-list .friend-item picture {
-    display: inline-block;
-    inline-size: 9ch;
-    block-size: 9ch;
-    border-radius: 50%;
-    background: radial-gradient(
-        hsl(0 0% 0% / 15%) 60%,
-        transparent 0
-      ),
-      radial-gradient(white 65%, transparent 0),
-      linear-gradient(to top right, rgb(30, 60, 152), #ff8000);
-  }
-  
-  .horizontal-friends-list .friend-item picture img {
-    display: block;
-    inline-size: 100%;
-    block-size: 100%;
-    object-fit: cover;
-    clip-path: circle(42%);
-  }
-  
-  .horizontal-friends-list .friend-item figcaption {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-weight: 500;
-  }
+.containerEvent {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.overflow-x {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border: 1px solid hsl(0 0% 80%);
+  border-radius: 1ex;
+  padding: 0.5rem;
+}
+
+.horizontal-friends-list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 9ch;
+  gap: 1rem;
+}
+
+.horizontal-friends-list .friend-item {
+  display: grid;
+  margin: 0;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease-in-out;
+}
+
+.horizontal-friends-list .friend-item:hover {
+  transform: scale(1.1);
+}
+
+.horizontal-friends-list .friend-item:last-child::after {
+  content: "";
+  position: absolute;
+  width: 2rem;
+  height: 100%;
+  right: -2rem;
+  inline-size: 2rem;
+  block-size: 100%;
+  inset-end: -2rem;
+}
+
+.horizontal-friends-list .friend-item picture {
+  display: inline-block;
+  inline-size: 9ch;
+  block-size: 9ch;
+  border-radius: 50%;
+  background: radial-gradient(hsl(0 0% 0% / 15%) 60%,
+      transparent 0),
+    radial-gradient(white 65%, transparent 0),
+    linear-gradient(to top right, rgb(30, 60, 152), #ff8000);
+}
+
+.horizontal-friends-list .friend-item picture img {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  clip-path: circle(42%);
+}
+
+.horizontal-friends-list .friend-item figcaption {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9rem;
+}

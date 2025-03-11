@@ -1,10 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { Modal } from 'react-bootstrap';
-import "../../css/login.css";
 import { jwtDecode } from 'jwt-decode';
-
-
+import "../../css/login.css";
 
 export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
   const [userName, setUserName] = useState('');
@@ -13,74 +11,69 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [name, setName] = useState('');
   const [birthDate, setBirthDate] = useState('');
-
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [isLoadingLogin, setIsLoadingLogin] = useState(false);
+  const [isLoadingReg, setIsLoadingReg] = useState(false);
 
   const signUpButtonRef = useRef(null);
   const signInButtonRef = useRef(null);
   const containerRef = useRef(null);
 
-  //клик на кнопку автоиизации
+  useEffect(() => {
+    setErrorMessage(null);
+  }, [showModalLogReg]);
+
   const handleSignUpClick = () => {
     containerRef.current.classList.add("right-panel-active");
+    setIsSignUp(true);
     setErrorMessage(null);
   };
 
-  //клик на кнопку регистрации
   const handleSignInClick = () => {
     containerRef.current.classList.remove("right-panel-active");
+    setIsSignUp(false);
     setErrorMessage(null);
   };
 
-
-  //авторизация
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
 
     if (!userName || !password) {
-      setErrorMessage('Неверно введены данные или пропущены поля!');
+      setErrorMessage('Пожалуйста, заполните все поля.');
       return;
     }
 
+    setIsLoadingLogin(true);
+
     try {
       const response = await axios.post('http://localhost:7293/api/Auth/Login', {
-        userName: userName,
-        password: password
-      },
-      );
-      setErrorMessage(null);
+        userName,
+        password
+      });
+
       localStorage.setItem('token', response.data.token);
-      document.cookie = `token=${response.data.token}; expires=${new Date(Date.now() + 86400000)}; path=/`;
+      const decoded = jwtDecode(response.data.token);
+      console.log(decoded);
 
-      const token = localStorage.getItem(response.data.token);
-      const decoded = jwtDecode(token);
-      const data = await response.json();
-      localStorage.setItem('token', JSON.stringify(data));
-      localStorage.setItem('token', token);
-    }
-
-    catch (err) {
-      if (err.response) {
-        if (err.response.status === 400) {
-          setErrorMessage('Неверный логин или пароль');
-        } else {
-          setErrorMessage('Ошибка сервера');
-        }
+      setErrorMessage(null);
+      closeModalLogReg();
+      window.location.href = '/events/1';
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setErrorMessage('Неверный логин или пароль');
       } else {
-        setErrorMessage('Успешный вход!');
-        window.location.reload();
-
+        setErrorMessage('Ошибка сервера');
       }
+    } finally {
+      setIsLoadingLogin(false);
     }
-  }
+  };
 
-
-  //регистрация
   const handleSubmitReg = async (e) => {
     e.preventDefault();
 
-    //проверки
     if (!userName || !password || !name || !confirmPassword) {
-      setErrorMessage('Неверно введены данные или пропущены поля!');
+      setErrorMessage('Пожалуйста, заполните все поля.');
       return;
     }
 
@@ -89,55 +82,111 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
       return;
     }
 
+    setIsLoadingReg(true);
+
     try {
-      const response = await fetch('http://localhost:7293/api/Auth/Register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ userName, password, name, birthDate }),
+      const response = await axios.post('http://localhost:7293/api/Auth/Register', {
+        userName,
+        password,
+        name,
+        birthDate
       });
 
-      if (response.status === 400) {
-        const data = await response.json();
-        setErrorMessage(data.message);
-      } else {
+      if (response.status === 200) {
         setErrorMessage(null);
         handleSignInClick();
-        console.log(birthDate);
+      } else {
+        setErrorMessage('Ошибка регистрации');
       }
     } catch (error) {
-      setErrorMessage('Ошибка сервера');
+      if (error.response && error.response.status === 400) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage('Ошибка сервера');
+      }
+    } finally {
+      setIsLoadingReg(false);
     }
   };
 
   return (
-
-
     <Modal show={showModalLogReg} onHide={closeModalLogReg}>
       <Modal.Body>
         <div className="container_log" ref={containerRef}>
-          <div className="form-container_log sign-up-container_log">
+          <div className={`form-container_log sign-up-container_log ${isSignUp ? 'active' : ''}`}>
             <form onSubmit={handleSubmitReg}>
               <h2>Создать аккаунт</h2>
-              <input type="text" name="userName" placeholder="Ник" value={userName} onChange={(e) => setUserName(e.target.value)} autoFocus />
-              <input type="text" name="name" placeholder="Имя" value={name} onChange={(e) => setName(e.target.value)} />
-              <input type="date" name="birthDate" value={birthDate} onChange={(e) => setBirthDate(e.target.value)} />
-              <input type="password" name="name" placeholder="Пароль" value={password} onChange={(e) => setPassword(e.target.value)} />
-              <input type="password" name="confirmPassword" placeholder="Подтвердите пароль" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-              {errorMessage && <p>{errorMessage}</p>}
-              <button className='btn_margin' type="submit" ref={signInButtonRef} >Создать</button>
+              <input
+                type="text"
+                name="userName"
+                placeholder="Ник"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                autoFocus
+                required
+              />
+              <input
+                type="text"
+                name="name"
+                placeholder="Имя"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+              <input
+                type="date"
+                name="birthDate"
+                placeholder="День рождения"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+                required
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Пароль"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Подтвердите пароль"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+              {errorMessage && <p className="error-message">{errorMessage}</p>}
+              <button className='btn_margin' type="submit" ref={signInButtonRef} disabled={isLoadingReg}>
+                {isLoadingReg ? <div className="loader"></div> : 'Создать'}
+              </button>
             </form>
           </div>
-          <div className="form-container_log sign-in-container_log">
+          <div className={`form-container_log sign-in-container_log ${!isSignUp ? 'active' : ''}`}>
             <span className="close_btn heavy" onClick={closeModalLogReg}></span>
             <form onSubmit={handleSubmitLogin}>
               <h1>Авторизоваться</h1>
-              <input type="text" value={userName} onChange={(e) => setUserName(e.target.value)} placeholder="Ник" autoFocus />
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
+              <input
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                placeholder="Ник"
+                autoFocus
+                required
+              />
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Пароль"
+                required
+              />
               <a href="#0">Забыли пароль?</a>
-              {errorMessage && <p>{errorMessage}</p>}
-              <button className='btn_margin' type="submit">Войти</button>
+              {errorMessage && <p className="error-message">{errorMessage}</p>}
+              <button className='btn_margin' type="submit" disabled={isLoadingLogin}>
+                {isLoadingLogin ? <div className="loader"></div> : 'Войти'}
+              </button>
             </form>
           </div>
           <div className="overlay-container_log">
@@ -159,4 +208,4 @@ export const LoginPage = ({ showModalLogReg, closeModalLogReg }) => {
       </Modal.Body>
     </Modal>
   );
-}
+};

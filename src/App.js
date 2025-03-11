@@ -9,10 +9,9 @@ import AddEvent from './component/pages/AddEvent';
 import Chat from './component/pages/Chat';
 import Map from './component/pages/Map';
 import MyProfile from './component/pages/MyProfile';
+import PrivateRoute from './PrivateRoute';
 
 function App() {
-
-  //роутинг
   return (
     <YMaps>
       <Router>
@@ -23,11 +22,11 @@ function App() {
           <Route path='/events/:pageNumber' element={<Events />} />
           <Route path='/event/:id' element={<EventDetail />} />
           <Route path='/chat' element={<Chat />} />
-          <Route path='/profile' element={<MyProfile />} />
+          <Route path='/profile/:username' element={<MyProfile />} />
+          <Route path='/profile' element={<PrivateRoute><MyProfile /></PrivateRoute>} />
         </Routes>
       </Router>
     </YMaps>
-
   );
 }
 

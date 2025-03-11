@@ -18,9 +18,9 @@ h2.heading {
     text-transform: uppercase;
     font-weight: 300;
     text-align: left;
-    color: #506982;
-    border-bottom: 1px solid #506982;
-    padding-bottom: 3px;
+    color: #0033cc;
+    border-bottom: 1px solid #0033cc;
+    padding: 10px 0;
     margin-bottom: 20px;
 }
 
@@ -34,6 +34,7 @@ input[type="email"],
 input[type="number"],
 input[type="date"],
 input[type="tel"],
+input[type="password"],
 textarea,
 .button_addevent,
 select {
@@ -95,20 +96,7 @@ label {
 textarea {
     resize: none;
     height: 200px;
-}
-
-
-.button_addevent {
-    cursor: pointer;
-    background-color: #1b3d4d;
-    border: none;
-    color: #fff;
-    padding: 12px 0;
-    float: right;
-
-    &:hover {
-        background-color: lighten(#1b3d4d, 5%);
-    }
+    background-color: #eee;
 }
 
 .clear:after {
@@ -211,4 +199,56 @@ textarea {
 .close_btn.heavy::after {
     height: 6px;
     margin-top: -6px;
+}
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.button_addevent {
+    cursor: pointer;
+    background-color: #007bff;
+    /* Изменение цвета кнопки */
+    border: none;
+    color: #fff;
+    padding: 12px 0;
+    float: right;
+    border-radius: 20px;
+    /* Добавление скругления */
+    transition: background-color 0.3s;
+    /* Добавление анимации */
+
+    &:hover {
+        background-color: lighten(#007bff, 5%);
+    }
+
+    &:disabled {
+        background-color: #b3d7ff;
+        /* Более светлый оттенок синего */
+        border-color: #b3d7ff;
+        cursor: not-allowed;
+    }
+}
+
+.error-message {
+    color: red;
+    font-size: 16px;
+    margin-top: 0px;
+    text-align: center;
 }

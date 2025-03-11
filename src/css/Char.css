@@ -32,7 +32,6 @@
   font-weight: 500;
   margin: 0;
   text-transform: uppercase;
-
 }
 
 .sidebar .header .actions {
@@ -48,7 +47,7 @@
 
 .sidebar ul {
   overflow-y: auto;
-  height: 100vh
+  height: 100vh;
 }
 
 .sidebar ul li {
@@ -101,6 +100,11 @@
   display: flex;
   flex-direction: column;
   width: 60%;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><defs><pattern id='telegramPattern' x='0' y='0' width='20' height='20' patternUnits='userSpaceOnUse'><circle cx='5' cy='5' r='1' fill='none' stroke='%23d2d2d2' stroke-width='0.5' /><circle cx='15' cy='15' r='2' fill='none' stroke='%23a2a2a2' stroke-width='0.5' /><circle cx='10' cy='10' r='1.5' fill='none' stroke='%23b2b2b2' stroke-width='0.5' /><rect x='2' y='2' width='4' height='4' fill='none' stroke='%23c2c2c2' stroke-width='0.5' transform='rotate(45 4 4)' /><rect x='12' y='12' width='3' height='3' fill='none' stroke='%23e2e2e2' stroke-width='0.5' transform='rotate(30 13.5 13.5)' /><line x1='0' y1='0' x2='20' y2='20' stroke='%23d2d2d2' stroke-width='0.5' transform='rotate(15 10 10)' /><line x1='0' y1='20' x2='20' y2='0' stroke='%23a2a2a2' stroke-width='0.5' transform='rotate(-15 10 10)' /><path d='M0,10 Q5,5 10,10 T20,10' fill='none' stroke='%23b2b2b2' stroke-width='0.5' transform='rotate(20 10 10)' /><path d='M0,10 Q5,15 10,10 T20,10' fill='none' stroke='%23c2c2c2' stroke-width='0.5' transform='rotate(-20 10 10)' /></pattern></defs><rect width='100%25' height='100%25' fill='url(%23telegramPattern)' /></svg>");
+  background-size: 120px 120px;
+  /* Размер повторяющегося узора */
+  background-position: center;
+  background-repeat: repeat;
 }
 
 .main-content svg {
@@ -121,6 +125,7 @@
   padding: 10px;
   border-bottom: 1px solid #eee;
   min-width: 310px;
+  background: #ffffff;
 }
 
 .main-content .header h5 {
@@ -156,24 +161,17 @@
   padding: 7px 10px;
   border-radius: 10px;
   max-width: 60%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .my-message .message-content {
   background: #dcf8c6;
+  align-self: flex-end;
 }
 
 .other-user-message .message-content {
   background: #f7f8fa;
-}
-
-.my-message {
-  justify-content: flex-start;
-  display: flex;
-  flex-direction: row-reverse;
-}
-
-.other-user-message {
-  justify-content: flex-start;
+  align-self: flex-start;
 }
 
 .message-item .message-content .author {
@@ -181,11 +179,11 @@
   font-weight: 500;
   margin-right: 10px;
   white-space: nowrap;
-
 }
 
 .message-item .message-content .timestamp {
   font-size: 13px;
+  color: #888;
 }
 
 .message-item .message-content .content {
@@ -200,7 +198,6 @@
 .message-item .message-content .content img {
   max-width: 270px;
   max-height: 270px;
-  -o-object-fit: contain;
   object-fit: contain;
 }
 
@@ -542,7 +539,7 @@ body {
 
 .app {
   display: flex;
-  height: 85vh;
+  height: 90.6vh;
   justify-content: space-between;
   background-color: white;
   width: 100%;
@@ -581,18 +578,12 @@ body {
 }
 
 @media screen and (max-width: 680px) {
-
-  .app .sidebar,
-  .app .users-container {
+  .app .sidebar {
     position: absolute;
     width: 100%;
     z-index: 99;
     overflow: hidden;
-  }
-
-  .app .sidebar {
-    height: 60px;
-    display: inline-table;
+    display: block;
     position: fixed;
   }
 
@@ -601,8 +592,9 @@ body {
   }
 
   .app .main-content {
-    margin-top: 60px;
+    margin-top: 65px;
     width: inherit;
+    height: 100%;
   }
 
   .app .users-container {
@@ -628,4 +620,143 @@ body {
 
 .position {
   position: static;
+}
+
+/* Добавленные стили для выравнивания аватара и перемещения трех точек */
+.my-message .avatar-lg {
+  order: 3;
+  margin-left: 10px;
+}
+
+.other-user-message .avatar-lg {
+  order: 1;
+  margin-right: 10px;
+}
+
+.my-message .message-content {
+  order: 2;
+}
+
+.other-user-message .message-content {
+  order: 2;
+}
+
+.my-message .actions {
+  order: 1;
+  justify-content: flex-start;
+}
+
+.other-user-message .actions {
+  order: 3;
+  justify-content: flex-end;
+}
+
+/* Дополнительные стили для выравнивания сообщений */
+.my-message {
+  justify-content: flex-end;
+}
+
+.other-user-message {
+  justify-content: flex-start;
+}
+
+/* Добавленные стили для контейнера прикрепленных файлов */
+.attached-files-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.attached-file {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.attached-file img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 5px;
+}
+
+.attached-file span {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #555;
+}
+
+.participants {
+  text-align: left;
+  font-size: smaller;
+}
+
+.horizontal-name-room {
+  width: 55%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: left;
+}
+
+.horizontal-name-room.marquee span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 15s linear infinite;
+}
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.marquee span {
+  display: inline-block;
+  padding-left: 0;
+  /* Изначально сдвигаем текст за пределы контейнера */
+  animation: marquee 15s linear;
+  /* Анимация прокрутки */
+  width: 100%;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.name-rooms {
+  background-color: #1d1d92;
+  border: #1d1d92;
+  border-radius: 5px;
+  margin: 5px;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+}
+
+.loading-spinner {
+  border: 5px solid rgba(0, 0, 255, 0.3);
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -100,21 +100,21 @@ const Events = () => {
                     </div>
                     <div className="icon_position_container">
                       <div className='icon_position'>
-                        <p><span class="glyphicon" aria-hidden="true">
+                        <p><span className="glyphicon" aria-hidden="true">
                           <img className='icon' src={view_icon} />
                         </span> {views}
                         </p>
                       </div>
                       <div className='icon_position'>
                         <p>
-                          <span class=" glyphicon" aria-hidden="true">
+                          <span className=" glyphicon" aria-hidden="true">
                             <img className='icon' src={comment_icon} />
                           </span> {comment}
                         </p>
                       </div>
                       <div className='icon_position'>
                         <p>
-                          <span class="glyphicon" aria-hidden="true">
+                          <span className="glyphicon" aria-hidden="true">
                             <img className='icon' src={like_icon} /></span> {like}
                         </p>
                       </div>

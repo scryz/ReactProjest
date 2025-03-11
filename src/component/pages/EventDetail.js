@@ -1,69 +1,58 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import axios from 'axios';
 import Navbar from '../navbar/Navbar';
 import Footer from '../body/Footer';
 import VerifyToken from "../body/VerifyToken";
-import defaultImg from "../../img/avatar.png"
-import { useLocation } from 'react-router-dom';
-import "../../css/EventDetail.css"
-import "../../css/login.css"
+import defaultImg from "../../img/avatar.png";
+import "../../css/EventDetail.css";
+import "../../css/login.css";
 
-
-const EventDetail = (props) => {
-
+const EventDetail = () => {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
   const [isJoined, setIsJoined] = useState(false);
-  const [delite, setDelite] = useState(false);
   const [participants, setParticipants] = useState([]);
   const { isValid, error } = VerifyToken();
   const [err, setErrorMessage] = useState('');
   const history = useHistory();
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
 
-  //получение ивентов по id
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
         const response = await axios.post(`http://localhost:7293/GetEventById?EventId=${id}`);
         setEvent(response.data);
-        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching event details: ', error);
+      } finally {
         setIsLoading(false);
       }
     };
 
     fetchData();
-
   }, [id]);
 
-
-  //получение пользователей присоединённых к ивенту
   useEffect(() => {
     const fetchParticipants = async () => {
       try {
         const response = await axios.get(`http://localhost:7293/GetParticipants/${id}`);
         setParticipants(response.data);
-        window.scrollTo(0, 0);
       } catch (error) {
-        console.error("Error fetching user:", error);
+        console.error("Error fetching participants:", error);
       }
     };
 
     fetchParticipants();
   }, [id]);
 
-  const { pathname } = useLocation();
-
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [location.pathname]);
 
-  //присоедение пользователей к ивенту
   const joinEvent = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -77,63 +66,57 @@ const EventDetail = (props) => {
         setIsJoined(true);
         setErrorMessage('');
       } else {
-        console.error('Failed to join event:', response.statusText);
-        setErrorMessage('Произошла ошибка при присоединении к мероприятию. Пожалуйста, повторите попытку позже.');
+        setErrorMessage('Ошибка присоединения. Пожалуйста, попробуйте позже.');
       }
     } catch (err) {
       if (err.response.status === 401) {
-        setErrorMessage('Вы не авторизованы! Пожалуйста, войдите в аккаунт.');
+        setErrorMessage('Вы неавторизованы! Пожалуйста, авторизуйтесь.');
       } else {
-        setErrorMessage('Вы уже присоединились к мероприятию!');
+        setErrorMessage('Вы уже присоединились к этому мероприятию!');
       }
     }
   };
 
-
   return (
     <div>
-      <>
-        <Navbar />
-        {isLoading ? (
-          <h2 className='loading'>Загрузка мероприятия, немного подождите ...</h2>
-        ) : (
-          <div>
-            <div className="cardEvent">
-              <div className="containerEvent">
-                <div className="circle">
-                  <img src="https://sun9-77.userapi.com/impg/hOzKxV4E-EzCsL_9x_EodSfQsAjZCqUjrRdHCA/8MPpyb-Y0ZY.jpg?size=972x2160&quality=95&sign=0a2c08de5862fb032bd95b6ba184e88f&type=album" about='imgPart' alt='' />
+      <Navbar />
+      {isLoading ? (
+        <h2 className='loading'>Загрузка мероприятия, немного подождите...</h2>
+      ) : (
+        <div className="cardEvent">
+          <div className="containerEvent">
+            <div className="circle">
+              <img src="https://sun9-77.userapi.com/impg/hOzKxV4E-EzCsL_9x_EodSfQsAjZCqUjrRdHCA/8MPpyb-Y0ZY.jpg?size=972x2160&quality=95&sign=0a2c08de5862fb032bd95b6ba184e88f&type=album" alt="Event Image" />
+            </div>
+            <div className="descriptionEvent">
+              <h2>{event.eventName}</h2>
+              <h6>26.08.2024 12:00</h6>
+              <p><h5>{event.description}</h5></p>
+              {err && <p className="error-message">{err}</p>}
+              {!isJoined ? (
+                <button className='btnh' onClick={joinEvent}>Я согласен!</button>
+              ) : (
+                <p>Вы успешно присоединились!</p>
+              )}
+              <Link className="btnh" to="/chat">Войти в чат</Link>
+              <div>Участники:</div>
+              <section className="overflow-x">
+                <div className="horizontal-friends-list">
+                  {participants.map((participant, index) => (
+                    <figure className='friend-item' key={index}>
+                      <picture>
+                        <img src={defaultImg} alt={participant.name} />
+                      </picture>
+                      <figcaption>{participant.name}</figcaption>
+                    </figure>
+                  ))}
                 </div>
-                <div className="descriptionEvent">
-                  <h2>{event.eventName}</h2>
-                  <h6>26.08.2024 12:00</h6>
-                  <p><h5>{event.description}</h5></p>
-                  <h6>{err && <p>{err}</p>}</h6>
-                  {!isJoined ? (
-                    <Link className='btnh' onClick={joinEvent}>Я согласен!</Link>
-                  ) : (
-                    <p>Вы успешно присоединились!</p>
-                  )}
-                  <Link className="btnh" to="/chat">Чат</Link>
-                  <section className="overflow-x">
-                    <div className="horizontal-friends-list" >
-                      {participants.map((participant, index) => (
-                        <figure className='friend-item' key={index}>
-                          <picture>
-                            <img src={defaultImg} />
-                          </picture>
-                          <figcaption>{participant.name}</figcaption>
-                        </figure>
-
-                      ))}
-                    </div>
-                  </section>
-                </div>
-              </div>
+              </section>
             </div>
           </div>
-        )}
-        <Footer />
-      </>
+        </div>
+      )}
+      <Footer />
     </div>
   );
 }
